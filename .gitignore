@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+
+# Data files
+data/*.json
+data/*.db
+
+# UV
+uv.lock
+.python-version
+
+# Test files
+test_*.py
