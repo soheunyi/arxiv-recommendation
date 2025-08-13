@@ -28,6 +28,9 @@ export const RatingPage: React.FC = () => {
     loading: papersLoading 
   } = useAppSelector((state) => state.papers);
   
+  // Additional state for total paper count
+  const [totalPapersCount, setTotalPapersCount] = useState<number>(0);
+  
   const { 
     userRatings: ratings,
     loading: ratingsLoading 
@@ -43,8 +46,24 @@ export const RatingPage: React.FC = () => {
   
   // Load data on component mount
   useEffect(() => {
-    dispatch(fetchPapers({ limit: 50 })); // Fetch more papers for rating
-    dispatch(fetchUserRatings());
+    const loadData = async () => {
+      // First get the total count from stats
+      try {
+        const statsResponse = await fetch('/api/papers/stats');
+        const statsData = await statsResponse.json();
+        if (statsData.success && statsData.data) {
+          setTotalPapersCount(statsData.data.total);
+        }
+      } catch (error) {
+        console.error('Failed to fetch paper stats:', error);
+      }
+      
+      // Then fetch papers for rating interface
+      dispatch(fetchPapers({ limit: 50 })); // Still fetch 50 for display, but show correct total
+      dispatch(fetchUserRatings());
+    };
+    
+    loadData();
   }, [dispatch]);
   
   // Filter and sort papers
@@ -110,6 +129,7 @@ export const RatingPage: React.FC = () => {
       toast.success(`Rated ${rating}/5 stars!`);
     } catch (error: any) {
       toast.error(error.message || 'Failed to update rating');
+      throw error; // Re-throw for component rollback
     }
   };
   
@@ -126,7 +146,18 @@ export const RatingPage: React.FC = () => {
     }
   };
   
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
+    // Refresh total count
+    try {
+      const statsResponse = await fetch('/api/papers/stats');
+      const statsData = await statsResponse.json();
+      if (statsData.success && statsData.data) {
+        setTotalPapersCount(statsData.data.total);
+      }
+    } catch (error) {
+      console.error('Failed to fetch paper stats:', error);
+    }
+    
     dispatch(fetchPapers({ limit: 50 }));
     dispatch(fetchUserRatings());
     toast.success('Papers refreshed!');
@@ -141,7 +172,7 @@ export const RatingPage: React.FC = () => {
   
   // Stats
   const ratedCount = ratings ? Object.keys(ratings).length : 0;
-  const unratedCount = (papers?.length || 0) - ratedCount;
+  const unratedCount = totalPapersCount - ratedCount;
   const favoritesCount = ratings ? Object.values(ratings).filter(r => r.rating >= 4).length : 0;
   
   return (
@@ -151,7 +182,7 @@ export const RatingPage: React.FC = () => {
         <div>
           <h1 className="text-3xl font-bold text-secondary-900">⭐ Rate Papers</h1>
           <p className="mt-2 text-secondary-600">
-            Rate papers to improve your recommendations! {ratedCount} rated, {unratedCount} unrated
+            Rate papers to improve your recommendations! {ratedCount} rated of {totalPapersCount} total papers
           </p>
         </div>
         
@@ -175,7 +206,7 @@ export const RatingPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="bg-white p-4 rounded-lg border border-secondary-200">
           <div className="text-sm font-medium text-secondary-600">Total Papers</div>
-          <div className="text-2xl font-bold text-secondary-900">{papers?.length || 0}</div>
+          <div className="text-2xl font-bold text-secondary-900">{totalPapersCount}</div>
         </div>
         <div className="bg-white p-4 rounded-lg border border-secondary-200">
           <div className="text-sm font-medium text-secondary-600">Rated</div>
@@ -271,11 +302,10 @@ export const RatingPage: React.FC = () => {
             >
               <PaperCard
                 paper={paper}
-                rating={ratings[paper.id]}
+                rating={ratings[paper.id]?.rating}
                 onRatingChange={handleRatingChange}
                 onNotesChange={handleNotesChange}
                 showNotes
-                showFullActions
               />
             </motion.div>
           ))}

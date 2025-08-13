@@ -142,6 +142,26 @@ class DatabaseManager:
         """
         )
 
+        # Paper collections - tracks background collection jobs
+        await db.execute(
+            """
+            CREATE TABLE IF NOT EXISTS paper_collections (
+                id TEXT PRIMARY KEY,
+                keyword TEXT NOT NULL,
+                status TEXT NOT NULL CHECK (status IN ('running', 'completed', 'failed', 'cancelled')),
+                progress INTEGER DEFAULT 0,
+                papers_found INTEGER DEFAULT 0,
+                total_queries INTEGER DEFAULT 0,
+                current_query TEXT,
+                collection_options TEXT, -- JSON string with options
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                started_at TIMESTAMP,
+                completed_at TIMESTAMP,
+                error_message TEXT
+            )
+        """
+        )
+
     async def _create_indexes(self, db: aiosqlite.Connection):
         """Create database indexes for performance."""
         indexes = [
@@ -153,6 +173,8 @@ class DatabaseManager:
             "CREATE INDEX IF NOT EXISTS idx_user_ratings_rating ON user_ratings(rating)",
             "CREATE INDEX IF NOT EXISTS idx_recommendations_created_at ON recommendations_history(created_at DESC)",
             "CREATE INDEX IF NOT EXISTS idx_search_history_created_at ON search_history(created_at DESC)",
+            "CREATE INDEX IF NOT EXISTS idx_collections_status ON paper_collections(status)",
+            "CREATE INDEX IF NOT EXISTS idx_collections_created_at ON paper_collections(created_at DESC)",
         ]
 
         for index_sql in indexes:
@@ -679,14 +701,15 @@ class DatabaseManager:
             return stats
 
     async def get_papers_with_ratings(self) -> List[Dict[str, Any]]:
-        """Get all papers with their ratings (if any)."""
+        """Get all papers with their ratings (if any) and scores."""
         async with aiosqlite.connect(self.db_path) as db:
             db.row_factory = aiosqlite.Row
 
             cursor = await db.execute(
                 """
                 SELECT p.id, p.title, p.abstract, p.category, p.authors, 
-                       p.published_date, p.arxiv_url, p.pdf_url,
+                       p.published_date, p.arxiv_url, p.pdf_url, p.created_at,
+                       p.current_score, p.score_updated_at,
                        r.rating, r.notes, r.created_at as rating_date
                 FROM papers p
                 LEFT JOIN user_ratings r ON p.id = r.paper_id
@@ -707,6 +730,9 @@ class DatabaseManager:
                         "published_date": row["published_date"],
                         "arxiv_url": row["arxiv_url"],
                         "pdf_url": row["pdf_url"],
+                        "created_at": row["created_at"],
+                        "current_score": row["current_score"],
+                        "score_updated_at": row["score_updated_at"],
                         "rating": row["rating"] if row["rating"] else 0,
                         "notes": row["notes"],
                         "rating_date": row["rating_date"],
@@ -756,7 +782,7 @@ class DatabaseManager:
             return papers
 
     async def get_recent_papers(self, limit: int = 10) -> List[Dict[str, Any]]:
-        """Get recent papers with ratings."""
+        """Get recent papers with ratings and scores."""
         async with aiosqlite.connect(self.db_path) as db:
             db.row_factory = aiosqlite.Row
 
@@ -764,6 +790,7 @@ class DatabaseManager:
                 """
                 SELECT p.id, p.title, p.abstract, p.category, p.authors, 
                        p.published_date, p.arxiv_url, p.pdf_url, p.created_at,
+                       p.current_score, p.score_updated_at,
                        r.rating, r.notes
                 FROM papers p
                 LEFT JOIN user_ratings r ON p.id = r.paper_id
@@ -787,10 +814,166 @@ class DatabaseManager:
                         "arxiv_url": row["arxiv_url"],
                         "pdf_url": row["pdf_url"],
                         "created_at": row["created_at"],
+                        "current_score": row["current_score"],
+                        "score_updated_at": row["score_updated_at"],
                         "rating": row["rating"] if row["rating"] else 0,
                         "notes": row["notes"],
-                        "score": 0.5,  # Default score for display
                     }
                 )
 
             return papers
+
+    # Paper collection management
+    async def create_collection(self, collection_id: str, keyword: str, options: Dict[str, Any]) -> bool:
+        """Create a new paper collection record."""
+        async with aiosqlite.connect(self.db_path) as db:
+            await db.execute(
+                "INSERT INTO paper_collections (id, keyword, status, collection_options, created_at) VALUES (?, ?, 'running', ?, ?)",
+                (collection_id, keyword, json.dumps(options), datetime.now())
+            )
+            await db.commit()
+            return True
+
+    async def update_collection_status(self, collection_id: str, status: str, progress: int = None, papers_found: int = None, current_query: str = None, total_queries: int = None) -> bool:
+        """Update collection progress."""
+        async with aiosqlite.connect(self.db_path) as db:
+            updates = ["status = ?"]
+            params = [status]
+            
+            if progress is not None:
+                updates.append("progress = ?")
+                params.append(progress)
+            if papers_found is not None:
+                updates.append("papers_found = ?")
+                params.append(papers_found)
+            if current_query is not None:
+                updates.append("current_query = ?")
+                params.append(current_query)
+            if total_queries is not None:
+                updates.append("total_queries = ?")
+                params.append(total_queries)
+            
+            if status in ['completed', 'failed']:
+                updates.append("completed_at = ?")
+                params.append(datetime.now())
+            
+            params.append(collection_id)
+            await db.execute(f"UPDATE paper_collections SET {', '.join(updates)} WHERE id = ?", params)
+            await db.commit()
+            return True
+
+    async def get_collection_status(self, collection_id: str) -> Optional[Dict[str, Any]]:
+        """Get collection status."""
+        async with aiosqlite.connect(self.db_path) as db:
+            db.row_factory = aiosqlite.Row
+            cursor = await db.execute("SELECT * FROM paper_collections WHERE id = ?", (collection_id,))
+            row = await cursor.fetchone()
+            return dict(row) if row else None
+
+    async def get_papers_needing_scores(self, score_cutoff: datetime) -> List[Dict[str, Any]]:
+        """
+        Get papers that need score updates.
+        
+        This includes:
+        - Papers never scored (current_score is NULL)
+        - Papers not scored since score_cutoff
+        - Papers added in the last 48 hours
+        """
+        async with aiosqlite.connect(self.db_path) as db:
+            db.row_factory = aiosqlite.Row
+            
+            cursor = await db.execute(
+                """
+                SELECT id, title, abstract, category, authors, created_at, current_score, score_updated_at
+                FROM papers 
+                WHERE current_score IS NULL 
+                   OR score_updated_at IS NULL 
+                   OR score_updated_at < ?
+                   OR created_at > datetime('now', '-48 hours')
+                ORDER BY created_at DESC
+                """,
+                (score_cutoff,)
+            )
+            
+            rows = await cursor.fetchall()
+            papers = []
+            for row in rows:
+                paper = dict(row)
+                paper['authors'] = json.loads(paper['authors']) if paper['authors'] else []
+                papers.append(paper)
+            
+            return papers
+
+    async def update_paper_scores(self, updates: List[Dict[str, Any]]):
+        """
+        Batch update paper scores.
+        
+        Args:
+            updates: List of dicts with 'paper_id', 'score', 'score_updated_at'
+        """
+        async with aiosqlite.connect(self.db_path) as db:
+            for update in updates:
+                await db.execute(
+                    """
+                    UPDATE papers 
+                    SET current_score = ?, score_updated_at = ?
+                    WHERE id = ?
+                    """,
+                    (update['score'], update['score_updated_at'], update['paper_id'])
+                )
+            await db.commit()
+
+    async def get_paper_by_id(self, paper_id: str) -> Optional[Dict[str, Any]]:
+        """Get a single paper by ID."""
+        async with aiosqlite.connect(self.db_path) as db:
+            db.row_factory = aiosqlite.Row
+            cursor = await db.execute("SELECT * FROM papers WHERE id = ?", (paper_id,))
+            row = await cursor.fetchone()
+            
+            if row:
+                paper = dict(row)
+                paper['authors'] = json.loads(paper['authors']) if paper['authors'] else []
+                return paper
+            
+            return None
+
+    async def store_task_execution(self, execution_data: Dict[str, Any]):
+        """
+        Store task execution record.
+        
+        Args:
+            execution_data: Dict with task_name, start_time, end_time, duration_seconds, success, details
+        """
+        # First, ensure the task_executions table exists
+        async with aiosqlite.connect(self.db_path) as db:
+            await db.execute(
+                """
+                CREATE TABLE IF NOT EXISTS task_executions (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    task_name TEXT NOT NULL,
+                    start_time TIMESTAMP NOT NULL,
+                    end_time TIMESTAMP NOT NULL,
+                    duration_seconds REAL NOT NULL,
+                    success BOOLEAN NOT NULL,
+                    details TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+                """
+            )
+            
+            await db.execute(
+                """
+                INSERT INTO task_executions 
+                (task_name, start_time, end_time, duration_seconds, success, details)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    execution_data['task_name'],
+                    execution_data['start_time'],
+                    execution_data['end_time'],
+                    execution_data['duration_seconds'],
+                    execution_data['success'],
+                    execution_data['details']
+                )
+            )
+            await db.commit()

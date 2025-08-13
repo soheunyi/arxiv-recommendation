@@ -153,9 +153,53 @@ asyncio.run(main())
 
 1. **Collection**: DataAgent fetches new papers from arXiv
 2. **Embedding**: RecommendationAgent generates semantic embeddings
-3. **Matching**: Similarity search against user preferences
-4. **Ranking**: Personalized ranking based on ratings history
-5. **Delivery**: Web interface or CLI output
+3. **User Preferences**: Computes user preference embeddings (alltime vs recent)
+4. **Matching**: Similarity search against user preferences
+5. **Ranking**: Personalized ranking based on ratings history
+6. **Delivery**: Web interface or CLI output
+
+### User Preference Embeddings
+
+The system computes user preference embeddings using **two complementary approaches**:
+
+#### **All-time Embeddings**
+- Uses **all rated papers** with equal weighting
+- Provides stable, long-term preference representation
+- Requires minimum 5 rated papers to generate
+- Good for discovering papers in established interest areas
+
+#### **Recent Embeddings** 
+- Focuses on **recent ratings** (last 30 days by default)
+- Uses exponential time decay weighting (newer = higher weight)
+- Captures evolving interests and research direction changes  
+- Requires minimum 3 recent ratings to generate
+
+#### **Adaptive Mode (Default)**
+- **Combines multiple time windows** with EMA-style weighting:
+  - Recent (7 days): 70% weight - captures current interests
+  - Medium (30 days): 20% weight - balances recent trends
+  - Long-term (365 days): 10% weight - maintains stable preferences
+- Automatically adapts to available rating history
+- Provides best balance between stability and responsiveness
+- Falls back gracefully when insufficient data in any window
+
+#### **Usage Examples**
+```python
+from backend.arxiv_recommendation.preferences import PreferenceManager, PreferenceMode
+
+preference_manager = PreferenceManager()
+
+# Get all-time preference embedding
+alltime_pref = await preference_manager.get_preference_embedding(PreferenceMode.ALL_TIME)
+
+# Get recent preference embedding  
+recent_pref = await preference_manager.get_preference_embedding(PreferenceMode.RECENT)
+
+# Get adaptive preference embedding (recommended)
+adaptive_pref = await preference_manager.get_preference_embedding(PreferenceMode.ADAPTIVE)
+```
+
+The preference embeddings are automatically updated by the scheduler and cached for 6 hours for optimal performance.
 
 ## Configuration
 

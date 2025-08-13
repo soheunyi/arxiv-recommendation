@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from '@components/common/Layout';
 import { DashboardPage } from '@pages/DashboardPage';
+import { PapersPage } from '@pages/PapersPage';
+import { CollectPapersPage } from '@pages/CollectPapersPage';
 import { RatingPage } from '@pages/RatingPage';
 import { SearchPage } from '@pages/SearchPage';
 import { AnalyticsPage } from '@pages/AnalyticsPage';
@@ -13,6 +15,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<DashboardPage />} />
+          <Route path="papers" element={<PapersPage />} />
+          <Route path="collect" element={<CollectPapersPage />} />
           <Route path="rate" element={<RatingPage />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />

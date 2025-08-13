@@ -76,18 +76,27 @@ export class PapersService {
   }
   
   // Get recent papers
-  async getRecentPapers(limit: number = 20): Promise<Paper[]> {
-    return apiClient.get<Paper[]>(`/papers/recent?limit=${limit}`);
+  async getRecentPapers(limit: number = 20, sortBy: string = "created_at"): Promise<Paper[]> {
+    return apiClient.get<Paper[]>(`/papers/recent?limit=${limit}&sort_by=${sortBy}`);
+  }
+  
+  // Get papers sorted by recommendation score
+  async getPapersByScore(limit: number = 20): Promise<Paper[]> {
+    return this.getRecentPapers(limit, "score");
   }
   
   // Get recommendations
   async getRecommendations(limit: number = 10): Promise<RecommendationResult> {
-    return apiClient.get<RecommendationResult>(`/recommendations/recent?limit=${limit}`);
+    const response = await apiClient.get<any>(`/recommendations/recent?limit=${limit}`);
+    // Handle the wrapped response format from backend
+    return response.data || response;
   }
   
   // Generate new recommendations
   async generateRecommendations(): Promise<RecommendationResult> {
-    return apiClient.post<RecommendationResult>('/recommendations/generate');
+    const response = await apiClient.post<any>('/recommendations/generate');
+    // Handle the wrapped response format from backend
+    return response.data || response;
   }
   
   // Get single paper by ID
@@ -141,6 +150,35 @@ export class PapersService {
     errors: string[];
   }> {
     return apiClient.upload('/papers/import', file, onProgress);
+  }
+
+  // Collection management
+  async startCollection(params: {
+    keyword: string;
+    max_papers?: number;
+    clean_db?: boolean;
+  }): Promise<{
+    collection_id: string;
+    status: string;
+    keyword: string;
+    estimated_time: number;
+  }> {
+    return apiClient.post('/collection/start', params);
+  }
+
+  async getCollectionStatus(collectionId: string): Promise<{
+    id: string;
+    keyword: string;
+    status: 'running' | 'completed' | 'failed' | 'cancelled';
+    progress: number;
+    papers_found: number;
+    total_queries: number;
+    current_query: string;
+    created_at: string;
+    completed_at?: string;
+    error_message?: string;
+  }> {
+    return apiClient.get(`/collection/status/${collectionId}`);
   }
 }
 

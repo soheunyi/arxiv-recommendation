@@ -12,6 +12,7 @@ import { fetchRecommendations, generateRecommendations } from '@store/slices/pap
 import { updateRating } from '@store/slices/ratingsSlice';
 import { fetchCacheStats } from '@store/slices/systemSlice';
 import { PaperCard } from '@components/papers/PaperCard';
+import { HighScoredPapers } from '@components/papers/HighScoredPapers';
 import { LoadingSpinner } from '@components/common/LoadingSpinner';
 
 export const DashboardPage: React.FC = () => {
@@ -19,7 +20,7 @@ export const DashboardPage: React.FC = () => {
   
   const { 
     recommendations, 
-    loading: papersLoading 
+    loading: papersLoading
   } = useAppSelector((state) => state.papers);
   
   const { 
@@ -28,6 +29,7 @@ export const DashboardPage: React.FC = () => {
   } = useAppSelector((state) => state.system);
   
   const { 
+    userRatings,
     loading: ratingsLoading 
   } = useAppSelector((state) => state.ratings);
   
@@ -64,6 +66,7 @@ export const DashboardPage: React.FC = () => {
       toast.success(`Rated ${rating}/5 stars!`);
     } catch (error: any) {
       toast.error(error.message || 'Failed to update rating');
+      throw error; // Re-throw for component rollback
     }
   };
   
@@ -75,6 +78,7 @@ export const DashboardPage: React.FC = () => {
       toast.error(error.message || 'Failed to save notes');
     }
   };
+
   
   return (
     <div className="space-y-6">
@@ -89,7 +93,7 @@ export const DashboardPage: React.FC = () => {
       </div>
       
       {/* Action buttons */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -118,16 +122,6 @@ export const DashboardPage: React.FC = () => {
             <ChartBarIcon className="h-5 w-5" />
           )}
           View Cache Stats
-        </motion.button>
-        
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={() => toast('🎉 Analytics coming soon!')}
-          className="flex items-center justify-center gap-2 rounded-lg bg-accent-600 px-4 py-3 text-white font-medium hover:bg-accent-700 transition-colors"
-        >
-          <SparklesIcon className="h-5 w-5" />
-          Show Analytics
         </motion.button>
       </div>
       
@@ -164,6 +158,12 @@ export const DashboardPage: React.FC = () => {
         </div>
       )}
       
+      
+      {/* High Scored Papers section */}
+      <div className="mb-8">
+        <HighScoredPapers limit={5} compact={true} />
+      </div>
+      
       {/* Recommendations section */}
       <div>
         <div className="flex items-center justify-between mb-4">
@@ -196,6 +196,7 @@ export const DashboardPage: React.FC = () => {
                 
                 <PaperCard
                   paper={paper}
+                  rating={userRatings[paper.id]?.rating}
                   onRatingChange={handleRatingChange}
                   onNotesChange={handleNotesChange}
                   showNotes
@@ -215,6 +216,7 @@ export const DashboardPage: React.FC = () => {
           </div>
         )}
       </div>
+
     </div>
   );
 };

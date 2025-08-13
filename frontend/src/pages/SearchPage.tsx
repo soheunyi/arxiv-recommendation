@@ -164,6 +164,7 @@ export const SearchPage: React.FC = () => {
       toast.success(`Rated ${rating}/5 stars!`);
     } catch (error: any) {
       toast.error(error.message || 'Failed to update rating');
+      throw error; // Re-throw for component rollback
     }
   };
   
@@ -388,11 +389,10 @@ export const SearchPage: React.FC = () => {
                 >
                   <PaperCard
                     paper={paper}
-                    rating={ratings[paper.id]}
+                    rating={ratings[paper.id]?.rating}
                     onRatingChange={handleRatingChange}
                     onNotesChange={handleNotesChange}
                     showNotes
-                    showFullActions
                   />
                 </motion.div>
               ))}

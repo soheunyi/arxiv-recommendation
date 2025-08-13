@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Bars3Icon, 
-  XMarkIcon,
   BellIcon,
   Cog6ToothIcon 
 } from '@heroicons/react/24/outline';
@@ -14,8 +13,22 @@ import { useAppSelector } from '@store';
 
 export const Layout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const { isOnline, notifications } = useAppSelector((state) => state.system);
   const unreadCount = notifications.filter(n => !n.read).length;
+  
+  // Handle window resize for responsive behavior
+  useEffect(() => {
+    const checkIsDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    
+    checkIsDesktop();
+    window.addEventListener('resize', checkIsDesktop);
+    
+    return () => window.removeEventListener('resize', checkIsDesktop);
+  }, []);
   
   return (
     <div className="min-h-screen bg-secondary-50">
@@ -35,8 +48,11 @@ export const Layout: React.FC = () => {
       </AnimatePresence>
       
       {/* Desktop sidebar */}
-      <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col lg:z-50">
-        <Sidebar />
+      <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:flex-col lg:z-50">
+        <Sidebar 
+          collapsed={sidebarCollapsed}
+          onCollapsedChange={setSidebarCollapsed}
+        />
       </div>
       
       {/* Mobile sidebar */}
@@ -55,7 +71,18 @@ export const Layout: React.FC = () => {
       </AnimatePresence>
       
       {/* Main content */}
-      <div className={clsx('flex flex-col', 'lg:pl-64')}>
+      <motion.div 
+        className="flex flex-col"
+        animate={{
+          paddingLeft: isDesktop ? (sidebarCollapsed ? "5rem" : "18rem") : "0rem"
+        }}
+        transition={{ 
+          type: "spring", 
+          damping: 25, 
+          stiffness: 200,
+          duration: 0.3 
+        }}
+      >
         {/* Top header */}
         <header className="sticky top-0 z-30 flex h-16 items-center gap-x-4 border-b border-secondary-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
           {/* Mobile menu button */}
@@ -75,7 +102,7 @@ export const Layout: React.FC = () => {
             {/* Title area */}
             <div className="flex items-center">
               <h1 className="text-lg font-semibold text-secondary-900">
-                ArXiv Recommendations
+                arXiv Recommendations
               </h1>
             </div>
             
@@ -119,11 +146,11 @@ export const Layout: React.FC = () => {
         
         {/* Page content */}
         <main className="flex-1">
-          <div className="px-4 py-6 sm:px-6 lg:px-8">
+          <div className={`px-4 py-6 sm:px-6 ${sidebarCollapsed ? 'lg:px-12' : 'lg:px-8'} transition-all duration-300`}>
             <Outlet />
           </div>
         </main>
-      </div>
+      </motion.div>
     </div>
   );
 };

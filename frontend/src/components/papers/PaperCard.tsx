@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   DocumentTextIcon, 
@@ -15,6 +15,7 @@ import { AbstractRenderer } from './AbstractRenderer';
 
 interface PaperCardProps {
   paper: Paper;
+  rating?: number; // Optional override for external rating data
   onRatingChange?: (paperId: string, rating: number) => void;
   onNotesChange?: (paperId: string, notes: string) => void;
   compact?: boolean;
@@ -24,6 +25,7 @@ interface PaperCardProps {
 
 export const PaperCard: React.FC<PaperCardProps> = ({
   paper,
+  rating: externalRating,
   onRatingChange,
   onNotesChange,
   compact = false,
@@ -34,8 +36,39 @@ export const PaperCard: React.FC<PaperCardProps> = ({
   const [notes, setNotes] = useState(paper.notes || '');
   const [isNotesExpanded, setIsNotesExpanded] = useState(false);
   
-  const handleRatingChange = (rating: number) => {
-    onRatingChange?.(paper.id, rating);
+  // Optimistic rating state
+  const [pendingRating, setPendingRating] = useState<number | undefined>(undefined);
+  const [isRatingUpdating, setIsRatingUpdating] = useState(false);
+  
+  // Clear pending rating when rating is updated from props
+  useEffect(() => {
+    const currentRating = externalRating ?? paper.rating;
+    if (pendingRating !== undefined && currentRating !== undefined) {
+      // If the rating has been updated and matches our pending rating,
+      // or if it's different (indicating a server update), clear pending state
+      setPendingRating(undefined);
+      setIsRatingUpdating(false);
+    }
+  }, [paper.rating, externalRating, pendingRating]);
+  
+  const handleRatingChange = async (rating: number) => {
+    // Immediate optimistic update
+    setPendingRating(rating);
+    setIsRatingUpdating(true);
+    
+    try {
+      // Call the parent handler which should trigger the API call
+      await onRatingChange?.(paper.id, rating);
+      
+      // Clear pending state on success - the actual rating will come from Redux/props
+      setPendingRating(undefined);
+    } catch (error) {
+      // Rollback on error
+      setPendingRating(undefined);
+      console.error('Failed to update rating:', error);
+    } finally {
+      setIsRatingUpdating(false);
+    }
   };
   
   const handleNotesSubmit = () => {
@@ -69,6 +102,7 @@ export const PaperCard: React.FC<PaperCardProps> = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
+      data-testid="paper-card"
       className={clsx(
         'bg-white rounded-lg border border-secondary-200 hover:border-secondary-300 transition-colors duration-200',
         'hover:shadow-lg',
@@ -93,9 +127,9 @@ export const PaperCard: React.FC<PaperCardProps> = ({
           </h3>
           
           {/* Score badge */}
-          {paper.current_score !== undefined && (
+          {paper.current_score !== undefined && paper.current_score !== null && (
             <div className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800 mt-2">
-              Score: {paper.current_score.toFixed(3)}
+              🎯 Score: {paper.current_score.toFixed(3)}
             </div>
           )}
         </div>
@@ -173,7 +207,9 @@ export const PaperCard: React.FC<PaperCardProps> = ({
         <div className="flex items-center gap-3">
           <span className="text-sm font-medium text-secondary-700">Rate:</span>
           <StarRating
-            rating={paper.rating || 0}
+            rating={externalRating ?? paper.rating ?? 0}
+            pendingRating={pendingRating}
+            isUpdating={isRatingUpdating}
             interactive
             clearable
             size={compact ? 'sm' : 'md'}

@@ -42,14 +42,42 @@ class Config:
     cache_embeddings: bool = True
     embedding_cache_ttl: int = 30 * 24 * 3600  # 30 days
 
+    # Scheduler Configuration
+    collection_time: str = os.getenv("COLLECTION_TIME", "06:00")  # Daily collection time (HH:MM)
+    scoring_time: str = os.getenv("SCORING_TIME", "07:00")  # Daily scoring time (HH:MM)
+    preference_update_time: str = os.getenv("PREFERENCE_TIME", "08:00")  # Preference update time
+    cache_maintenance_interval: int = int(os.getenv("CACHE_MAINTENANCE_HOURS", "6"))  # Hours
+    
+    # Collection Strategy
+    collection_topics: List[str] = None  # Will be set in __post_init__
+    max_papers_per_query: int = int(os.getenv("MAX_PAPERS_PER_QUERY", "100"))
+    query_cache_ttl_hours: int = int(os.getenv("QUERY_CACHE_TTL", "24"))
+    rate_limit_delay: float = float(os.getenv("RATE_LIMIT_DELAY", "1.0"))  # seconds between API calls
+    
+    # Scoring Configuration  
+    min_ratings_for_scoring: int = int(os.getenv("MIN_RATINGS_FOR_SCORING", "5"))
+    score_cache_ttl_hours: int = int(os.getenv("SCORE_CACHE_TTL", "24"))
+    
+    # Preference Management
+    preference_cache_ttl_hours: int = int(os.getenv("PREFERENCE_CACHE_TTL", "6"))
+    recent_preference_days: int = int(os.getenv("RECENT_PREFERENCE_DAYS", "30"))
+    preference_decay_constant: float = float(os.getenv("PREFERENCE_DECAY_CONSTANT", "30.0"))  # days
+    
+    # Scheduler Database
+    scheduler_db_path: str = "data/scheduler.db"
+
     def __post_init__(self):
         """Initialize default values and validate configuration."""
         if self.arxiv_categories is None:
             categories_str = os.getenv("ARXIV_CATEGORIES", "cs.AI,cs.LG,cs.CL")
             self.arxiv_categories = [cat.strip() for cat in categories_str.split(",")]
+        
+        if self.collection_topics is None:
+            topics_str = os.getenv("COLLECTION_TOPICS", "machine learning,deep learning,natural language processing")
+            self.collection_topics = [topic.strip() for topic in topics_str.split(",")]
 
         # Ensure data directories exist
-        for path in [self.embeddings_path, Path(self.database_path).parent]:
+        for path in [self.embeddings_path, Path(self.database_path).parent, Path(self.scheduler_db_path).parent]:
             Path(path).mkdir(parents=True, exist_ok=True)
 
         if not self.openai_api_key:

@@ -2,12 +2,29 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Paper, PaperFilters, PaperSearchParams, PaperSearchResult } from '@types';
 import { papersService } from '@services/papersService';
 
+interface CollectionStatus {
+  id: string;
+  keyword: string;
+  status: 'running' | 'completed' | 'failed' | 'cancelled';
+  progress: number;
+  papers_found: number;
+  total_queries: number;
+  current_query: string;
+  created_at: string;
+  completed_at?: string;
+  error_message?: string;
+}
+
 interface PapersState {
   items: Paper[];
   searchResults: Paper[];
   recommendations: Paper[];
   filters: PaperFilters;
   searchParams: PaperSearchParams | null;
+  collection: {
+    current: CollectionStatus | null;
+    isModalOpen: boolean;
+  };
   pagination: {
     currentPage: number;
     totalPages: number;
@@ -18,6 +35,7 @@ interface PapersState {
     fetch: boolean;
     search: boolean;
     recommendations: boolean;
+    collection: boolean;
   };
   error: string | null;
   lastUpdated: string | null;
@@ -29,6 +47,10 @@ const initialState: PapersState = {
   recommendations: [],
   filters: {},
   searchParams: null,
+  collection: {
+    current: null,
+    isModalOpen: false,
+  },
   pagination: {
     currentPage: 1,
     totalPages: 1,
@@ -39,6 +61,7 @@ const initialState: PapersState = {
     fetch: false,
     search: false,
     recommendations: false,
+    collection: false,
   },
   error: null,
   lastUpdated: null,
@@ -73,6 +96,22 @@ export const generateRecommendations = createAsyncThunk(
   'papers/generateRecommendations',
   async () => {
     const response = await papersService.generateRecommendations();
+    return response;
+  }
+);
+
+export const startCollection = createAsyncThunk(
+  'papers/startCollection',
+  async (params: { keyword: string; max_papers?: number; clean_db?: boolean }) => {
+    const response = await papersService.startCollection(params);
+    return response;
+  }
+);
+
+export const fetchCollectionStatus = createAsyncThunk(
+  'papers/fetchCollectionStatus',
+  async (collectionId: string) => {
+    const response = await papersService.getCollectionStatus(collectionId);
     return response;
   }
 );
@@ -114,6 +153,15 @@ const papersSlice = createSlice({
     },
     clearError: (state) => {
       state.error = null;
+    },
+    openCollectionModal: (state) => {
+      state.collection.isModalOpen = true;
+    },
+    closeCollectionModal: (state) => {
+      state.collection.isModalOpen = false;
+    },
+    clearCollection: (state) => {
+      state.collection.current = null;
     },
   },
   extraReducers: (builder) => {
@@ -163,7 +211,7 @@ const papersSlice = createSlice({
       })
       .addCase(fetchRecommendations.fulfilled, (state, action) => {
         state.loading.recommendations = false;
-        state.recommendations = action.payload.papers;
+        state.recommendations = action.payload.recommendations || action.payload.papers || [];
       })
       .addCase(fetchRecommendations.rejected, (state, action) => {
         state.loading.recommendations = false;
@@ -178,11 +226,49 @@ const papersSlice = createSlice({
       })
       .addCase(generateRecommendations.fulfilled, (state, action) => {
         state.loading.recommendations = false;
-        state.recommendations = action.payload.papers;
+        state.recommendations = action.payload.recommendations || action.payload.papers || [];
       })
       .addCase(generateRecommendations.rejected, (state, action) => {
         state.loading.recommendations = false;
         state.error = action.error.message || 'Failed to generate recommendations';
+      });
+
+    // Start collection
+    builder
+      .addCase(startCollection.pending, (state) => {
+        state.loading.collection = true;
+        state.error = null;
+      })
+      .addCase(startCollection.fulfilled, (state, action) => {
+        state.loading.collection = false;
+        state.collection.current = {
+          id: action.payload.collection_id,
+          keyword: action.payload.keyword,
+          status: 'running',
+          progress: 0,
+          papers_found: 0,
+          total_queries: 0,
+          current_query: 'Starting collection...',
+          created_at: new Date().toISOString(),
+        };
+        state.collection.isModalOpen = false;
+      })
+      .addCase(startCollection.rejected, (state, action) => {
+        state.loading.collection = false;
+        state.error = action.error.message || 'Failed to start collection';
+      });
+
+    // Fetch collection status
+    builder
+      .addCase(fetchCollectionStatus.pending, (state) => {
+        // Don't set loading for status polling
+      })
+      .addCase(fetchCollectionStatus.fulfilled, (state, action) => {
+        state.collection.current = action.payload;
+      })
+      .addCase(fetchCollectionStatus.rejected, (state, action) => {
+        // Silent fail for status polling
+        console.error('Failed to fetch collection status:', action.error.message);
       });
   },
 });
@@ -193,6 +279,9 @@ export const {
   clearSearchResults,
   updatePaper,
   clearError,
+  openCollectionModal,
+  closeCollectionModal,
+  clearCollection,
 } = papersSlice.actions;
 
 export default papersSlice.reducer;

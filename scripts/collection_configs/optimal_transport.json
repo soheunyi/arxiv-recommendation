@@ -1,0 +1,106 @@
+{
+  "topic": "optimal transport",
+  "search_queries": [
+    {
+      "query": "ti:\"optimal transport\"",
+      "priority": "high",
+      "description": "Papers with 'optimal transport' in the title"
+    },
+    {
+      "query": "abs:\"optimal transport\"",
+      "priority": "high",
+      "description": "Papers discussing 'optimal transport' in the abstract"
+    },
+    {
+      "query": "all:\"Wasserstein distance\"",
+      "priority": "medium",
+      "description": "Papers mentioning 'Wasserstein distance', a concept closely related to optimal transport"
+    },
+    {
+      "query": "cat:math.OC AND all:\"optimal transport\"",
+      "priority": "high",
+      "description": "Optimal transport papers in the category of Optimization and Control"
+    },
+    {
+      "query": "cat:cs.LG AND all:\"optimal transport\"",
+      "priority": "medium",
+      "description": "Papers on optimal transport in Machine Learning"
+    },
+    {
+      "query": "cat:stat.ML AND all:\"optimal transport\"",
+      "priority": "medium",
+      "description": "Papers on optimal transport in Statistics and Machine Learning"
+    },
+    {
+      "query": "au:\"Villani\" AND all:\"optimal transport\"",
+      "priority": "medium",
+      "description": "Papers by Cedric Villani, a key researcher in optimal transport"
+    },
+    {
+      "query": "all:\"Monge-Amp\u00e8re equation\" OR all:\"Kantorovich problem\"",
+      "priority": "medium",
+      "description": "Papers discussing the Monge-Amp\u00e8re equation or Kantorovich problem, foundational concepts in optimal transport theory"
+    },
+    {
+      "query": "all:\"computational optimal transport\"",
+      "priority": "medium",
+      "description": "Papers on computational aspects of optimal transport"
+    },
+    {
+      "query": "all:\"Gromov-Wasserstein distances\"",
+      "priority": "low",
+      "description": "Papers discussing Gromov-Wasserstein distances, a variation of Wasserstein distances"
+    },
+    {
+      "query": "all:\"Earth Mover's Distance\" OR all:\"EMD\"",
+      "priority": "medium",
+      "description": "Papers mentioning Earth Mover's Distance (EMD), a practical application of optimal transport"
+    },
+    {
+      "query": "cat:math.AP AND all:\"optimal transport\"",
+      "priority": "medium",
+      "description": "Optimal transport papers in the category of Analysis of PDEs"
+    },
+    {
+      "query": "all:\"Sinkhorn algorithm\"",
+      "priority": "low",
+      "description": "Papers on the Sinkhorn algorithm, used in computational optimal transport"
+    },
+    {
+      "query": "all:\"optimal transport\" AND all:\"deep learning\"",
+      "priority": "low",
+      "description": "Papers at the intersection of optimal transport and deep learning"
+    },
+    {
+      "query": "all:\"optimal transport\" AND all:\"data science\"",
+      "priority": "low",
+      "description": "Exploratory search for optimal transport applications in data science"
+    }
+  ],
+  "categories": [
+    "math.OC",
+    "cs.LG",
+    "stat.ML",
+    "math.AP"
+  ],
+  "filter_keywords": [
+    "optimal transport",
+    "Wasserstein",
+    "Monge-Amp\u00e8re",
+    "Kantorovich",
+    "computational",
+    "Gromov-Wasserstein",
+    "Earth Mover's Distance",
+    "EMD",
+    "Sinkhorn"
+  ],
+  "related_terms": [
+    "Wasserstein distance",
+    "Monge-Amp\u00e8re equation",
+    "Kantorovich problem",
+    "computational optimal transport",
+    "Gromov-Wasserstein distances",
+    "Earth Mover's Distance",
+    "Sinkhorn algorithm"
+  ]
+}

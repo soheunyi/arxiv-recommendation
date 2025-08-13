@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -9,10 +9,10 @@ import {
   Cog6ToothIcon,
   XMarkIcon,
   BookOpenIcon,
-  Bars3Icon,
   ChevronLeftIcon,
   ChevronRightIcon,
   UserIcon,
+  DocumentPlusIcon,
 } from '@heroicons/react/24/outline';
 import {
   HomeIcon as HomeIconSolid,
@@ -20,6 +20,7 @@ import {
   MagnifyingGlassIcon as MagnifyingGlassIconSolid,
   ChartBarIcon as ChartBarIconSolid,
   Cog6ToothIcon as Cog6ToothIconSolid,
+  DocumentPlusIcon as DocumentPlusIconSolid,
 } from '@heroicons/react/24/solid';
 import { cn } from '@/lib/utils';
 
@@ -35,21 +36,35 @@ interface NavigationItem {
 interface SidebarProps {
   onClose?: () => void;
   className?: string;
+  collapsed?: boolean;
+  onCollapsedChange?: (collapsed: boolean) => void;
 }
 
 const navigationItems: NavigationItem[] = [
   { id: "dashboard", name: "Dashboard", icon: HomeIcon, activeIcon: HomeIconSolid, href: "/" },
-  { id: "rate-papers", name: "Rate Papers", icon: StarIcon, activeIcon: StarIconSolid, href: "/rate", badge: "5" },
+  { id: "all-papers", name: "All Papers", icon: BookOpenIcon, activeIcon: BookOpenIcon, href: "/papers" },
+  { id: "collect-papers", name: "Collect Papers", icon: DocumentPlusIcon, activeIcon: DocumentPlusIconSolid, href: "/collect" },
+  { id: "rate-papers", name: "Rate Papers", icon: StarIcon, activeIcon: StarIconSolid, href: "/rate" },
   { id: "search-papers", name: "Search Papers", icon: MagnifyingGlassIcon, activeIcon: MagnifyingGlassIconSolid, href: "/search" },
-  { id: "analytics", name: "Analytics", icon: ChartBarIcon, activeIcon: ChartBarIconSolid, href: "/analytics", badge: "2" },
+  { id: "analytics", name: "Analytics", icon: ChartBarIcon, activeIcon: ChartBarIconSolid, href: "/analytics" },
   { id: "settings", name: "Settings", icon: Cog6ToothIcon, activeIcon: Cog6ToothIconSolid, href: "/settings" },
 ];
 
-function ModernSidebar({ onClose, className = "" }: SidebarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+function ModernSidebar({ onClose, className = "", collapsed, onCollapsedChange }: SidebarProps) {
+  const [internalCollapsed, setInternalCollapsed] = useState(false);
   const location = useLocation();
 
-  const toggleCollapse = () => setIsCollapsed(!isCollapsed);
+  // Use external collapsed state if provided, otherwise use internal state
+  const isCollapsed = collapsed !== undefined ? collapsed : internalCollapsed;
+  
+  const toggleCollapse = () => {
+    const newCollapsed = !isCollapsed;
+    if (onCollapsedChange) {
+      onCollapsedChange(newCollapsed);
+    } else {
+      setInternalCollapsed(newCollapsed);
+    }
+  };
 
   const handleItemClick = () => {
     if (onClose) {
@@ -96,7 +111,7 @@ function ModernSidebar({ onClose, className = "" }: SidebarProps) {
                 <BookOpenIcon className="h-5 w-5 text-white" />
               </motion.div>
               <div className="flex flex-col">
-                <span className="font-bold text-gray-900 text-lg">ArXiv Hub</span>
+                <span className="font-bold text-gray-900 text-lg">arXiv Hub</span>
                 <span className="text-xs text-gray-500">Research Papers</span>
               </div>
             </motion.div>
@@ -350,6 +365,6 @@ function ModernSidebar({ onClose, className = "" }: SidebarProps) {
   );
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ onClose, className }) => {
-  return <ModernSidebar onClose={onClose} className={className} />;
+export const Sidebar: React.FC<SidebarProps> = ({ onClose, className, collapsed, onCollapsedChange }) => {
+  return <ModernSidebar onClose={onClose} className={className} collapsed={collapsed} onCollapsedChange={onCollapsedChange} />;
 };

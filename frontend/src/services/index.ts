@@ -2,6 +2,7 @@ export { apiClient, ApiClient } from './api';
 export { papersService, PapersService } from './papersService';
 export { ratingsService, RatingsService } from './ratingsService';
 export { systemService, SystemService } from './systemService';
+export { analyticsService as overviewAnalyticsService } from './analyticsService';
 
 // Analytics service
 export class AnalyticsService {

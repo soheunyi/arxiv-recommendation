@@ -643,6 +643,78 @@ class EmbeddingManager:
 
         logger.info(f"Migration complete: {migrated} successful, {failed} failed")
 
+    async def maintain_cache(self) -> Dict[str, Any]:
+        """
+        Perform cache maintenance operations.
+        
+        This includes:
+        - Removing expired embeddings
+        - Compacting the HDF5 file
+        - Cleaning up temporary files
+        """
+        try:
+            logger.info("Starting embedding cache maintenance")
+            start_time = datetime.now()
+            
+            cleaned_entries = 0
+            
+            with self._get_hdf5_file("r+") as h5file:
+                embeddings_group = h5file["embeddings"]
+                metadata_group = h5file["metadata"]
+                
+                # Get all embedding keys
+                embedding_keys = list(embeddings_group.keys())
+                expired_keys = []
+                
+                # Check for expired embeddings
+                for key in embedding_keys:
+                    try:
+                        if key in metadata_group:
+                            metadata = metadata_group[key]
+                            created_at_str = metadata.attrs.get("created_at")
+                            
+                            if created_at_str:
+                                created_at = datetime.fromisoformat(created_at_str)
+                                if datetime.now() - created_at > self.cache_ttl:
+                                    expired_keys.append(key)
+                    except Exception as e:
+                        logger.warning(f"Error checking key {key}: {e}")
+                        # If we can't read metadata, consider it expired
+                        expired_keys.append(key)
+                
+                # Remove expired entries
+                for key in expired_keys:
+                    try:
+                        if key in embeddings_group:
+                            del embeddings_group[key]
+                        if key in metadata_group:
+                            del metadata_group[key]
+                        cleaned_entries += 1
+                    except Exception as e:
+                        logger.error(f"Failed to remove expired key {key}: {e}")
+            
+            # Update file attributes
+            with self._get_hdf5_file("r+") as h5file:
+                h5file.attrs["last_maintenance"] = datetime.now().isoformat()
+            
+            duration = (datetime.now() - start_time).total_seconds()
+            
+            logger.info(f"Cache maintenance completed: {cleaned_entries} entries cleaned in {duration:.2f}s")
+            
+            return {
+                "cleaned_entries": cleaned_entries,
+                "duration_seconds": duration,
+                "cache_file_size": self.hdf5_path.stat().st_size if self.hdf5_path.exists() else 0
+            }
+            
+        except Exception as e:
+            logger.error(f"Cache maintenance failed: {e}")
+            return {
+                "cleaned_entries": 0,
+                "duration_seconds": 0,
+                "error": str(e)
+            }
+
     @staticmethod
     def embedding_prompt(
         paper_title: str, paper_abstract: str, paper_category: str
