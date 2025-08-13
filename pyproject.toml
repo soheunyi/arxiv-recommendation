@@ -46,6 +46,9 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "rich>=13.0.0",  # Beautiful CLI output
     "typer>=0.12.0", # CLI framework
+    "psutil>=5.9.0", # Process monitoring
+    "fastapi>=0.104.0", # API framework
+    "uvicorn>=0.24.0", # ASGI server
 ]
 
 [project.optional-dependencies]
@@ -81,7 +84,7 @@ arxiv-sync = "scripts.daily_sync:main"
 arxiv-setup = "scripts.setup_database:main"
 arxiv-migrate-embeddings = "scripts.migrate_embeddings:main"
 arxiv-cache-stats = "scripts.check_cache_stats:main"
-arxiv-web = "run_web:main"
+arxiv-serve = "start_servers:main"  # Start both frontend and backend
 
 [project.urls]
 Homepage = "https://github.com/yourusername/arxiv-recommendation"
@@ -120,8 +123,8 @@ disallow_untyped_defs = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = "--cov=src --cov-report=term-missing"
+addopts = "--cov=backend --cov-report=term-missing"
 
 [tool.coverage.run]
-source = ["src"]
+source = ["backend"]
 omit = ["tests/*"]

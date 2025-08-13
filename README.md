@@ -93,18 +93,37 @@ uv run python main.py cost
 uv run python scripts/test_pipeline.py
 ```
 
-#### Web Interface (Coming Soon)
+#### Web Interface
 
 ```bash
-# Launch Streamlit web interface (Week 3 implementation)
-uv run streamlit run src/web/app.py
+# Launch both frontend and backend servers with intelligent port detection
+uv run python start_servers.py
+
+# Or use the convenience script
+uv run arxiv-serve
+
+# Debug mode with verbose logging
+uv run python start_servers.py --debug
+
+# Debug frontend startup issues only
+uv run python start_servers.py --debug-frontend
+
+# Test server startup without running
+uv run python test_startup.py
+
+# Alternatively, run servers separately:
+# Backend API server
+uv run uvicorn backend.api:app --reload --port 8000
+
+# Frontend dev server (in separate terminal)
+cd frontend && npm run dev
 ```
 
 #### Python API
 
 ```python
 import asyncio
-from arxiv_recommendation import run_recommendation_system
+from backend.arxiv_recommendation import run_recommendation_system
 
 # Run the complete workflow
 async def main():
@@ -187,21 +206,28 @@ uv add --group performance faiss-gpu
 
 ```
 arxiv-recommendation/
-├── src/arxiv_recommendation/       # Main package
+├── backend/arxiv_recommendation/   # 🔧 Python backend (ML/API)
 │   ├── agents.py                  # ✅ Multi-agent system (DataAgent, RecommendationAgent, Coordinator)
 │   ├── arxiv_client.py            # ✅ Async arXiv API client with rate limiting
 │   ├── embeddings.py              # ✅ OpenAI embedding manager with caching
 │   ├── recommendations.py         # ✅ MMR-based recommendation engine
 │   ├── database.py                # ✅ Async SQLite operations with full schema
 │   └── config.py                  # ✅ Environment-based configuration
-├── scripts/                       # ✅ Utility scripts
+├── frontend/                      # ⚛️ React TypeScript frontend
+│   ├── src/components/            # UI components (papers, rating, analytics)
+│   ├── src/pages/                 # Route-level pages
+│   ├── src/services/              # API communication layer
+│   ├── src/store/                 # Redux state management
+│   └── src/types/                 # TypeScript definitions
+├── scripts/                       # 🛠️ Utility scripts
 │   ├── setup_database.py          # ✅ Database initialization
 │   └── test_pipeline.py           # ✅ Core integration testing
-├── data/                          # ✅ Local data storage (auto-created)
+├── data/                          # 📊 Local data storage (auto-created)
 │   ├── papers.db                  # SQLite database
 │   └── embeddings/                # Embedding cache
-├── main.py                        # ✅ CLI interface with Rich output
-├── pyproject.toml                 # ✅ UV-based modern Python config
+├── main.py                        # 🖥️ CLI interface with Rich output
+├── start_servers.py               # 🚀 Development server manager
+├── pyproject.toml                 # 📦 UV-based modern Python config
 └── .env.example                   # ✅ Environment template
 ```
 

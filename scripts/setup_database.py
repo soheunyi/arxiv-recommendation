@@ -5,8 +5,8 @@ import asyncio
 import sys
 from pathlib import Path
 
-# Add src to Python path
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+# Add backend to Python path
+sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
 
 from arxiv_recommendation.database import DatabaseManager
 from arxiv_recommendation.config import config

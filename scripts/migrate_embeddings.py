@@ -23,7 +23,7 @@ from rich.table import Table
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from arxiv_recommendation.embeddings import EmbeddingManager
-from src.arxiv_recommendation.config import config
+from backend.arxiv_recommendation.config import config
 
 console = Console()
 

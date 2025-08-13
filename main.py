@@ -8,8 +8,8 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from src.arxiv_recommendation import run_recommendation_system
-from src.arxiv_recommendation.config import config
+from backend.arxiv_recommendation import run_recommendation_system
+from backend.arxiv_recommendation.config import config
 
 app = typer.Typer(help="ArXiv Recommendation System - Personal LLM-powered paper recommendations")
 console = Console()
