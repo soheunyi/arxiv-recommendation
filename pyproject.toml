@@ -2,6 +2,13 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build.targets.wheel]
+packages = ["backend/src"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"start_servers.py" = "start_servers.py"
+"main.py" = "main.py"
+
 [project]
 name = "arxiv-recommendation"
 version = "0.1.0"
@@ -21,8 +28,9 @@ classifiers = [
 ]
 requires-python = ">=3.11"
 dependencies = [
-    # Core OpenAI integration
+    # Core LLM integrations
     "openai>=1.52.0",
+    "google-genai>=1.0.0",  # New unified Google GenAI SDK
     
     # Data handling
     "pandas>=2.2.0",
@@ -32,6 +40,9 @@ dependencies = [
     "aiosqlite>=0.20.0",
     "h5py>=3.10.0",
     "filelock>=3.13.0",
+    
+    # OpenAlex integration
+    "pyalex>=0.13.0",
     
     # Multi-agent framework (lightweight)
     "autogen-agentchat>=0.4.0",
@@ -93,6 +104,12 @@ arxiv-serve = "start_servers:main"  # Start both frontend and backend
 Homepage = "https://github.com/yourusername/arxiv-recommendation"
 Repository = "https://github.com/yourusername/arxiv-recommendation"
 Issues = "https://github.com/yourusername/arxiv-recommendation/issues"
+
+[dependency-groups]
+dev = [
+    "pytest-asyncio>=1.1.0",
+    "pytest-cov>=6.2.1",
+]
 
 # Tool configurations
 [tool.ruff]

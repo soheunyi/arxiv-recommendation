@@ -9,13 +9,14 @@ API endpoints and CLI scripts.
 import asyncio
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Any
 
-from ..arxiv_client import ArXivClient, PaperMetadata
-from ..database import DatabaseManager
+from arxiv_client import ArXivClient, PaperMetadata
+from database import DatabaseManager
 from .query_service import QueryService
+from .provider_factory import ProviderFactory
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +45,7 @@ class CollectionService:
             "end_time": None
         }
     
-    async def generate_queries(self, max_queries: int = 15, use_config: Optional[str] = None) -> Dict:
+    async def generate_queries(self, max_queries: int = 15, use_config: Optional[str] = None, llm_provider: Optional[str] = None) -> Dict:
         """Generate or load search queries for the topic."""
         logger.info(f"Generating search strategy for: '{self.topic}'")
         
@@ -55,9 +56,15 @@ class CollectionService:
             if not self.query_config:
                 raise ValueError(f"Failed to load configuration from {use_config}")
         else:
-            # Generate new queries with GPT
-            logger.info("Consulting GPT for optimal search queries...")
-            self.query_config = self.query_service.generate_search_queries(
+            # Generate new queries with specified LLM provider
+            if llm_provider:
+                logger.info(f"Consulting {llm_provider.title()} for optimal search queries...")
+                query_service = ProviderFactory.create_query_service(llm_provider)
+            else:
+                logger.info("Consulting configured LLM provider for optimal search queries...")
+                query_service = self.query_service
+                
+            self.query_config = query_service.generate_search_queries(
                 self.topic, max_queries
             )
         
@@ -307,8 +314,15 @@ class CollectionService:
         
         return tables_to_clean
     
-    async def store_papers(self) -> int:
-        """Store collected papers in the database."""
+    async def store_papers(self, fetch_references: bool = True) -> int:
+        """Store collected papers in the database with optional reference fetching.
+        
+        Args:
+            fetch_references: Whether to immediately fetch references (Stage 1)
+            
+        Returns:
+            Number of papers stored
+        """
         if not self.collected_papers:
             logger.warning("No papers to store")
             return 0
@@ -320,6 +334,10 @@ class CollectionService:
         
         # Store papers
         stored_count = await self.db_manager.store_papers(self.collected_papers)
+        
+        # Stage 1: Immediate reference fetching from ArXiv HTML
+        if fetch_references and stored_count > 0:
+            await self._fetch_references_stage1()
         
         logger.info(f"Successfully stored {stored_count} papers")
         return stored_count
@@ -402,3 +420,138 @@ class CollectionService:
             return False
         
         return self.query_service.save_queries_config(self.query_config, filepath)
+    
+    async def _fetch_references_stage1(self) -> None:
+        """Fetch references for collected papers using Stage 1 (ArXiv HTML parsing)."""
+        if not self.collected_papers:
+            return
+            
+        logger.info(f"Starting Stage 1 reference fetching for {len(self.collected_papers)} papers...")
+        
+        try:
+            from .hybrid_reference_service import HybridReferenceService
+            
+            # Initialize hybrid service
+            hybrid_service = HybridReferenceService()
+            
+            # Track progress
+            processed = 0
+            successful = 0
+            
+            for paper in self.collected_papers:
+                try:
+                    # Fetch Stage 1 references (ArXiv HTML parsing)
+                    references = await hybrid_service.fetch_references_stage1(paper.id)
+                    
+                    if references:
+                        successful += 1
+                        logger.debug(f"Stage 1: Found {len(references)} references for {paper.id}")
+                    else:
+                        logger.debug(f"Stage 1: No references found for {paper.id}")
+                    
+                    processed += 1
+                    
+                    # Rate limiting to be respectful
+                    if processed < len(self.collected_papers):
+                        await asyncio.sleep(2)
+                        
+                except Exception as e:
+                    logger.error(f"Stage 1 reference fetching failed for {paper.id}: {e}")
+                    processed += 1
+                    continue
+            
+            logger.info(f"Stage 1 reference fetching completed: {successful}/{processed} papers processed successfully")
+            logger.info("Stage 2 (OpenAlex enrichment) will be handled automatically by scheduler")
+            
+        except Exception as e:
+            logger.error(f"Failed to initialize reference fetching: {e}")
+    
+    async def execute_collection(
+        self, 
+        max_papers_per_query: int = 20,
+        max_queries: int = 15,
+        skip_filtering: bool = False,
+        fetch_references: bool = True,
+        filter_recent_days: Optional[int] = None,
+        clean_db: bool = False,
+        llm_provider: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Execute the complete collection workflow with two-stage reference fetching.
+        
+        Args:
+            max_papers_per_query: Maximum papers per query
+            max_queries: Maximum queries to generate
+            skip_filtering: Skip relevance filtering
+            fetch_references: Enable Stage 1 reference fetching
+            filter_recent_days: Only collect papers from last N days
+            clean_db: Clean database before collection
+            llm_provider: LLM provider for query generation
+            
+        Returns:
+            Dict with collection results and statistics
+        """
+        workflow_start = datetime.now()
+        
+        try:
+            logger.info(f"Starting complete collection workflow for topic: '{self.topic}'")
+            
+            # Step 1: Optional database cleaning
+            if clean_db:
+                logger.info("Cleaning database before collection...")
+                clean_result = await self.clean_database()
+                if not clean_result.get("success"):
+                    logger.warning(f"Database cleaning failed: {clean_result.get('error')}")
+            
+            # Step 2: Generate search queries
+            await self.generate_queries(max_queries=max_queries, llm_provider=llm_provider)
+            
+            # Step 3: Collect papers
+            papers = await self.collect_papers(
+                max_papers_per_query=max_papers_per_query,
+                skip_filtering=skip_filtering
+            )
+            
+            # Step 4: Apply date filtering if requested
+            if filter_recent_days and papers:
+                cutoff_date = datetime.now() - timedelta(days=filter_recent_days)
+                papers = [p for p in papers if p.published_date >= cutoff_date]
+                self.collected_papers = papers  # Update the collection
+                logger.info(f"Filtered to {len(papers)} papers from last {filter_recent_days} days")
+            
+            # Step 5: Store papers with Stage 1 reference fetching
+            papers_stored = await self.store_papers(fetch_references=fetch_references)
+            
+            # Compile results
+            workflow_end = datetime.now()
+            workflow_duration = (workflow_end - workflow_start).total_seconds()
+            
+            results = {
+                "success": True,
+                "topic": self.topic,
+                "papers_collected": len(papers),
+                "papers_stored": papers_stored,
+                "workflow_duration_seconds": workflow_duration,
+                "stage1_references_enabled": fetch_references,
+                "stage2_scheduled": fetch_references,  # OpenAlex enrichment via scheduler
+                "statistics": self.stats,
+                "collection_summary": self.get_collection_summary() if papers else None
+            }
+            
+            logger.info(f"Collection workflow completed successfully in {workflow_duration:.1f}s")
+            logger.info(f"Papers collected: {len(papers)}, stored: {papers_stored}")
+            
+            if fetch_references:
+                logger.info("Stage 1 (ArXiv) references processed immediately")
+                logger.info("Stage 2 (OpenAlex) enrichment will be handled by scheduler")
+            
+            return results
+            
+        except Exception as e:
+            logger.error(f"Collection workflow failed: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "topic": self.topic,
+                "papers_collected": 0,
+                "papers_stored": 0
+            }

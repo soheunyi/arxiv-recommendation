@@ -7,8 +7,8 @@ from datetime import datetime, timedelta
 import numpy as np
 from dataclasses import dataclass
 
-from .embeddings import EmbeddingManager
-from .database import DatabaseManager
+from embeddings import EmbeddingManager
+from database import DatabaseManager
 
 logger = logging.getLogger(__name__)
 

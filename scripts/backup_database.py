@@ -8,12 +8,14 @@ and managing database backups.
 
 import asyncio
 import sys
-from pathlib import Path
 
-# Add backend to Python path
-sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
+from script_utils import (
+    setup_backend_path, print_success, print_error, print_progress
+)
 
-from arxiv_recommendation.services import BackupService
+# Setup backend imports
+setup_backend_path()
+from services import BackupService
 
 
 async def main():
@@ -70,11 +72,11 @@ async def main():
     
     try:
         if args.action == "backup":
-            print(f"🔄 Creating {args.type} backup...")
+            print_progress(f"Creating {args.type} backup...")
             result = await backup_service.create_backup(args.type)
             
             if result.get("success"):
-                print(f"✅ Backup created successfully:")
+                print_success("Backup created successfully:")
                 print(f"   File: {result['filename']}")
                 print(f"   Path: {result['path']}")
                 if "total_ratings" in result:
@@ -83,7 +85,7 @@ async def main():
                     print(f"   Papers: {result['total_papers']}")
                 print(f"   Timestamp: {result['timestamp']}")
             else:
-                print(f"❌ Backup failed: {result.get('error', 'Unknown error')}")
+                print_error(f"Backup failed: {result.get('error', 'Unknown error')}")
                 
         elif args.action == "list":
             print("📋 Available backups:")
@@ -101,18 +103,18 @@ async def main():
                         print(f"   Items: {backup['total_items']}")
                         
         elif args.action == "restore":
-            print(f"🔄 Restoring {args.type} from {args.backup_file}...")
+            print_progress(f"Restoring {args.type} from {args.backup_file}...")
             
             if args.type == "ratings":
                 result = await backup_service.restore_ratings(args.backup_file)
             elif args.type == "full":
                 result = await backup_service.restore_full_database(args.backup_file)
             else:
-                print(f"❌ Invalid restore type: {args.type}")
+                print_error(f"Invalid restore type: {args.type}")
                 return
                 
             if result.get("success"):
-                print("✅ Restore completed successfully:")
+                print_success("Restore completed successfully:")
                 if "restored_count" in result:
                     print(f"   Restored: {result['restored_count']} ratings")
                     print(f"   Failed: {result['failed_count']} ratings")
@@ -121,19 +123,19 @@ async def main():
                     print(f"   Restored from: {result['restored_from']}")
                     print(f"   Safety backup: {result['safety_backup']}")
             else:
-                print(f"❌ Restore failed: {result.get('error', 'Unknown error')}")
+                print_error(f"Restore failed: {result.get('error', 'Unknown error')}")
                 
         elif args.action == "delete":
-            print(f"🗑️ Deleting backup {args.backup_file}...")
+            print_progress(f"Deleting backup {args.backup_file}...")
             result = backup_service.delete_backup(args.backup_file)
             
             if result.get("success"):
-                print(f"✅ Backup deleted: {result['deleted_file']}")
+                print_success(f"Backup deleted: {result['deleted_file']}")
             else:
-                print(f"❌ Delete failed: {result.get('error', 'Unknown error')}")
+                print_error(f"Delete failed: {result.get('error', 'Unknown error')}")
                 
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print_error(f"Error: {e}")
         sys.exit(1)
 
 

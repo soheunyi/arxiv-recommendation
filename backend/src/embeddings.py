@@ -15,7 +15,7 @@ import h5py
 import pickle
 from filelock import FileLock
 
-from .config import config
+from config import config
 
 logger = logging.getLogger(__name__)
 

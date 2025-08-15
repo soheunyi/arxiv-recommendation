@@ -18,9 +18,9 @@ from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass
 from enum import Enum
 
-from .database import DatabaseManager
-from .embeddings import EmbeddingManager
-from .config import config
+from database import DatabaseManager
+from embeddings import EmbeddingManager
+from config import config
 
 logger = logging.getLogger(__name__)
 

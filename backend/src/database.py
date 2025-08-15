@@ -9,8 +9,8 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from dataclasses import asdict
 
-from .config import config
-from .arxiv_client import PaperMetadata
+from config import config
+from arxiv_client import PaperMetadata
 
 logger = logging.getLogger(__name__)
 
@@ -162,6 +162,26 @@ class DatabaseManager:
         """
         )
 
+        # Paper references table - stores citation relationships between papers
+        await db.execute(
+            """
+            CREATE TABLE IF NOT EXISTS paper_references (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                citing_paper_id TEXT NOT NULL REFERENCES papers(id) ON DELETE CASCADE,
+                cited_paper_id TEXT,  -- Can be NULL if not in our database
+                cited_title TEXT,
+                cited_authors TEXT,
+                cited_year INTEGER,
+                reference_context TEXT,  -- Context where citation appears
+                citation_number INTEGER,  -- Order in reference list
+                is_arxiv_paper BOOLEAN DEFAULT FALSE,  -- Whether cited paper is from arXiv
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (citing_paper_id) REFERENCES papers(id),
+                FOREIGN KEY (cited_paper_id) REFERENCES papers(id)
+            )
+        """
+        )
+
     async def _create_indexes(self, db: aiosqlite.Connection):
         """Create database indexes for performance."""
         indexes = [
@@ -175,6 +195,9 @@ class DatabaseManager:
             "CREATE INDEX IF NOT EXISTS idx_search_history_created_at ON search_history(created_at DESC)",
             "CREATE INDEX IF NOT EXISTS idx_collections_status ON paper_collections(status)",
             "CREATE INDEX IF NOT EXISTS idx_collections_created_at ON paper_collections(created_at DESC)",
+            "CREATE INDEX IF NOT EXISTS idx_references_citing_paper ON paper_references(citing_paper_id)",
+            "CREATE INDEX IF NOT EXISTS idx_references_cited_paper ON paper_references(cited_paper_id)",
+            "CREATE INDEX IF NOT EXISTS idx_references_is_arxiv ON paper_references(is_arxiv_paper)",
         ]
 
         for index_sql in indexes:
@@ -241,6 +264,18 @@ class DatabaseManager:
         # Ensure papers.current_score exists
         await self._ensure_column(db, "papers", "current_score", "REAL")
         await self._ensure_column(db, "papers", "score_updated_at", "TIMESTAMP")
+        
+        # OpenAlex integration fields
+        await self._ensure_column(db, "papers", "openalex_id", "TEXT")
+        await self._ensure_column(db, "papers", "openalex_indexed_date", "TIMESTAMP")
+        await self._ensure_column(db, "papers", "citation_count", "INTEGER DEFAULT 0")
+        await self._ensure_column(db, "papers", "reference_source", "TEXT DEFAULT 'arxiv'")
+        await self._ensure_column(db, "papers", "openalex_last_checked", "TIMESTAMP")
+        
+        # Paper references table updates for OpenAlex
+        await self._ensure_column(db, "paper_references", "openalex_work_id", "TEXT")
+        await self._ensure_column(db, "paper_references", "confidence_score", "REAL")
+        await self._ensure_column(db, "paper_references", "source", "TEXT DEFAULT 'arxiv'")
 
     async def _ensure_column(
         self, db: aiosqlite.Connection, table: str, column: str, col_type: str
@@ -413,6 +448,138 @@ class DatabaseManager:
                 )
 
             return ratings
+
+    async def store_paper_references(
+        self, citing_paper_id: str, references: List[Dict[str, Any]]
+    ) -> bool:
+        """Store references for a paper."""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                # First, delete existing references for this paper
+                await db.execute(
+                    "DELETE FROM paper_references WHERE citing_paper_id = ?",
+                    (citing_paper_id,)
+                )
+                
+                # Insert new references
+                for i, ref in enumerate(references):
+                    await db.execute(
+                        """
+                        INSERT INTO paper_references 
+                        (citing_paper_id, cited_paper_id, cited_title, cited_authors, 
+                         cited_year, reference_context, citation_number, is_arxiv_paper)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            citing_paper_id,
+                            ref.get("cited_paper_id"),
+                            ref.get("cited_title"),
+                            ref.get("cited_authors"),
+                            ref.get("cited_year"),
+                            ref.get("reference_context"),
+                            i + 1,  # citation_number
+                            ref.get("is_arxiv_paper", False)
+                        )
+                    )
+                
+                await db.commit()
+                logger.info(f"Stored {len(references)} references for paper {citing_paper_id}")
+                return True
+                
+        except Exception as e:
+            logger.error(f"Failed to store references for paper {citing_paper_id}: {e}")
+            return False
+
+    async def get_paper_references(self, paper_id: str) -> List[Dict[str, Any]]:
+        """Get all references for a paper."""
+        async with aiosqlite.connect(self.db_path) as db:
+            db.row_factory = aiosqlite.Row
+            
+            cursor = await db.execute(
+                """
+                SELECT r.id, r.cited_paper_id, r.cited_title, r.cited_authors,
+                       r.cited_year, r.reference_context, r.citation_number,
+                       r.is_arxiv_paper, r.created_at,
+                       p.title as cited_paper_title, p.arxiv_url as cited_paper_url
+                FROM paper_references r
+                LEFT JOIN papers p ON r.cited_paper_id = p.id
+                WHERE r.citing_paper_id = ?
+                ORDER BY r.citation_number
+                """,
+                (paper_id,)
+            )
+            rows = await cursor.fetchall()
+            
+            references = []
+            for row in rows:
+                references.append({
+                    "id": row["id"],
+                    "cited_paper_id": row["cited_paper_id"],
+                    "cited_title": row["cited_title"] or row["cited_paper_title"],
+                    "cited_authors": row["cited_authors"],
+                    "cited_year": row["cited_year"],
+                    "reference_context": row["reference_context"],
+                    "citation_number": row["citation_number"],
+                    "is_arxiv_paper": row["is_arxiv_paper"],
+                    "cited_paper_url": row["cited_paper_url"],
+                    "created_at": row["created_at"]
+                })
+            
+            return references
+
+    async def get_paper_citations(self, paper_id: str) -> List[Dict[str, Any]]:
+        """Get all papers that cite this paper."""
+        async with aiosqlite.connect(self.db_path) as db:
+            db.row_factory = aiosqlite.Row
+            
+            cursor = await db.execute(
+                """
+                SELECT r.id, r.citing_paper_id, r.reference_context, r.citation_number,
+                       r.created_at,
+                       p.title, p.authors, p.published_date, p.arxiv_url, p.category
+                FROM paper_references r
+                JOIN papers p ON r.citing_paper_id = p.id
+                WHERE r.cited_paper_id = ?
+                ORDER BY p.published_date DESC
+                """,
+                (paper_id,)
+            )
+            rows = await cursor.fetchall()
+            
+            citations = []
+            for row in rows:
+                citations.append({
+                    "id": row["id"],
+                    "citing_paper_id": row["citing_paper_id"],
+                    "title": row["title"],
+                    "authors": json.loads(row["authors"]) if row["authors"] else [],
+                    "published_date": row["published_date"],
+                    "arxiv_url": row["arxiv_url"],
+                    "category": row["category"],
+                    "reference_context": row["reference_context"],
+                    "citation_number": row["citation_number"],
+                    "created_at": row["created_at"]
+                })
+            
+            return citations
+
+    async def get_citation_count(self, paper_id: str) -> int:
+        """Get the number of papers that cite this paper."""
+        async with aiosqlite.connect(self.db_path) as db:
+            cursor = await db.execute(
+                "SELECT COUNT(*) FROM paper_references WHERE cited_paper_id = ?",
+                (paper_id,)
+            )
+            return (await cursor.fetchone())[0]
+
+    async def get_reference_count(self, paper_id: str) -> int:
+        """Get the number of references this paper has."""
+        async with aiosqlite.connect(self.db_path) as db:
+            cursor = await db.execute(
+                "SELECT COUNT(*) FROM paper_references WHERE citing_paper_id = ?",
+                (paper_id,)
+            )
+            return (await cursor.fetchone())[0]
 
     async def get_user_preferences(self) -> Dict[str, Any]:
         """Get all user preferences as a dictionary."""
@@ -977,3 +1144,154 @@ class DatabaseManager:
                 )
             )
             await db.commit()
+
+    # OpenAlex Integration Methods
+    
+    async def update_paper_openalex_data(
+        self, 
+        paper_id: str, 
+        openalex_id: str, 
+        citation_count: int = 0,
+        topics: Optional[List[Dict]] = None
+    ) -> bool:
+        """Update paper with OpenAlex metadata."""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                await db.execute(
+                    """
+                    UPDATE papers 
+                    SET openalex_id = ?, 
+                        citation_count = ?, 
+                        openalex_indexed_date = ?,
+                        reference_source = 'openalex',
+                        updated_at = ?
+                    WHERE id = ?
+                    """,
+                    (
+                        openalex_id,
+                        citation_count,
+                        datetime.now(),
+                        datetime.now(),
+                        paper_id
+                    )
+                )
+                await db.commit()
+                logger.info(f"Updated paper {paper_id} with OpenAlex data: {openalex_id}")
+                return True
+        except Exception as e:
+            logger.error(f"Failed to update OpenAlex data for {paper_id}: {e}")
+            return False
+
+    async def get_openalex_id(self, paper_id: str) -> Optional[str]:
+        """Get OpenAlex ID for a paper."""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                db.row_factory = aiosqlite.Row
+                cursor = await db.execute(
+                    "SELECT openalex_id FROM papers WHERE id = ?",
+                    (paper_id,)
+                )
+                row = await cursor.fetchone()
+                return row['openalex_id'] if row else None
+        except Exception as e:
+            logger.error(f"Failed to get OpenAlex ID for {paper_id}: {e}")
+            return None
+
+    async def get_papers_without_openalex(self, limit: int = 50) -> List[Dict[str, Any]]:
+        """Get papers that haven't been checked with OpenAlex recently."""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                db.row_factory = aiosqlite.Row
+                cursor = await db.execute(
+                    """
+                    SELECT id, title, published_date, openalex_last_checked
+                    FROM papers 
+                    WHERE openalex_id IS NULL 
+                       AND (openalex_last_checked IS NULL 
+                            OR openalex_last_checked < datetime('now', '-7 days'))
+                       AND published_date > datetime('now', '-90 days')
+                    ORDER BY published_date DESC
+                    LIMIT ?
+                    """,
+                    (limit,)
+                )
+                rows = await cursor.fetchall()
+                return [dict(row) for row in rows]
+        except Exception as e:
+            logger.error(f"Failed to get papers without OpenAlex: {e}")
+            return []
+
+    async def update_openalex_check_time(self, paper_id: str):
+        """Update the last time we checked OpenAlex for this paper."""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                await db.execute(
+                    """
+                    UPDATE papers 
+                    SET openalex_last_checked = ?, updated_at = ?
+                    WHERE id = ?
+                    """,
+                    (datetime.now(), datetime.now(), paper_id)
+                )
+                await db.commit()
+        except Exception as e:
+            logger.error(f"Failed to update OpenAlex check time for {paper_id}: {e}")
+
+    async def enrich_reference(
+        self, 
+        citing_paper_id: str, 
+        openalex_work_id: str,
+        reference_data: Dict[str, Any]
+    ) -> bool:
+        """Enrich a reference with OpenAlex data."""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                # Update existing reference with OpenAlex data
+                await db.execute(
+                    """
+                    UPDATE paper_references 
+                    SET openalex_work_id = ?,
+                        cited_title = COALESCE(?, cited_title),
+                        cited_authors = COALESCE(?, cited_authors),
+                        cited_year = COALESCE(?, cited_year),
+                        confidence_score = ?,
+                        source = 'openalex'
+                    WHERE citing_paper_id = ? 
+                      AND (cited_paper_id = ? OR cited_title LIKE ?)
+                    """,
+                    (
+                        openalex_work_id,
+                        reference_data.get('title'),
+                        reference_data.get('authors'),
+                        reference_data.get('publication_year'),
+                        reference_data.get('confidence', 0.9),
+                        citing_paper_id,
+                        reference_data.get('id'),
+                        f"%{reference_data.get('title', '')[:50]}%"
+                    )
+                )
+                
+                # If no existing reference was updated, insert new one
+                if db.total_changes == 0:
+                    await db.execute(
+                        """
+                        INSERT INTO paper_references 
+                        (citing_paper_id, openalex_work_id, cited_title, cited_authors, 
+                         cited_year, confidence_score, source)
+                        VALUES (?, ?, ?, ?, ?, ?, 'openalex')
+                        """,
+                        (
+                            citing_paper_id,
+                            openalex_work_id,
+                            reference_data.get('title'),
+                            reference_data.get('authors'),
+                            reference_data.get('publication_year'),
+                            reference_data.get('confidence', 0.9)
+                        )
+                    )
+                
+                await db.commit()
+                return True
+        except Exception as e:
+            logger.error(f"Failed to enrich reference for {citing_paper_id}: {e}")
+            return False

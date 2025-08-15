@@ -15,9 +15,25 @@ load_dotenv()
 class Config:
     """Configuration settings for the ArXiv recommendation system."""
 
+    # LLM Provider Configuration
+    llm_provider: str = os.getenv("LLM_PROVIDER", "openai")  # "openai" or "gemini"
+    
     # OpenAI Configuration
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
-    embedding_model: str = "text-embedding-3-small"  # Cost-effective
+    openai_embedding_model: str = "text-embedding-3-small"  # Cost-effective
+    openai_query_model: str = "gpt-4o"  # For query generation
+    
+    # Gemini Configuration
+    gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
+    gemini_embedding_model: str = "text-embedding-004"  # Latest Gemini embedding model
+    gemini_query_model: str = "gemini-2.5-flash"  # Cost-effective for queries
+    
+    # Legacy compatibility
+    @property
+    def embedding_model(self) -> str:
+        """Legacy property for backward compatibility."""
+        return self.openai_embedding_model if self.llm_provider == "openai" else self.gemini_embedding_model
+    
     max_tokens_per_request: int = 8000
 
     # ArXiv Configuration
@@ -80,20 +96,32 @@ class Config:
         for path in [self.embeddings_path, Path(self.database_path).parent, Path(self.scheduler_db_path).parent]:
             Path(path).mkdir(parents=True, exist_ok=True)
 
-        if not self.openai_api_key:
-            raise ValueError("OPENAI_API_KEY environment variable is required")
+        # Validate API keys based on provider
+        if self.llm_provider == "openai" and not self.openai_api_key:
+            raise ValueError("OPENAI_API_KEY environment variable is required when using OpenAI provider")
+        elif self.llm_provider == "gemini" and not self.gemini_api_key:
+            raise ValueError("GEMINI_API_KEY environment variable is required when using Gemini provider")
+        elif self.llm_provider not in ["openai", "gemini"]:
+            raise ValueError(f"Invalid LLM_PROVIDER: {self.llm_provider}. Must be 'openai' or 'gemini'")
 
     @property
     def embedding_cost_per_token(self) -> float:
         """Cost per token for the selected embedding model."""
-        costs = {
-            "text-embedding-3-small": 0.00002 / 1000,  # $0.00002 per 1K tokens
-            "text-embedding-3-large": 0.00013 / 1000,  # $0.00013 per 1K tokens
-        }
-        return costs.get(self.embedding_model, 0.00002 / 1000)
+        if self.llm_provider == "openai":
+            costs = {
+                "text-embedding-3-small": 0.00002 / 1000,  # $0.00002 per 1K tokens
+                "text-embedding-3-large": 0.00013 / 1000,  # $0.00013 per 1K tokens
+            }
+            return costs.get(self.openai_embedding_model, 0.00002 / 1000)
+        elif self.llm_provider == "gemini":
+            costs = {
+                "text-embedding-004": 0.000025 / 1000,  # $0.000025 per 1K tokens (comparable to OpenAI)
+            }
+            return costs.get(self.gemini_embedding_model, 0.000025 / 1000)
+        return 0.00002 / 1000  # Default fallback
 
     def estimate_daily_cost(self) -> float:
-        """Estimate daily OpenAI API costs based on configuration."""
+        """Estimate daily LLM API costs based on configuration."""
         avg_tokens_per_abstract = 150
         daily_tokens = self.max_daily_papers * avg_tokens_per_abstract
         return daily_tokens * self.embedding_cost_per_token

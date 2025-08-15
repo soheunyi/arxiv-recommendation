@@ -12,11 +12,11 @@ from pathlib import Path
 from datetime import datetime, timedelta
 
 # Add backend to Python path
-sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "backend" / "src"))
 
-from arxiv_recommendation.arxiv_client import ArXivClient
-from arxiv_recommendation.database import DatabaseManager
-from arxiv_recommendation.config import config
+from arxiv_client import ArXivClient
+from database import DatabaseManager
+from config import config
 
 
 class OptimalTransportCollector:

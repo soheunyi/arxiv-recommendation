@@ -8,8 +8,6 @@ with compression and better performance.
 
 import asyncio
 import sys
-from pathlib import Path
-from rich.console import Console
 from rich.progress import (
     Progress,
     SpinnerColumn,
@@ -17,15 +15,15 @@ from rich.progress import (
     BarColumn,
     TaskProgressColumn,
 )
-from rich.table import Table
 
-# Add parent directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+from script_utils import (
+    setup_backend_path, console, create_stats_table,
+    print_success, print_warning, print_info
+)
 
-from arxiv_recommendation.embeddings import EmbeddingManager
-from backend.arxiv_recommendation.config import config
-
-console = Console()
+# Setup backend imports
+setup_backend_path()
+from embeddings import EmbeddingManager
 
 
 async def main():
@@ -39,9 +37,7 @@ async def main():
     stats = manager.get_cache_stats()
 
     # Display current state
-    table = Table(title="Current Cache Status")
-    table.add_column("Metric", style="cyan")
-    table.add_column("Value", style="green")
+    table = create_stats_table("Current Cache Status")
 
     table.add_row("Legacy Pickle Files", str(stats.get("legacy_pickle_files", 0)))
     table.add_row("HDF5 Embeddings", str(stats.get("total_embeddings", 0)))
@@ -51,11 +47,10 @@ async def main():
     console.print()
 
     if stats.get("legacy_pickle_files", 0) == 0:
-        console.print("[yellow]No pickle files found to migrate.[/yellow]")
+        print_warning("No pickle files found to migrate.")
         return
 
     # Auto-confirm for automation (add --interactive flag for manual use)
-    import sys
 
     auto_confirm = len(sys.argv) > 1 and sys.argv[1] == "--auto"
 

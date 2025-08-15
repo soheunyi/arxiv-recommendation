@@ -46,9 +46,23 @@ class ServerManager:
         self.backend_process: Optional[subprocess.Popen] = None
         self.frontend_port = 3000  # Default Vite dev server port
         self.backend_port = 8000   # Default FastAPI port
-        self.project_root = Path(__file__).parent
+        
+        # Detect project root - always use current working directory first, fallback to file location
+        cwd = Path.cwd()
+        current_file = Path(__file__)
+        
+        # Check if backend directory exists in current working directory
+        if (cwd / "backend").exists():
+            self.project_root = cwd
+        elif (current_file.parent / "backend").exists():
+            self.project_root = current_file.parent
+        else:
+            # Default to current working directory
+            self.project_root = cwd
         
         logger.info("Initializing Server Manager...")
+        logger.info(f"__file__ is: {__file__}")
+        logger.info(f"Current working directory: {Path.cwd()}")
         
         # Check if uv is available
         try:
@@ -113,7 +127,7 @@ class ServerManager:
             pass
         return None
     
-    def kill_existing_servers(self) -> None:
+    def kill_existing_servers(self, force: bool = False) -> None:
         """Kill existing servers if requested by user"""
         frontend_running, backend_running = self.check_existing_servers()
         
@@ -136,7 +150,19 @@ class ServerManager:
             
             console.print(table)
             
-            if console.input("\n[yellow]Kill existing servers and continue? [y/N]: [/yellow]").lower() == 'y':
+            # Auto-kill if force flag is set or prompt user
+            should_kill = force
+            if not force:
+                try:
+                    response = console.input("\n[yellow]Kill existing servers and continue? [y/N]: [/yellow]")
+                    should_kill = response.lower() == 'y'
+                except (EOFError, KeyboardInterrupt):
+                    console.print("\n[red]Startup cancelled.[/red]")
+                    sys.exit(0)
+            
+            if should_kill:
+                if force:
+                    console.print("[blue]Force mode: killing existing servers...[/blue]")
                 if frontend_running:
                     self._kill_process_on_port(self.frontend_port)
                 if backend_running:
@@ -169,8 +195,13 @@ class ServerManager:
         """Start the backend server"""
         backend_dir = self.project_root / "backend"
         
+        # Debug logging
+        logger.info(f"Project root: {self.project_root}")
+        logger.info(f"Backend dir: {backend_dir}")
+        logger.info(f"Backend exists: {backend_dir.exists()}")
+        
         if not backend_dir.exists():
-            console.print("[red]✗ Backend directory not found[/red]")
+            console.print(f"[red]✗ Backend directory not found at {backend_dir}[/red]")
             return False
         
         # Find available port for backend
@@ -348,11 +379,11 @@ import sys
 from pathlib import Path
 
 # Add backend to Python path
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent / "backend" / "src"))
 
 try:
-    from arxiv_recommendation.database import DatabaseManager
-    from arxiv_recommendation.config import config
+    from database import DatabaseManager
+    from config import config
 except ImportError as e:
     print(f"Import error: {e}")
     print("Make sure backend dependencies are installed")
@@ -573,6 +604,7 @@ def main():
     parser = argparse.ArgumentParser(description="ArXiv Recommendation System Server Manager")
     parser.add_argument("--debug", action="store_true", help="Run in debug mode with verbose logging")
     parser.add_argument("--debug-frontend", action="store_true", help="Debug frontend startup only")
+    parser.add_argument("--force", action="store_true", help="Automatically kill existing servers without prompting")
     args = parser.parse_args()
     
     if args.debug:
@@ -604,7 +636,7 @@ def main():
     
     try:
         # Check for existing servers
-        manager.kill_existing_servers()
+        manager.kill_existing_servers(force=args.force)
         
         # Start servers with progress tracking
         with Progress(

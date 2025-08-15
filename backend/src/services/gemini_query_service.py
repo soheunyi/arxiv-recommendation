@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Query Service for ArXiv Recommendation System.
+Gemini Query Service for ArXiv Recommendation System.
 
-This service provides GPT-powered query generation functionality
+This service provides Gemini-powered query generation functionality
 that can be used by both API endpoints and CLI scripts.
 """
 
@@ -11,64 +11,84 @@ import logging
 from pathlib import Path
 from typing import Dict, Optional
 
-from openai import OpenAI
+from google import genai
 
-from ..config import config
+from config import config
 
 logger = logging.getLogger(__name__)
 
 
-class QueryService:
-    """Service for generating arXiv search queries using GPT."""
+class GeminiQueryService:
+    """Service for generating arXiv search queries using Google Gemini."""
     
     def __init__(self, api_key: Optional[str] = None):
-        """Initialize the query service."""
-        self.client = OpenAI(api_key=api_key or config.openai_api_key)
-        self.model = "gpt-4o"  # Use GPT-4o for structured outputs support
+        """Initialize the Gemini query service."""
+        self.api_key = api_key or config.gemini_api_key
+        self.model = config.gemini_query_model
+        
+        if not self.api_key:
+            raise ValueError("Gemini API key is required")
+            
+        # Initialize the Gemini client
+        self.client = genai.Client(api_key=self.api_key)
     
-    def generate_search_queries(self, topic: str, max_queries: int = 15) -> Dict:
+    def generate_search_queries(
+        self, 
+        topic: str, 
+        max_queries: int = 15,
+        date_from: Optional[str] = None,
+        date_to: Optional[str] = None
+    ) -> Dict:
         """
         Generate comprehensive arXiv search queries for a given topic.
         
         Args:
             topic: The research topic to search for
             max_queries: Maximum number of queries to generate
+            date_from: Start date for papers (YYYY-MM-DD format)
+            date_to: End date for papers (YYYY-MM-DD format)
             
         Returns:
             Dictionary with structured search information
         """
-        prompt = self._build_prompt(topic, max_queries)
+        prompt = self._build_prompt(topic, max_queries, date_from, date_to)
         
         try:
-            response = self.client.chat.completions.create(
+            # Use the new Gemini API with structured outputs
+            response = self.client.models.generate_content(
                 model=self.model,
-                messages=[
+                contents=[
                     {
-                        "role": "system", 
-                        "content": self._get_system_prompt()
-                    },
-                    {
-                        "role": "user", 
-                        "content": prompt
+                        "role": "user",
+                        "parts": [{"text": f"{self._get_system_prompt()}\n\n{prompt}"}]
                     }
                 ],
-                response_format={
-                    "type": "json_schema",
-                    "json_schema": {
-                        "name": "arxiv_search_queries",
-                        "strict": True,
-                        "schema": self._get_json_schema()
-                    }
-                }
+                config=genai.GenerateContentConfig(
+                    temperature=0.3,  # Lower temperature for more consistent structured output
+                    top_k=40,
+                    top_p=0.8,
+                    max_output_tokens=4000,
+                    response_mime_type="application/json",
+                    response_schema=self._get_json_schema()
+                )
             )
             
-            result = json.loads(response.choices[0].message.content)
+            # Parse the JSON response
+            result = json.loads(response.text)
             
-            logger.info(f"Generated {len(result.get('search_queries', []))} queries for topic '{topic}'")
+            # Validate the response structure
+            if not self._validate_response(result):
+                logger.warning(f"Invalid response structure from Gemini for topic '{topic}'")
+                return self._get_fallback_queries(topic)
+            
+            logger.info(f"Generated {len(result.get('search_queries', []))} queries for topic '{topic}' using Gemini")
             return result
             
+        except json.JSONDecodeError as e:
+            logger.error(f"Failed to parse JSON response from Gemini for topic '{topic}': {e}")
+            return self._get_fallback_queries(topic)
         except Exception as e:
-            logger.error(f"Failed to generate queries for topic '{topic}': {e}")
+            logger.error(f"Failed to generate queries for topic '{topic}' using Gemini: {e}")
             return self._get_fallback_queries(topic)
     
     def save_queries_config(self, queries_config: Dict, filepath: str) -> bool:
@@ -150,8 +170,7 @@ class QueryService:
                                 "description": "Human-readable description of what this query searches for"
                             }
                         },
-                        "required": ["query", "priority", "description"],
-                        "additionalProperties": False
+                        "required": ["query", "priority", "description"]
                     },
                     "minItems": 5,
                     "maxItems": 20,
@@ -190,12 +209,11 @@ class QueryService:
                     "description": "Related terms, synonyms, and concepts"
                 }
             },
-            "required": ["topic", "search_queries", "categories", "filter_keywords", "related_terms"],
-            "additionalProperties": False
+            "required": ["topic", "search_queries", "categories", "filter_keywords", "related_terms"]
         }
     
     def _get_system_prompt(self) -> str:
-        """Get the system prompt for GPT query generation."""
+        """Get the system prompt for Gemini query generation."""
         return """You are an expert in scientific literature search, specifically for arXiv. Your task is to generate high-quality, diverse search queries that will comprehensively cover a research topic.
 
 Key guidelines:
@@ -214,10 +232,39 @@ Query syntax examples:
 - all:"term" - anywhere in paper
 - Combine with AND, OR: ti:"machine learning" AND cat:cs.LG
 
-Generate diverse, comprehensive queries that will capture the full breadth of research in the given topic."""
+Generate diverse, comprehensive queries that will capture the full breadth of research in the given topic.
 
-    def _build_prompt(self, topic: str, max_queries: int) -> str:
+IMPORTANT: Return only valid JSON that matches the specified schema. Do not include any additional text or explanations outside the JSON response."""
+
+    def _build_prompt(
+        self, 
+        topic: str, 
+        max_queries: int,
+        date_from: Optional[str] = None,
+        date_to: Optional[str] = None
+    ) -> str:
         """Build the user prompt for query generation."""
+        
+        # Build date constraint text
+        date_constraint = ""
+        if date_from or date_to:
+            date_constraint = "\n\nDate Constraints:\n"
+            if date_from and date_to:
+                # Convert YYYY-MM-DD to YYYYMMDD format for arXiv
+                from_formatted = date_from.replace('-', '')
+                to_formatted = date_to.replace('-', '')
+                date_constraint += f"- Include date filtering in queries using: submittedDate:[{from_formatted} TO {to_formatted}]\n"
+                date_constraint += f"- Apply date range: {date_from} to {date_to}\n"
+            elif date_from:
+                from_formatted = date_from.replace('-', '')
+                date_constraint += f"- Include date filtering for papers from {date_from} onwards: submittedDate:[{from_formatted} TO *]\n"
+            elif date_to:
+                to_formatted = date_to.replace('-', '')
+                date_constraint += f"- Include date filtering for papers up to {date_to}: submittedDate:[* TO {to_formatted}]\n"
+            
+            date_constraint += "- Combine date filters with topic queries using AND operator\n"
+            date_constraint += "- Example: ti:\"machine learning\" AND submittedDate:[20240101 TO 20241231]\n"
+        
         return f"""Generate comprehensive arXiv search queries for the research topic: "{topic}"
 
 Requirements:
@@ -228,12 +275,42 @@ Requirements:
 - Prioritize queries as high/medium/low based on expected relevance
 - Include relevant arXiv subject categories
 - Provide filtering keywords for relevance assessment
-- Add related terms and synonyms
+- Add related terms and synonyms{date_constraint}
 
-Focus on creating queries that will discover the most relevant and comprehensive set of papers for someone researching "{topic}"."""
+Focus on creating queries that will discover the most relevant and comprehensive set of papers for someone researching "{topic}".
+
+Return the response as valid JSON matching the specified schema."""
+
+    def _validate_response(self, response: Dict) -> bool:
+        """Validate that the response has the expected structure."""
+        required_fields = ["topic", "search_queries", "categories", "filter_keywords", "related_terms"]
+        
+        # Check all required fields are present
+        for field in required_fields:
+            if field not in response:
+                return False
+        
+        # Check search_queries structure
+        if not isinstance(response["search_queries"], list) or len(response["search_queries"]) < 3:
+            return False
+            
+        for query in response["search_queries"]:
+            if not isinstance(query, dict):
+                return False
+            if not all(field in query for field in ["query", "priority", "description"]):
+                return False
+            if query["priority"] not in ["high", "medium", "low"]:
+                return False
+        
+        # Check other arrays
+        for field in ["categories", "filter_keywords", "related_terms"]:
+            if not isinstance(response[field], list) or len(response[field]) < 1:
+                return False
+        
+        return True
 
     def _get_fallback_queries(self, topic: str) -> Dict:
-        """Get fallback queries when GPT fails."""
+        """Get fallback queries when Gemini fails."""
         return {
             "topic": topic,
             "search_queries": [

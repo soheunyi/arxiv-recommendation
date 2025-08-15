@@ -10,11 +10,11 @@ from datetime import datetime
 from rich.console import Console
 from rich.logging import RichHandler
 
-from .config import config
-from .arxiv_client import ArXivClient
-from .embeddings import EmbeddingManager
-from .recommendations import RecommendationEngine
-from .database import DatabaseManager
+from config import config
+from arxiv_client import ArXivClient
+from embeddings import EmbeddingManager
+from recommendations import RecommendationEngine
+from database import DatabaseManager
 
 # Set up logging with Rich
 logging.basicConfig(

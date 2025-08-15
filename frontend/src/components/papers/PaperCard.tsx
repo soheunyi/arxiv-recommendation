@@ -12,6 +12,7 @@ import clsx from 'clsx';
 import { Paper } from '@types';
 import { StarRating } from '@components/rating/StarRating';
 import { AbstractRenderer } from './AbstractRenderer';
+import { PaperReferences } from './PaperReferences';
 
 interface PaperCardProps {
   paper: Paper;
@@ -20,6 +21,7 @@ interface PaperCardProps {
   onNotesChange?: (paperId: string, notes: string) => void;
   compact?: boolean;
   showNotes?: boolean;
+  showReferences?: boolean;
   className?: string;
 }
 
@@ -30,6 +32,7 @@ export const PaperCard: React.FC<PaperCardProps> = ({
   onNotesChange,
   compact = false,
   showNotes = false,
+  showReferences = false,
   className,
 }) => {
   const [showFullAbstract, setShowFullAbstract] = useState(false);
@@ -264,6 +267,16 @@ export const PaperCard: React.FC<PaperCardProps> = ({
             </button>
           </div>
         </motion.div>
+      )}
+      
+      {/* References section */}
+      {showReferences && !compact && (
+        <div className="mt-4 pt-4 border-t border-secondary-200">
+          <PaperReferences
+            paperId={paper.id}
+            paperTitle={paper.title}
+          />
+        </div>
       )}
     </motion.div>
   );

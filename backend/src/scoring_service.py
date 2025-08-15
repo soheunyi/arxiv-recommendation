@@ -16,9 +16,9 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Optional, Tuple, Any
 from dataclasses import dataclass
 
-from .database import DatabaseManager
-from .embeddings import EmbeddingManager
-from .config import config
+from database import DatabaseManager
+from embeddings import EmbeddingManager
+from config import config
 
 logger = logging.getLogger(__name__)
 

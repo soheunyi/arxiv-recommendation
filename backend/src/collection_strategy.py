@@ -22,9 +22,9 @@ from typing import Dict, List, Optional, Set, Tuple, Any
 from dataclasses import dataclass, asdict
 from enum import Enum
 
-from .database import DatabaseManager
-from .arxiv_client import ArXivClient, PaperMetadata
-from .config import config
+from database import DatabaseManager
+from arxiv_client import ArXivClient, PaperMetadata
+from config import config
 
 logger = logging.getLogger(__name__)
 

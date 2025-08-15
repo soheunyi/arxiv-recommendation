@@ -26,8 +26,8 @@ Personal arXiv recommendation system using OpenAI embeddings and multi-agent wor
 ## ✨ Features
 
 - 🤖 **Multi-Agent Architecture**: DataAgent, RecommendationAgent, and Coordinator working together
-- 🧠 **OpenAI Embeddings**: Uses text-embedding-3-small for semantic paper understanding 
-- 💰 **Cost-Optimized**: Intelligent caching and batching (~$0.01-0.60/month actual usage)
+- 🧠 **Dual LLM Support**: OpenAI GPT-4o and Google Gemini 2.5 Flash with provider selection
+- 💰 **Cost-Optimized**: Gemini 33x cheaper than OpenAI for query generation (~$0.01-0.60/month)
 - 🎯 **Personalized Recommendations**: MMR algorithm with similarity, novelty, diversity, and quality scoring
 - 📊 **Rich CLI Interface**: Beautiful terminal output with tables, progress, and cost analysis
 - ⚡ **Async Performance**: Rate-limited API calls with local embedding cache
@@ -38,7 +38,7 @@ Personal arXiv recommendation system using OpenAI embeddings and multi-agent wor
 ### Prerequisites
 
 - Python 3.11+
-- OpenAI API key
+- OpenAI API key or Gemini API key (or both)
 - UV package manager
 
 ### Installation
@@ -69,7 +69,9 @@ uv sync --group web
 4. **Configure environment**:
 ```bash
 cp .env.example .env
-# Edit .env with your OpenAI API key
+# Edit .env with your API keys:
+# - Set LLM_PROVIDER to "openai" or "gemini"  
+# - Add OPENAI_API_KEY or GEMINI_API_KEY (or both)
 ```
 
 ### Usage
@@ -99,14 +101,17 @@ uv run python scripts/test_pipeline.py
 # Launch both frontend and backend servers with intelligent port detection
 uv run python start_servers.py
 
-# Or use the convenience script
-uv run arxiv-serve
+# Automatically kill existing servers without prompting
+uv run python start_servers.py --force
 
 # Debug mode with verbose logging
 uv run python start_servers.py --debug
 
 # Debug frontend startup issues only
 uv run python start_servers.py --debug-frontend
+
+# Note: The convenience script 'uv run arxiv-serve' may have path resolution issues
+# Use the direct python command above for best results
 
 # Test server startup without running
 uv run python test_startup.py
@@ -315,6 +320,12 @@ uv run python main.py config-info
 4. Commit changes (`git commit -m 'Add amazing feature'`)
 5. Push to branch (`git push origin feature/amazing-feature`)
 6. Open Pull Request
+
+## Acknowledgments
+
+This project utilizes the [arXiv.org](https://arxiv.org/) e-print service for accessing academic papers. arXiv is owned and operated by Cornell University and is supported by the Simons Foundation and by the member institutions.
+
+We are grateful to arXiv for providing free and open access to academic research, enabling projects like this to help researchers discover relevant papers and advance scientific knowledge.
 
 ## License
 

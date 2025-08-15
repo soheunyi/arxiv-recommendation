@@ -102,6 +102,25 @@ python scripts/backup_database.py list
 python scripts/backup_database.py restore --backup-file data/user_ratings_backup_20240813_123456.json
 ```
 
+### Additional Utility Scripts
+
+**check_cache_stats.py** - Display embedding cache performance metrics
+```bash
+python scripts/check_cache_stats.py
+```
+
+**migrate_embeddings.py** - Migrate pickle embeddings to HDF5 format
+```bash
+python scripts/migrate_embeddings.py [--auto]
+```
+
+**test_embedding_performance.py** - Compare embedding storage performance
+```bash
+python scripts/test_embedding_performance.py
+```
+
+**script_utils.py** - Shared utilities for all scripts (imported automatically)
+
 ## Example Workflows
 
 ### Research a New Field

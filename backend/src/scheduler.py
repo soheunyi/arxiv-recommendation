@@ -20,8 +20,8 @@ from apscheduler.triggers.interval import IntervalTrigger
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 from apscheduler.executors.asyncio import AsyncIOExecutor
 
-from .config import config
-from .database import DatabaseManager
+from config import config
+from database import DatabaseManager
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +43,8 @@ class TaskScheduler:
             "daily_collection": {"last_run": None, "last_status": None, "run_count": 0},
             "daily_scoring": {"last_run": None, "last_status": None, "run_count": 0},
             "preference_update": {"last_run": None, "last_status": None, "run_count": 0},
-            "cache_maintenance": {"last_run": None, "last_status": None, "run_count": 0}
+            "cache_maintenance": {"last_run": None, "last_status": None, "run_count": 0},
+            "openalex_enrichment": {"last_run": None, "last_status": None, "run_count": 0}
         }
         
         self._setup_scheduler()
@@ -138,6 +139,15 @@ class TaskScheduler:
                 replace_existing=True
             )
             
+            # OpenAlex enrichment at 3:00 AM UTC (after cache maintenance)
+            self.scheduler.add_job(
+                func=self._openalex_enrichment_task,
+                trigger=CronTrigger(hour=3, minute=0),
+                id='openalex_enrichment',
+                name='OpenAlex Data Enrichment',
+                replace_existing=True
+            )
+            
             logger.info("Scheduled jobs added successfully")
             
         except Exception as e:
@@ -154,7 +164,7 @@ class TaskScheduler:
         
         try:
             # Import here to avoid circular imports
-            from .services.collection_service import CollectionService
+            from services.collection_service import CollectionService
             
             # Get collection topics from configuration
             topics = config.collection_topics if hasattr(config, 'collection_topics') else ['machine learning']
@@ -285,7 +295,7 @@ class TaskScheduler:
         self.task_stats[task_name]["run_count"] += 1
         
         try:
-            from .embeddings import EmbeddingManager
+            from embeddings import EmbeddingManager
             
             embedding_manager = EmbeddingManager()
             
@@ -379,6 +389,67 @@ class TaskScheduler:
             "jobs": jobs_info,
             "task_statistics": self.task_stats
         }
+
+    async def _openalex_enrichment_task(self):
+        """Execute OpenAlex data enrichment task."""
+        task_name = "openalex_enrichment"
+        logger.info(f"Starting {task_name} task")
+        
+        start_time = datetime.utcnow()
+        self.task_stats[task_name]["run_count"] += 1
+        
+        try:
+            from .services.hybrid_reference_service import HybridReferenceService
+            from .config import config
+            
+            # Initialize hybrid service with email from config
+            email = getattr(config, 'openalex_email', None)
+            hybrid_service = HybridReferenceService(email=email)
+            
+            # Get papers that need OpenAlex enrichment
+            papers_to_enrich = await self.db_manager.get_papers_without_openalex()
+            
+            if not papers_to_enrich:
+                logger.info("No papers found that need OpenAlex enrichment")
+                self.task_stats[task_name]["last_run"] = start_time
+                self.task_stats[task_name]["last_status"] = "success - no papers to enrich"
+                await self._store_task_execution(task_name, True, "No papers needed enrichment", start_time)
+                return
+            
+            logger.info(f"Found {len(papers_to_enrich)} papers to enrich with OpenAlex data")
+            
+            # Batch enrich papers
+            batch_size = getattr(config, 'openalex_batch_size', 10)
+            arxiv_ids = [paper['id'] for paper in papers_to_enrich]
+            
+            results = await hybrid_service.batch_enrich_papers(arxiv_ids, batch_size=batch_size)
+            
+            # Update task statistics
+            enriched_count = results['enriched_count']
+            total_count = results['total_papers']
+            error_count = results['error_count']
+            
+            status_msg = f"success - {enriched_count}/{total_count} papers enriched"
+            if error_count > 0:
+                status_msg += f", {error_count} errors"
+            
+            self.task_stats[task_name]["last_run"] = start_time
+            self.task_stats[task_name]["last_status"] = status_msg
+            
+            details = f"Enriched {enriched_count} papers, {error_count} errors, {results['not_found_count']} not found"
+            await self._store_task_execution(task_name, True, details, start_time)
+            
+            logger.info(f"OpenAlex enrichment task completed - {enriched_count}/{total_count} papers enriched")
+            
+        except Exception as e:
+            error_msg = f"OpenAlex enrichment task failed: {e}"
+            logger.error(error_msg)
+            
+            self.task_stats[task_name]["last_run"] = start_time
+            self.task_stats[task_name]["last_status"] = f"error - {str(e)}"
+            
+            await self._store_task_execution(task_name, False, str(e), start_time)
+            raise
 
 
 # Global scheduler instance

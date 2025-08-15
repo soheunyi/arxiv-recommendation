@@ -2,7 +2,7 @@
 
 import asyncio
 import xml.etree.ElementTree as ET
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 from datetime import datetime, timedelta
 from dataclasses import dataclass
 import aiohttp
@@ -330,6 +330,54 @@ class ArXivClient:
         except Exception as e:
             logger.error(f"Error parsing arXiv entry: {e}")
             return None
+
+    async def fetch_paper_references(self, arxiv_id: str) -> List[Dict[str, Any]]:
+        """
+        Fetch and parse references for an arXiv paper.
+        
+        Args:
+            arxiv_id: ArXiv paper ID (e.g., "2301.12345")
+            
+        Returns:
+            List of reference dictionaries
+        """
+        from services.reference_service import ReferenceService
+        
+        try:
+            async with ReferenceService() as ref_service:
+                references = await ref_service.fetch_and_parse_references(arxiv_id)
+                logger.info(f"Fetched {len(references)} references for paper {arxiv_id}")
+                return references
+        except Exception as e:
+            logger.error(f"Failed to fetch references for {arxiv_id}: {e}")
+            return []
+
+    def extract_arxiv_id(self, arxiv_url: str) -> Optional[str]:
+        """
+        Extract arXiv ID from various URL formats.
+        
+        Args:
+            arxiv_url: ArXiv URL in any common format
+            
+        Returns:
+            Clean arXiv ID or None if not found
+        """
+        import re
+        
+        # Patterns for different arXiv URL formats
+        patterns = [
+            r'arxiv\.org/abs/(\d{4}\.\d{4,5})',
+            r'arxiv\.org/pdf/(\d{4}\.\d{4,5})',
+            r'arXiv:(\d{4}\.\d{4,5})',
+            r'(\d{4}\.\d{4,5})'  # Just the ID itself
+        ]
+        
+        for pattern in patterns:
+            match = re.search(pattern, arxiv_url, re.IGNORECASE)
+            if match:
+                return match.group(1)
+        
+        return None
 
 
 # Convenience functions for common use cases

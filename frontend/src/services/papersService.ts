@@ -157,6 +157,11 @@ export class PapersService {
     keyword: string;
     max_papers?: number;
     clean_db?: boolean;
+    llm_provider?: string;
+    date_from?: string;
+    date_to?: string;
+    use_collaboration?: boolean;
+    collaboration_strategy?: string;
   }): Promise<{
     collection_id: string;
     status: string;
@@ -164,6 +169,15 @@ export class PapersService {
     estimated_time: number;
   }> {
     return apiClient.post('/collection/start', params);
+  }
+
+  // Get available LLM providers
+  async getLLMProviders(): Promise<{
+    current_provider: string;
+    providers: Record<string, any>;
+    recommendation: string;
+  }> {
+    return apiClient.get('/collection/providers');
   }
 
   async getCollectionStatus(collectionId: string): Promise<{
@@ -179,6 +193,65 @@ export class PapersService {
     error_message?: string;
   }> {
     return apiClient.get(`/collection/status/${collectionId}`);
+  }
+
+  // Collaboration services
+  async generateQueriesCollaborative(params: {
+    topic: string;
+    max_queries?: number;
+    date_from?: string;
+    date_to?: string;
+    strategy?: string;
+    quality_threshold?: number;
+  }): Promise<{
+    queries: any;
+    collaboration_info: {
+      primary_provider: string;
+      secondary_provider?: string;
+      strategy_used: string;
+      quality_score: number;
+      cost_estimate: number;
+      execution_time: number;
+      has_secondary_result: boolean;
+    };
+    alternative_queries?: any;
+  }> {
+    return apiClient.post('/collaboration/generate-queries', params);
+  }
+
+  async getCollaborationStrategies(): Promise<{
+    strategies: Record<string, {
+      name: string;
+      description: string;
+      use_case: string;
+      cost_impact: string;
+      quality_impact: string;
+    }>;
+    default: string;
+    recommendation: string;
+  }> {
+    return apiClient.get('/collaboration/strategies');
+  }
+
+  async getCollaborationUsageStats(): Promise<{
+    providers: Record<string, { requests: number; total_cost: number }>;
+    total_requests: number;
+    total_cost: number;
+    budget_used_percentage: number;
+    cost_savings: {
+      absolute_savings: number;
+      percentage_savings: number;
+    };
+  }> {
+    return apiClient.get('/collaboration/usage-stats');
+  }
+
+  async switchProvider(provider: string): Promise<{
+    switched: boolean;
+    new_provider: string;
+    note: string;
+  }> {
+    return apiClient.post('/collaboration/switch-provider', { provider });
   }
 }
 

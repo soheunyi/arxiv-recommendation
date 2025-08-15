@@ -25,6 +25,11 @@ interface PapersState {
     current: CollectionStatus | null;
     isModalOpen: boolean;
   };
+  llmProviders: {
+    current: string;
+    available: Record<string, any>;
+    recommendation: string;
+  } | null;
   pagination: {
     currentPage: number;
     totalPages: number;
@@ -36,6 +41,7 @@ interface PapersState {
     search: boolean;
     recommendations: boolean;
     collection: boolean;
+    providers: boolean;
   };
   error: string | null;
   lastUpdated: string | null;
@@ -51,6 +57,7 @@ const initialState: PapersState = {
     current: null,
     isModalOpen: false,
   },
+  llmProviders: null,
   pagination: {
     currentPage: 1,
     totalPages: 1,
@@ -62,6 +69,7 @@ const initialState: PapersState = {
     search: false,
     recommendations: false,
     collection: false,
+    providers: false,
   },
   error: null,
   lastUpdated: null,
@@ -102,7 +110,16 @@ export const generateRecommendations = createAsyncThunk(
 
 export const startCollection = createAsyncThunk(
   'papers/startCollection',
-  async (params: { keyword: string; max_papers?: number; clean_db?: boolean }) => {
+  async (params: { 
+    keyword: string; 
+    max_papers?: number; 
+    clean_db?: boolean; 
+    llm_provider?: string;
+    date_from?: string;
+    date_to?: string;
+    use_collaboration?: boolean;
+    collaboration_strategy?: string;
+  }) => {
     const response = await papersService.startCollection(params);
     return response;
   }
@@ -112,6 +129,14 @@ export const fetchCollectionStatus = createAsyncThunk(
   'papers/fetchCollectionStatus',
   async (collectionId: string) => {
     const response = await papersService.getCollectionStatus(collectionId);
+    return response;
+  }
+);
+
+export const fetchLLMProviders = createAsyncThunk(
+  'papers/fetchLLMProviders',
+  async () => {
+    const response = await papersService.getLLMProviders();
     return response;
   }
 );
@@ -269,6 +294,25 @@ const papersSlice = createSlice({
       .addCase(fetchCollectionStatus.rejected, (state, action) => {
         // Silent fail for status polling
         console.error('Failed to fetch collection status:', action.error.message);
+      });
+
+    // Fetch LLM providers
+    builder
+      .addCase(fetchLLMProviders.pending, (state) => {
+        state.loading.providers = true;
+        state.error = null;
+      })
+      .addCase(fetchLLMProviders.fulfilled, (state, action) => {
+        state.loading.providers = false;
+        state.llmProviders = {
+          current: action.payload.current_provider,
+          available: action.payload.providers,
+          recommendation: action.payload.recommendation,
+        };
+      })
+      .addCase(fetchLLMProviders.rejected, (state, action) => {
+        state.loading.providers = false;
+        state.error = action.error.message || 'Failed to fetch LLM providers';
       });
   },
 });

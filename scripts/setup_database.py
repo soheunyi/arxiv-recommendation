@@ -6,10 +6,10 @@ import sys
 from pathlib import Path
 
 # Add backend to Python path
-sys.path.insert(0, str(Path(__file__).parent.parent / "backend"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "backend" / "src"))
 
-from arxiv_recommendation.database import DatabaseManager
-from arxiv_recommendation.config import config
+from database import DatabaseManager
+from config import config
 
 
 async def setup_database():

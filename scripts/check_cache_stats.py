@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 """Check embedding cache statistics."""
 
-import sys
-from pathlib import Path
-from rich.console import Console
-from rich.table import Table
+from script_utils import (
+    setup_backend_path, console, create_stats_table, 
+    format_size_mb, print_success, print_warning, print_info
+)
 
-# Add parent directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from arxiv_recommendation.embeddings import EmbeddingManager
-
-console = Console()
+# Setup backend imports
+setup_backend_path()
+from embeddings import EmbeddingManager
 
 
 def main():
@@ -22,9 +19,7 @@ def main():
     stats = manager.get_cache_stats()
 
     # Main stats table
-    table = Table(title="Cache Performance")
-    table.add_column("Metric", style="cyan")
-    table.add_column("Value", style="green")
+    table = create_stats_table("Cache Performance")
 
     table.add_row("Cache Hits", str(stats.get("cache_hits", 0)))
     table.add_row("Cache Misses", str(stats.get("cache_misses", 0)))
@@ -41,28 +36,22 @@ def main():
     console.print("\n[bold green]Performance Insights:[/bold green]")
 
     if stats.get("legacy_pickle_files", 0) > 0:
-        console.print(
-            f"⚠️  [yellow]{stats['legacy_pickle_files']} pickle files remain - consider migration[/yellow]"
-        )
+        print_warning(f"{stats['legacy_pickle_files']} pickle files remain - consider migration")
     else:
-        console.print("✅ [green]All embeddings migrated to HDF5 format[/green]")
+        print_success("All embeddings migrated to HDF5 format")
 
     hit_rate = stats.get("hit_rate", 0)
     if hit_rate > 0.8:
-        console.print("✅ [green]Excellent cache hit rate - saving API costs[/green]")
+        print_success("Excellent cache hit rate - saving API costs")
     elif hit_rate > 0.5:
-        console.print("📊 [yellow]Good cache hit rate[/yellow]")
+        print_info("Good cache hit rate")
     else:
-        console.print("📈 [cyan]Cache building up - hit rate will improve[/cyan]")
+        print_info("Cache building up - hit rate will improve")
 
     total_embeddings = stats.get("total_embeddings", 0)
     if total_embeddings > 50:
-        avg_size = (
-            stats.get("cache_size_mb", 0) * 1024 / total_embeddings
-        )  # KB per embedding
-        console.print(
-            f"💾 [cyan]Average embedding size: {avg_size:.1f} KB (compressed)[/cyan]"
-        )
+        avg_size = stats.get("cache_size_mb", 0) * 1024 / total_embeddings
+        print_info(f"Average embedding size: {avg_size:.1f} KB (compressed)")
 
 
 if __name__ == "__main__":
