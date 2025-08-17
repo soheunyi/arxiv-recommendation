@@ -218,19 +218,23 @@ class GeminiQueryService:
 
 Key guidelines:
 1. Use proper arXiv API query syntax (ti:, abs:, au:, cat:, all:, AND, OR)
-2. Create queries of varying specificity - from broad to very specific
-3. Include author-based queries for well-known researchers in the field
-4. Use category filtering for relevant arXiv subject classes
-5. Consider different terminologies and synonyms
-6. Prioritize queries by expected relevance and coverage
+2. AVOID exact phrase matching - search for individual words instead
+3. DO NOT include year constraints in queries
+4. Create queries of varying specificity - from broad to very specific
+5. Include author-based queries for well-known researchers in the field
+6. Use category filtering for relevant arXiv subject classes
+7. Consider different terminologies and synonyms
+8. Prioritize queries by expected relevance and coverage
 
 Query syntax examples:
-- ti:"exact phrase" - title contains exact phrase
-- abs:"phrase" - abstract contains phrase  
-- au:"Author Name" - specific author
+- ti:machine AND ti:learning (NOT ti:"machine learning")
+- abs:neural AND abs:network (NOT abs:"neural networks")  
+- au:Smith (for author searches)
 - cat:cs.LG - category filtering
-- all:"term" - anywhere in paper
-- Combine with AND, OR: ti:"machine learning" AND cat:cs.LG
+- all:quantum AND all:computing (NOT all:"quantum computing")
+- Combine with AND, OR: ti:deep AND ti:learning AND cat:cs.LG
+
+IMPORTANT: Never use quotes for phrase matching. Always break phrases into individual word searches with AND operators.
 
 Generate diverse, comprehensive queries that will capture the full breadth of research in the given topic.
 

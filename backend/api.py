@@ -4,13 +4,16 @@ Minimal FastAPI server for ArXiv Recommendation System
 """
 
 import asyncio
-from fastapi import FastAPI, HTTPException, Request
+import time
+import uuid
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import sys
 import traceback
 import logging
+import json
 from pathlib import Path
 from datetime import datetime
 from typing import Any, Dict, Optional
@@ -18,11 +21,69 @@ from typing import Any, Dict, Optional
 # Add backend to Python path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
-# Set up logging
+# Enhanced structured logging setup
+class StructuredFormatter(logging.Formatter):
+    """Custom formatter for structured JSON logging"""
+    
+    def format(self, record):
+        log_entry = {
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "level": record.levelname,
+            "logger": record.name,
+            "message": record.getMessage(),
+            "module": record.module,
+            "function": record.funcName,
+            "line": record.lineno,
+        }
+        
+        # Add exception info if present
+        if record.exc_info:
+            log_entry["exception"] = self.formatException(record.exc_info)
+        
+        # Add extra fields if present
+        if hasattr(record, 'correlation_id'):
+            log_entry["correlation_id"] = record.correlation_id
+        if hasattr(record, 'request_id'):
+            log_entry["request_id"] = record.request_id
+        if hasattr(record, 'user_agent'):
+            log_entry["user_agent"] = record.user_agent
+        if hasattr(record, 'ip_address'):
+            log_entry["ip_address"] = record.ip_address
+        if hasattr(record, 'endpoint'):
+            log_entry["endpoint"] = record.endpoint
+        if hasattr(record, 'method'):
+            log_entry["method"] = record.method
+        if hasattr(record, 'status_code'):
+            log_entry["status_code"] = record.status_code
+        if hasattr(record, 'response_time'):
+            log_entry["response_time_ms"] = record.response_time
+        
+        return json.dumps(log_entry)
+
+# Configure structured logging
 logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    level=logging.INFO,
+    format="%(message)s",
+    handlers=[
+        logging.StreamHandler(sys.stdout)
+    ]
 )
+
+# Set up structured formatter for our logger
 logger = logging.getLogger(__name__)
+handler = logging.StreamHandler(sys.stdout)
+handler.setFormatter(StructuredFormatter())
+logger.handlers.clear()
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+
+# Also set up a separate access logger
+access_logger = logging.getLogger("api.access")
+access_handler = logging.StreamHandler(sys.stdout)
+access_handler.setFormatter(StructuredFormatter())
+access_logger.handlers.clear()
+access_logger.addHandler(access_handler)
+access_logger.setLevel(logging.INFO)
 
 try:
     from database import DatabaseManager
@@ -66,6 +127,11 @@ class CollectionRequest(BaseModel):
     llm_provider: Optional[str] = None  # "openai" or "gemini"
 
 
+class ManualPaperRequest(BaseModel):
+    arxiv_id: str
+    category: Optional[str] = None  # Optional category override
+
+
 def create_response(
     data: Any, success: bool = True, message: str = None
 ) -> Dict[str, Any]:
@@ -78,35 +144,114 @@ def create_response(
     }
 
 
-def create_error_response(error: Exception, message: str = None) -> Dict[str, Any]:
+def create_error_response(error: Exception, message: str = None, correlation_id: str = None) -> Dict[str, Any]:
     """Create standardized error response with detailed logging"""
     error_id = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
     error_msg = message or str(error)
+    error_type = type(error).__name__
 
-    logger.error(f"Error {error_id}: {error_msg}")
-    logger.error(f"Traceback: {traceback.format_exc()}")
+    # Enhanced error logging with structured data
+    logger.error(
+        f"Error {error_id}: {error_msg}",
+        extra={
+            "error_id": error_id,
+            "error_type": error_type,
+            "correlation_id": correlation_id,
+        },
+        exc_info=True
+    )
 
     return {
         "data": None,
         "success": False,
         "message": error_msg,
         "error_id": error_id,
+        "error_type": error_type,
         "timestamp": datetime.now().isoformat(),
     }
 
 
 @app.middleware("http")
-async def error_handling_middleware(request: Request, call_next):
-    """Global error handling middleware"""
+async def logging_middleware(request: Request, call_next):
+    """Comprehensive logging and error handling middleware"""
+    # Generate correlation ID for request tracking
+    correlation_id = str(uuid.uuid4())
+    request.state.correlation_id = correlation_id
+    
+    # Extract request info
+    client_ip = request.client.host if request.client else "unknown"
+    user_agent = request.headers.get("user-agent", "unknown")
+    start_time = time.time()
+    
+    # Log incoming request
+    access_logger.info(
+        "Incoming request",
+        extra={
+            "correlation_id": correlation_id,
+            "method": request.method,
+            "endpoint": str(request.url),
+            "ip_address": client_ip,
+            "user_agent": user_agent,
+            "content_type": request.headers.get("content-type"),
+            "content_length": request.headers.get("content-length"),
+        }
+    )
+    
     try:
+        # Process request
         response = await call_next(request)
+        
+        # Calculate response time
+        response_time = round((time.time() - start_time) * 1000, 2)
+        
+        # Log successful response
+        access_logger.info(
+            "Request completed",
+            extra={
+                "correlation_id": correlation_id,
+                "method": request.method,
+                "endpoint": str(request.url),
+                "status_code": response.status_code,
+                "response_time": response_time,
+                "ip_address": client_ip,
+            }
+        )
+        
+        # Add correlation ID to response headers
+        response.headers["X-Correlation-ID"] = correlation_id
+        response.headers["X-Response-Time"] = f"{response_time}ms"
+        
         return response
+        
     except Exception as e:
-        logger.error(f"Unhandled exception in {request.method} {request.url}: {str(e)}")
-        logger.error(f"Traceback: {traceback.format_exc()}")
-
+        # Calculate response time for error case
+        response_time = round((time.time() - start_time) * 1000, 2)
+        
+        # Log error with full context
+        logger.error(
+            f"Unhandled exception in {request.method} {request.url}: {str(e)}",
+            extra={
+                "correlation_id": correlation_id,
+                "method": request.method,
+                "endpoint": str(request.url),
+                "ip_address": client_ip,
+                "user_agent": user_agent,
+                "response_time": response_time,
+                "exception_type": type(e).__name__,
+            },
+            exc_info=True
+        )
+        
+        # Create error response with correlation ID
         error_response = create_error_response(e, "Internal server error")
-        return JSONResponse(status_code=500, content=error_response)
+        error_response["correlation_id"] = correlation_id
+        
+        # Create JSON response with correlation ID header
+        json_response = JSONResponse(status_code=500, content=error_response)
+        json_response.headers["X-Correlation-ID"] = correlation_id
+        json_response.headers["X-Response-Time"] = f"{response_time}ms"
+        
+        return json_response
 
 
 # Enable CORS
@@ -505,15 +650,23 @@ async def generate_sample_scores():
 
 @app.get("/api/papers/{paper_id}")
 async def get_paper(paper_id: str):
-    """Get single paper by ID"""
+    """Get single paper by ID (supports both ROWID and ArXiv ID)"""
     try:
         db_manager = DatabaseManager()
         await db_manager.initialize()
-        papers = await db_manager.get_papers_with_ratings()
-
-        paper = next((p for p in papers if p.get("id") == paper_id), None)
-        if not paper:
-            raise HTTPException(status_code=404, detail="Paper not found")
+        
+        # Check if paper_id is numeric (ROWID) or string (ArXiv ID)
+        if paper_id.isdigit():
+            # Use ROWID lookup
+            paper = await db_manager.get_paper_by_rowid(int(paper_id))
+            if not paper:
+                raise HTTPException(status_code=404, detail="Paper not found")
+        else:
+            # Use ArXiv ID lookup
+            papers = await db_manager.get_papers_with_ratings()
+            paper = next((p for p in papers if p.get("id") == paper_id), None)
+            if not paper:
+                raise HTTPException(status_code=404, detail="Paper not found")
 
         return create_response(paper)
     except HTTPException:
@@ -581,6 +734,93 @@ async def search_papers(search_request: SearchRequest):
 
         return create_response(result)
     except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/papers/manual-add")
+async def add_manual_paper(request: ManualPaperRequest):
+    """Manually add an ArXiv paper by ID."""
+    try:
+        import re
+        from arxiv_client import ArXivClient
+        
+        # Validate ArXiv ID format
+        arxiv_id = request.arxiv_id.strip()
+        if not re.match(r'^\d{4}\.\d{4,5}(v\d+)?$', arxiv_id):
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Invalid ArXiv ID format. Expected format: YYYY.NNNNN or YYYY.NNNNNvN, got: {arxiv_id}"
+            )
+        
+        # Check if paper already exists
+        db_manager = DatabaseManager()
+        await db_manager.initialize()
+        
+        existing_paper = await db_manager.get_paper_by_id(arxiv_id)
+        if existing_paper:
+            return create_response(
+                {"paper": existing_paper, "already_exists": True},
+                message=f"Paper {arxiv_id} already exists in database"
+            )
+        
+        # Fetch paper from ArXiv
+        logger.info(f"📝 Manual paper entry: Fetching {arxiv_id} from ArXiv")
+        
+        async with ArXivClient() as client:
+            paper = await client.get_paper_by_id(arxiv_id)
+            
+        if not paper:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Paper {arxiv_id} not found on ArXiv"
+            )
+        
+        # Override category if provided
+        if request.category:
+            paper.category = request.category
+            logger.info(f"📝 Overriding category for {arxiv_id}: {request.category}")
+        
+        # Store paper in database (pass PaperMetadata object directly)
+        success = await db_manager.store_papers([paper])
+        
+        if not success:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to store paper {arxiv_id} in database"
+            )
+        
+        logger.info(f"✅ Successfully added manual paper: {arxiv_id}")
+        
+        # Create response with paper data as dict for API response
+        paper_data = {
+            "id": paper.id,
+            "title": paper.title,
+            "abstract": paper.abstract,
+            "authors": paper.authors,
+            "category": paper.category,
+            "published_date": paper.published_date.isoformat(),
+            "updated_date": paper.updated_date.isoformat(),
+            "arxiv_url": paper.arxiv_url,
+            "pdf_url": paper.pdf_url,
+            "doi": paper.doi,
+            "journal_ref": paper.journal_ref,
+            "source": "manual",  # Track manual entry
+            "added_manually": True
+        }
+        
+        return create_response(
+            {
+                "paper": paper_data,
+                "manually_added": True,
+                "arxiv_id": arxiv_id
+            },
+            message=f"Successfully added paper {arxiv_id}"
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Manual paper entry failed for {request.arxiv_id}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -692,21 +932,33 @@ async def update_rating(rating_request: RatingRequest):
 # Reference tracking endpoints
 @app.get("/api/papers/{paper_id}/references")
 async def get_paper_references(paper_id: str):
-    """Get all references for a paper."""
+    """Get all references for a paper (supports both ROWID and ArXiv ID)."""
     try:
         db_manager = DatabaseManager()
         await db_manager.initialize()
         
-        references = await db_manager.get_paper_references(paper_id)
-        reference_count = await db_manager.get_reference_count(paper_id)
+        # Convert ROWID to ArXiv ID if needed (references are stored by ArXiv ID)
+        arxiv_id = paper_id
+        if paper_id.isdigit():
+            # Get paper by ROWID to find the ArXiv ID
+            paper = await db_manager.get_paper_by_rowid(int(paper_id))
+            if not paper:
+                raise HTTPException(status_code=404, detail="Paper not found")
+            arxiv_id = paper.get("id")  # ArXiv ID is stored in the 'id' field
+        
+        references = await db_manager.get_paper_references(arxiv_id)
+        reference_count = await db_manager.get_reference_count(arxiv_id)
         
         result = {
             "paper_id": paper_id,
+            "arxiv_id": arxiv_id,
             "references": references,
             "reference_count": reference_count
         }
         
         return create_response(result)
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error fetching references for paper {paper_id}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -737,7 +989,7 @@ async def get_paper_citations(paper_id: str):
 @app.post("/api/references/fetch/{paper_id}")
 async def fetch_paper_references(paper_id: str, force_refresh: bool = False):
     """
-    Trigger hybrid reference fetching for a specific paper.
+    Trigger hybrid reference fetching for a specific paper (supports both ROWID and ArXiv ID).
     Uses two-stage approach: ArXiv HTML parsing + OpenAlex enrichment.
     """
     try:
@@ -746,32 +998,48 @@ async def fetch_paper_references(paper_id: str, force_refresh: bool = False):
         db_manager = DatabaseManager()
         await db_manager.initialize()
         
-        # Check if paper exists
-        papers = await db_manager.get_papers_with_ratings()
-        paper = next((p for p in papers if p.get("id") == paper_id), None)
-        if not paper:
-            raise HTTPException(status_code=404, detail="Paper not found")
+        # Handle both ROWID and ArXiv ID
+        if paper_id.isdigit():
+            # Use ROWID lookup
+            paper = await db_manager.get_paper_by_rowid(int(paper_id))
+            if not paper:
+                raise HTTPException(status_code=404, detail="Paper not found")
+            arxiv_id = paper.get("id")  # ArXiv ID is stored in the 'id' field
+        else:
+            # Use ArXiv ID lookup
+            papers = await db_manager.get_papers_with_ratings()
+            paper = next((p for p in papers if p.get("id") == paper_id), None)
+            if not paper:
+                raise HTTPException(status_code=404, detail="Paper not found")
+            arxiv_id = paper_id
         
-        # Extract arXiv ID from paper ID or URL
-        from arxiv_client import ArXivClient
-        client = ArXivClient()
-        arxiv_id = client.extract_arxiv_id(paper.get("arxiv_url", paper_id))
-        
+        # Validate ArXiv ID extraction
         if not arxiv_id:
             raise HTTPException(
                 status_code=400, 
                 detail="Could not extract arXiv ID from paper"
             )
         
-        # Use hybrid reference service for two-stage fetching
-        from services.hybrid_reference_service import HybridReferenceService
-        from config import config
+        # Use GROBID service for PDF-based reference extraction
+        from services.grobid_service import GrobidService
         
-        email = getattr(config, 'openalex_email', None)
-        hybrid_service = HybridReferenceService(email=email)
-        
-        # Perform hybrid reference fetching
-        fetch_result = await hybrid_service.fetch_references_hybrid(arxiv_id, force_refresh)
+        async with GrobidService() as grobid_service:
+            # Extract references using GROBID
+            references = await grobid_service.extract_references_from_arxiv(arxiv_id)
+            
+            # Store references in database
+            if references:
+                await db_manager.store_references(arxiv_id, references)
+            
+            # Create result in expected format
+            fetch_result = {
+                "arxiv_id": arxiv_id,
+                "references_found": len(references),
+                "stage1_success": len(references) > 0,
+                "stage2_success": False,  # No second stage with GROBID-only approach
+                "source": "grobid",
+                "openalex_available": False,  # OpenAlex removed
+            }
         
         # Return comprehensive result from hybrid service
         response_data = {
@@ -868,160 +1136,6 @@ async def get_citation_network(paper_id: str, depth: int = 1):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# OpenAlex-Enhanced Endpoints
-
-@app.get("/api/papers/{paper_id}/citations")
-async def get_paper_citations(paper_id: str):
-    """Get papers citing this work (OpenAlex only)."""
-    try:
-        from services.hybrid_reference_service import HybridReferenceService
-        from config import config
-        
-        email = getattr(config, 'openalex_email', None)
-        hybrid_service = HybridReferenceService(email=email)
-        
-        citation_network = await hybrid_service.get_citation_network(paper_id)
-        
-        if "error" in citation_network:
-            if "not yet indexed" in citation_network["error"]:
-                raise HTTPException(
-                    status_code=404, 
-                    detail="Paper not yet indexed in OpenAlex"
-                )
-            else:
-                raise HTTPException(status_code=500, detail=citation_network["error"])
-        
-        return create_response(citation_network)
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting citations for paper {paper_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.get("/api/papers/{paper_id}/similar")
-async def get_similar_papers(paper_id: str, limit: int = 10):
-    """Find similar papers using OpenAlex topics."""
-    try:
-        from services.hybrid_reference_service import HybridReferenceService
-        from config import config
-        
-        email = getattr(config, 'openalex_email', None)
-        hybrid_service = HybridReferenceService(email=email)
-        
-        # Extract arXiv ID
-        from arxiv_client import ArXivClient
-        client = ArXivClient()
-        arxiv_id = client.extract_arxiv_id(paper_id)
-        
-        if not arxiv_id:
-            raise HTTPException(
-                status_code=400, 
-                detail="Could not extract arXiv ID from paper"
-            )
-        
-        similar_papers = await hybrid_service.find_similar_papers(arxiv_id, limit)
-        
-        result = {
-            "paper_id": paper_id,
-            "arxiv_id": arxiv_id,
-            "similar_papers": similar_papers,
-            "count": len(similar_papers)
-        }
-        
-        return create_response(result)
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error finding similar papers for {paper_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.get("/api/references/{paper_id}/enhanced")
-async def get_enhanced_references(paper_id: str):
-    """Get enhanced references with OpenAlex metadata."""
-    try:
-        from services.hybrid_reference_service import HybridReferenceService
-        from config import config
-        
-        # Extract arXiv ID
-        from arxiv_client import ArXivClient
-        client = ArXivClient()
-        arxiv_id = client.extract_arxiv_id(paper_id)
-        
-        if not arxiv_id:
-            raise HTTPException(
-                status_code=400, 
-                detail="Could not extract arXiv ID from paper"
-            )
-        
-        email = getattr(config, 'openalex_email', None)
-        hybrid_service = HybridReferenceService(email=email)
-        
-        enhanced_refs = await hybrid_service.get_enhanced_references(arxiv_id)
-        
-        result = {
-            "paper_id": paper_id,
-            "arxiv_id": arxiv_id,
-            "references": enhanced_refs,
-            "count": len(enhanced_refs),
-            "sources": {
-                "arxiv_only": sum(1 for ref in enhanced_refs if not ref.get("has_openalex_data")),
-                "openalex_enhanced": sum(1 for ref in enhanced_refs if ref.get("has_openalex_data"))
-            }
-        }
-        
-        return create_response(result)
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting enhanced references for {paper_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-@app.post("/api/openalex/enrich/{paper_id}")
-async def trigger_openalex_enrichment(paper_id: str):
-    """Manually trigger OpenAlex enrichment for a specific paper."""
-    try:
-        from services.hybrid_reference_service import HybridReferenceService
-        from config import config
-        
-        # Extract arXiv ID
-        from arxiv_client import ArXivClient
-        client = ArXivClient()
-        arxiv_id = client.extract_arxiv_id(paper_id)
-        
-        if not arxiv_id:
-            raise HTTPException(
-                status_code=400, 
-                detail="Could not extract arXiv ID from paper"
-            )
-        
-        email = getattr(config, 'openalex_email', None)
-        hybrid_service = HybridReferenceService(email=email)
-        
-        success = await hybrid_service.enrich_with_openalex(arxiv_id)
-        
-        result = {
-            "paper_id": paper_id,
-            "arxiv_id": arxiv_id,
-            "enrichment_success": success,
-            "message": "Successfully enriched with OpenAlex data" if success else "Paper not yet available in OpenAlex"
-        }
-        
-        return create_response(result)
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error triggering OpenAlex enrichment for {paper_id}: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# Paper collection endpoints
 @app.post("/api/collection/start")
 async def start_collection(collection_request: CollectionRequest):
     """Start a new paper collection in background."""
@@ -1895,6 +2009,202 @@ async def validate_backup_environment():
         return create_response(validation_result)
 
     except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# =============================================================================
+# Graph Database Endpoints
+# =============================================================================
+
+@app.post("/api/graph/initialize")
+async def initialize_graph_database():
+    """Initialize graph database schema and sync from existing references."""
+    try:
+        db_manager = DatabaseManager()
+        await db_manager.initialize()
+        
+        from backend.src.graph_database import initialize_graph_database, sync_references_to_graph
+        
+        # Initialize graph schema
+        graph_db = await initialize_graph_database(db_manager)
+        
+        # Sync existing references to graph
+        sync_result = await sync_references_to_graph(db_manager)
+        
+        return create_response({
+            "status": "completed",
+            "message": "Graph database initialized and synced",
+            "sync_result": sync_result
+        })
+        
+    except Exception as e:
+        logger.error(f"Error initializing graph database: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/graph/stats")
+async def get_graph_statistics():
+    """Get overall graph database statistics."""
+    try:
+        db_manager = DatabaseManager()
+        await db_manager.initialize()
+        
+        from backend.src.graph_database import GraphDatabaseManager
+        
+        graph_db = GraphDatabaseManager(db_manager)
+        stats = await graph_db.get_graph_statistics()
+        
+        return create_response(stats)
+        
+    except Exception as e:
+        logger.error(f"Error getting graph statistics: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/graph/subgraph/{paper_id}")
+async def get_citation_subgraph(paper_id: str, depth: int = 2):
+    """Get citation subgraph around a specific paper."""
+    try:
+        db_manager = DatabaseManager()
+        await db_manager.initialize()
+        
+        from backend.src.graph_database import GraphDatabaseManager
+        
+        # Handle both ROWID and ArXiv ID
+        if paper_id.isdigit():
+            paper = await db_manager.get_paper_by_rowid(int(paper_id))
+            if not paper:
+                raise HTTPException(status_code=404, detail="Paper not found")
+            arxiv_id = paper.get("id")
+        else:
+            arxiv_id = paper_id
+        
+        graph_db = GraphDatabaseManager(db_manager)
+        subgraph = await graph_db.get_citation_subgraph(arxiv_id, depth)
+        
+        return create_response({
+            "paper_id": paper_id,
+            "arxiv_id": arxiv_id,
+            "subgraph": subgraph
+        })
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting citation subgraph for {paper_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/graph/path/{source_id}/{target_id}")
+async def find_citation_path(source_id: str, target_id: str):
+    """Find shortest citation path between two papers."""
+    try:
+        db_manager = DatabaseManager()
+        await db_manager.initialize()
+        
+        from backend.src.graph_database import GraphDatabaseManager
+        
+        graph_db = GraphDatabaseManager(db_manager)
+        path = await graph_db.find_shortest_citation_path(source_id, target_id)
+        
+        return create_response({
+            "source_id": source_id,
+            "target_id": target_id,
+            "path": path,
+            "path_length": len(path) if path else 0,
+            "found": path is not None
+        })
+        
+    except Exception as e:
+        logger.error(f"Error finding citation path from {source_id} to {target_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/graph/connected-papers")
+async def get_highly_connected_papers(limit: int = 20):
+    """Get papers with highest citation connections."""
+    try:
+        db_manager = DatabaseManager()
+        await db_manager.initialize()
+        
+        from backend.src.graph_database import GraphDatabaseManager
+        
+        graph_db = GraphDatabaseManager(db_manager)
+        papers = await graph_db.get_highly_connected_papers(limit)
+        
+        return create_response({
+            "highly_connected_papers": papers,
+            "total_papers": len(papers)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error getting highly connected papers: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/graph/metrics/{paper_id}")
+async def get_node_metrics(paper_id: str):
+    """Get network analysis metrics for a specific paper."""
+    try:
+        db_manager = DatabaseManager()
+        await db_manager.initialize()
+        
+        from backend.src.graph_database import GraphDatabaseManager
+        
+        # Handle both ROWID and ArXiv ID
+        if paper_id.isdigit():
+            paper = await db_manager.get_paper_by_rowid(int(paper_id))
+            if not paper:
+                raise HTTPException(status_code=404, detail="Paper not found")
+            arxiv_id = paper.get("id")
+        else:
+            arxiv_id = paper_id
+        
+        graph_db = GraphDatabaseManager(db_manager)
+        metrics = await graph_db.compute_node_metrics(arxiv_id)
+        
+        if not metrics:
+            raise HTTPException(status_code=404, detail="Metrics not available for this paper")
+        
+        return create_response({
+            "paper_id": paper_id,
+            "arxiv_id": arxiv_id,
+            "metrics": {
+                "degree_centrality": metrics.degree_centrality,
+                "betweenness_centrality": metrics.betweenness_centrality,
+                "closeness_centrality": metrics.closeness_centrality,
+                "pagerank": metrics.pagerank,
+                "clustering_coefficient": metrics.clustering_coefficient,
+                "computed_at": metrics.computed_at.isoformat()
+            }
+        })
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting node metrics for {paper_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/graph/sync")
+async def sync_graph_data():
+    """Sync graph data from existing paper references."""
+    try:
+        db_manager = DatabaseManager()
+        await db_manager.initialize()
+        
+        from backend.src.graph_database import sync_references_to_graph
+        
+        sync_result = await sync_references_to_graph(db_manager)
+        
+        return create_response({
+            "status": "completed",
+            "message": "Graph data synchronized",
+            "sync_result": sync_result
+        })
+        
+    except Exception as e:
+        logger.error(f"Error syncing graph data: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

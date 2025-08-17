@@ -10,6 +10,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Serena Activation
 serena - activate_project when starting a new claude session.
+Actively use serena to check the status of the project.
+
+## Context7 MCP
+- use context7 mcp to check documentation of various open source libraries
 
 ## Essential Commands
 
@@ -54,12 +58,11 @@ uv run python scripts/migrate_embeddings.py # Migrate embedding cache
 ## High-Level Architecture
 
 ### Core System Design
-This is a **full-stack ArXiv recommendation system** with Python backend and React TypeScript frontend, featuring multi-LLM collaboration (OpenAI GPT-4o + Google Gemini 2.5 Flash).
+This is a **full-stack ArXiv recommendation system** with Python backend and React TypeScript frontend, featuring multi-LLM collaboration (OpenAI GPT-4o + Google Gemini 2.5 Flash). The system includes **GROBID PDF parsing** for extracting paper references from ArXiv PDFs.
 
 ### Backend Architecture (`backend/src/`)
 - **Multi-Agent System**: `agents.py` orchestrates DataAgent → RecommendationAgent → Coordinator workflow
 - **LLM Integration**: Dual provider support with cost optimization (Gemini 33x cheaper than OpenAI)
-  - `services/collaborative_service.py`: OpenAI-Gemini orchestration with 4 strategies
   - `services/query_service.py`: OpenAI query generation
   - `services/gemini_query_service.py`: Gemini query generation
   - `services/provider_factory.py`: Provider abstraction layer
@@ -68,7 +71,7 @@ This is a **full-stack ArXiv recommendation system** with Python backend and Rea
   - `embeddings.py`: OpenAI embeddings with 30-day caching
   - `recommendations.py`: MMR algorithm with novelty/diversity scoring
 - **Reference Tracking**: Citation network analysis for paper relationships
-  - `services/reference_service.py`: HTML parsing for arXiv citations
+  - `services/grobid_service.py`: GROBID PDF parsing for extracting references from ArXiv papers
   - Database schema supports both ArXiv and external references
 - **Storage**: `database.py` with async SQLite operations, comprehensive schema for papers/ratings/references
 - **Personalization**: `preferences.py` with adaptive preference embeddings (all-time, recent, adaptive modes)
@@ -82,8 +85,7 @@ This is a **full-stack ArXiv recommendation system** with Python backend and Rea
 ### Key Data Flows
 1. **Paper Collection**: User query → LLM query generation → ArXiv API → Reference extraction → Database storage
 2. **Recommendations**: User preferences → Embedding similarity → MMR ranking → Personalized results
-3. **Reference Tracking**: ArXiv HTML → Citation parsing → Network construction → Related paper discovery
-4. **Collaboration**: Query refinement through OpenAI/Gemini strategies with cost optimization
+3. **Reference Tracking**: ArXiv PDF → GROBID parsing → Citation extraction → Network construction → Related paper discovery
 
 ### Cost Optimization Strategy
 - **Primary**: Gemini for query generation (33x cheaper: ~$0.01-0.60/month vs $30/month OpenAI)
