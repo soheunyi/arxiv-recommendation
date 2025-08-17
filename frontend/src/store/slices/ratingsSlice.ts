@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Rating, RatingUpdate, RatingStats } from '@types';
+import { Rating, RatingUpdate, RatingStats } from '../../types';
 import { ratingsService } from '@services/ratingsService';
 
 interface RatingsState {

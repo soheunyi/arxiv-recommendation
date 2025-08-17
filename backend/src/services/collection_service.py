@@ -16,6 +16,7 @@ from typing import Dict, List, Optional, Set, Any
 from arxiv_client import ArXivClient, PaperMetadata
 from database import DatabaseManager
 from .query_service import QueryService
+from .query_refinement_service import QueryRefinementService
 from .provider_factory import ProviderFactory
 
 logger = logging.getLogger(__name__)
@@ -29,6 +30,7 @@ class CollectionService:
         self.topic = topic
         self.db_manager = DatabaseManager()
         self.query_service = QueryService()
+        self.query_refinement_service = QueryRefinementService()
         
         # Collection state
         self.collected_papers: List[PaperMetadata] = []
@@ -38,9 +40,11 @@ class CollectionService:
         # Statistics
         self.stats = {
             "queries_executed": 0,
+            "queries_refined": 0,
             "papers_found": 0,
             "papers_filtered": 0,
             "papers_deduplicated": 0,
+            "refinement_successful": 0,
             "start_time": None,
             "end_time": None
         }
@@ -95,7 +99,7 @@ class CollectionService:
         }
     
     async def search_by_query(self, query_info: Dict, max_results: int = 20) -> List[PaperMetadata]:
-        """Execute a single search query."""
+        """Execute a single search query with intelligent refinement for poor results."""
         query = query_info['query']
         priority = query_info['priority']
         
@@ -106,6 +110,96 @@ class CollectionService:
             papers = await client.search_papers(query, max_results=max_results)
             
             logger.debug(f"Query returned {len(papers)} papers")
+            
+            # Check if query refinement is needed (poor results)
+            min_threshold = 3 if priority == 'high' else 1  # Higher expectations for high-priority queries
+            
+            if self.query_refinement_service.should_refine(papers, min_threshold):
+                logger.info(f"🔄 Query returned only {len(papers)} papers (< {min_threshold}), attempting refinement...")
+                self.stats["queries_refined"] += 1
+                
+                # Generate refined query variations
+                refinement_result = await self.query_refinement_service.refine_query(
+                    original_query=query,
+                    topic_context=self.topic,
+                    max_variations=3
+                )
+                
+                # Test all refined queries and pick the one with most results
+                query_results = []
+                
+                # Start with original query as baseline
+                query_results.append({
+                    'query': query,
+                    'strategy': 'original',
+                    'papers': papers,
+                    'count': len(papers),
+                    'confidence': 1.0
+                })
+                
+                # Test all refined queries
+                for refined_query_data in refinement_result.get('refined_queries', []):
+                    refined_query = refined_query_data['query']
+                    strategy = refined_query_data['strategy']
+                    confidence = refined_query_data['confidence']
+                    
+                    logger.debug(f"Testing refined query ({strategy}): {refined_query}")
+                    
+                    try:
+                        refined_papers = await client.search_papers(refined_query, max_results=max_results)
+                        logger.debug(f"Refined query returned {len(refined_papers)} papers")
+                        
+                        query_results.append({
+                            'query': refined_query,
+                            'strategy': strategy,
+                            'papers': refined_papers,
+                            'count': len(refined_papers),
+                            'confidence': confidence
+                        })
+                        
+                    except Exception as e:
+                        logger.warning(f"Refined query failed: {e}")
+                        continue
+                
+                # Find the query with most results
+                best_result = max(query_results, key=lambda x: x['count'])
+                best_papers = best_result['papers']
+                
+                # Log results summary
+                logger.info(f"📊 Query refinement results:")
+                for result in sorted(query_results, key=lambda x: x['count'], reverse=True):
+                    marker = "🏆" if result == best_result else "📄"
+                    logger.info(f"   {marker} {result['strategy']}: {result['count']} papers (confidence: {result['confidence']:.2f})")
+                
+                # Mark as successful if we found a better query
+                if best_result['strategy'] != 'original':
+                    logger.info(f"✅ Best refinement: {best_result['strategy']} with {best_result['count']} papers")
+                    self.stats["refinement_successful"] += 1
+                else:
+                    logger.info(f"📝 Original query performed best with {best_result['count']} papers")
+                
+                # Log refinement outcome
+                if len(best_papers) > len(papers):
+                    logger.info(f"🎯 Final result: {len(papers)} → {len(best_papers)} papers after refinement")
+                else:
+                    logger.info(f"📝 Refinement attempted but kept original {len(papers)} papers")
+                
+                # If still no results after refinement, try DuckDuckGo fallback
+                if len(best_papers) == 0:
+                    logger.warning(f"🔄 All refinement failed (0 results), trying DuckDuckGo fallback: {query}")
+                    ddg_papers = await self._attempt_duckduckgo_fallback(query, client, max_results)
+                    if ddg_papers:
+                        return ddg_papers
+                
+                return best_papers
+            
+            # If original query returned 0 results and no refinement was triggered, try DuckDuckGo
+            if len(papers) == 0:
+                logger.warning(f"🔄 Query returned 0 results, trying DuckDuckGo fallback: {query}")
+                ddg_papers = await self._attempt_duckduckgo_fallback(query, client, max_results)
+                if ddg_papers:
+                    return ddg_papers
+            
             return papers
             
         except Exception as e:
@@ -196,10 +290,39 @@ class CollectionService:
         
         logger.info(f"Collection complete! Total unique papers: {len(all_papers)}")
         logger.info(f"Queries executed: {self.stats['queries_executed']}")
+        logger.info(f"Queries refined: {self.stats['queries_refined']}")
+        logger.info(f"Successful refinements: {self.stats['refinement_successful']}")
         logger.info(f"Total papers found: {self.stats['papers_found']}")
         logger.info(f"Duplicates removed: {self.stats['papers_deduplicated']}")
         
+        # Calculate refinement success rate
+        if self.stats['queries_refined'] > 0:
+            success_rate = (self.stats['refinement_successful'] / self.stats['queries_refined']) * 100
+            logger.info(f"Refinement success rate: {success_rate:.1f}%")
+        
         return all_papers
+    
+    def get_collection_stats(self) -> Dict:
+        """Get detailed collection statistics including query refinement metrics."""
+        stats = self.stats.copy()
+        
+        # Add calculated metrics
+        if stats['queries_executed'] > 0:
+            stats['refinement_rate'] = (stats['queries_refined'] / stats['queries_executed']) * 100
+        else:
+            stats['refinement_rate'] = 0.0
+            
+        if stats['queries_refined'] > 0:
+            stats['refinement_success_rate'] = (stats['refinement_successful'] / stats['queries_refined']) * 100
+        else:
+            stats['refinement_success_rate'] = 0.0
+        
+        # Add timing if available
+        if stats['start_time'] and stats['end_time']:
+            duration = stats['end_time'] - stats['start_time']
+            stats['duration_seconds'] = duration.total_seconds()
+        
+        return stats
     
     async def clean_database(self, 
                              backup_metadata: Optional[Dict] = None,
@@ -555,3 +678,111 @@ class CollectionService:
                 "papers_collected": 0,
                 "papers_stored": 0
             }
+    
+    async def _attempt_duckduckgo_fallback(self, original_query: str, client: ArXivClient, max_results: int) -> List[PaperMetadata]:
+        """
+        Attempt to find ArXiv papers using DuckDuckGo as a fallback.
+        
+        This method searches for ArXiv papers that may not have been found through
+        direct ArXiv API searches, using enhanced query patterns including "arxiv".
+        
+        Args:
+            original_query: The original query that failed
+            client: ArXiv client for fetching paper metadata
+            max_results: Maximum number of papers to return
+            
+        Returns:
+            List of PaperMetadata objects found through DuckDuckGo search
+        """
+        try:
+            from .duckduckgo_academic_service import search_arxiv_papers_via_duckduckgo
+            
+            # Enhanced query patterns including "arxiv" keyword (as suggested by user)
+            arxiv_focused_queries = [
+                f"{original_query} arxiv",  # User's suggestion: include "arxiv" in query
+                f"arxiv {original_query}",
+                f'"{original_query}" arxiv.org',
+                f"{original_query} preprint arxiv"
+            ]
+            
+            total_arxiv_ids = set()
+            
+            for i, enhanced_query in enumerate(arxiv_focused_queries):
+                try:
+                    logger.info(f"🌐 DuckDuckGo search {i+1}/{len(arxiv_focused_queries)}: '{enhanced_query}'")
+                    
+                    # Search for ArXiv papers via DuckDuckGo
+                    arxiv_ids = await search_arxiv_papers_via_duckduckgo(
+                        enhanced_query, 
+                        max_results=10
+                    )
+                    
+                    if arxiv_ids:
+                        logger.info(f"🎯 DuckDuckGo found {len(arxiv_ids)} ArXiv IDs: {arxiv_ids}")
+                        total_arxiv_ids.update(arxiv_ids)
+                        
+                        # Log cumulative progress
+                        logger.info(f"📈 Cumulative ArXiv IDs found: {len(total_arxiv_ids)} total")
+                        
+                        # Don't search more patterns if we found enough results
+                        if len(total_arxiv_ids) >= 5:
+                            logger.info(f"🎯 Reached target of {len(total_arxiv_ids)} ArXiv papers, stopping DuckDuckGo search")
+                            break
+                    else:
+                        logger.info(f"🌐 No ArXiv papers found for pattern: '{enhanced_query}'")
+                        
+                except Exception as e:
+                    logger.warning(f"🌐 DuckDuckGo search failed for '{enhanced_query}': {e}")
+                    continue
+            
+            if not total_arxiv_ids:
+                logger.info(f"🌐 DuckDuckGo fallback complete: No ArXiv papers found for query '{original_query}'")
+                logger.info(f"🔍 Searched {len(arxiv_focused_queries)} enhanced query patterns")
+                return []
+            
+            # Fetch full paper metadata using existing ArXiv infrastructure
+            logger.info(f"📄 DuckDuckGo fallback successful: Found {len(total_arxiv_ids)} unique ArXiv IDs")
+            logger.info(f"📄 ArXiv IDs to fetch: {sorted(list(total_arxiv_ids))}")
+            logger.info(f"📄 Fetching metadata for {len(total_arxiv_ids)} ArXiv papers via ArXiv API")
+            
+            papers = []
+            
+            for idx, arxiv_id in enumerate(sorted(total_arxiv_ids), 1):
+                try:
+                    logger.debug(f"📄 Fetching {idx}/{len(total_arxiv_ids)}: {arxiv_id}")
+                    
+                    # Use existing ArXiv client to get full metadata
+                    paper = await client.get_paper_by_id(arxiv_id)
+                    
+                    if paper:
+                        papers.append(paper)
+                        logger.debug(f"✅ New paper added: {paper.title[:50]}...")
+                        
+                        # Rate limiting for ArXiv API (use collection service rate limit)
+                        await asyncio.sleep(0.5)  # Lighter rate limiting for metadata fetch
+                    else:
+                        logger.warning(f"📄 ArXiv API couldn't find paper: {arxiv_id}")
+                        
+                except Exception as e:
+                    logger.warning(f"📄 Failed to fetch ArXiv paper {arxiv_id}: {e}")
+                    continue
+            
+            if papers:
+                logger.info(f"✅ DuckDuckGo fallback complete: {len(papers)} papers retrieved")
+                logger.info(f"📊 DuckDuckGo fallback summary:")
+                logger.info(f"   - Original query: '{original_query}'")
+                logger.info(f"   - Enhanced patterns tried: {len(arxiv_focused_queries)}")
+                logger.info(f"   - ArXiv IDs found: {len(total_arxiv_ids)}")
+                logger.info(f"   - Papers retrieved: {len(papers)}")
+                
+                return papers[:max_results]  # Limit to requested max results
+            else:
+                logger.info(f"🌐 DuckDuckGo found {len(total_arxiv_ids)} ArXiv IDs but failed to retrieve metadata")
+                return []
+                
+        except ImportError:
+            logger.warning("🌐 DuckDuckGo service not available (missing ddgs library)")
+            return []
+        except Exception as e:
+            logger.error(f"🌐 DuckDuckGo fallback failed: {e}")
+            return []

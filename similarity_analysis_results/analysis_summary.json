@@ -1,0 +1,51 @@
+{
+  "analysis_date": "2025-08-15T19:43:38.282050",
+  "duration_seconds": 66.349989,
+  "topics": {
+    "topic1": "transformer",
+    "topic2": "optimal transport"
+  },
+  "papers_collected": {
+    "topic1": 75,
+    "topic2": 75,
+    "total": 150
+  },
+  "embeddings_computed": 150,
+  "similarity_matrix_shape": [
+    150,
+    150
+  ],
+  "similarity_statistics": {
+    "within_transformer": {
+      "mean": 0.3828668689867221,
+      "std": 0.12854072882769205,
+      "min": 0.08677349251872699,
+      "max": 0.7684458926489605
+    },
+    "within_optimal_transport": {
+      "mean": 0.5751389512108642,
+      "std": 0.07569038568957367,
+      "min": 0.27753190312612125,
+      "max": 0.8213868085450017
+    },
+    "cross_topic": {
+      "mean": 0.3059975698580539,
+      "std": 0.06194105593050342,
+      "min": 0.10726093781495386,
+      "max": 0.5947330150217394
+    }
+  },
+  "output_files": [
+    "transformer_papers.json",
+    "optimal_transport_papers.json",
+    "all_papers_with_topics.json",
+    "paper_embeddings.npz",
+    "similarity_matrix.csv",
+    "similarity_matrix.npz",
+    "similarity_statistics.json",
+    "most_similar_cross_topic_pairs.json",
+    "similarity_heatmap.png",
+    "similarity_distributions.png",
+    "similarity_statistics_plot.png"
+  ]
+}

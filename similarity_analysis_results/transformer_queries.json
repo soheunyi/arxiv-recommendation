@@ -1,0 +1,104 @@
+{
+  "topic": "transformer",
+  "search_queries": [
+    {
+      "query": "ti:\"transformer\"",
+      "priority": "high",
+      "description": "Papers with 'transformer' in the title, likely focusing directly on the architecture or its applications."
+    },
+    {
+      "query": "abs:\"transformer model\"",
+      "priority": "high",
+      "description": "Papers that specifically discuss transformer models in the abstract, encompassing a variety of applications and improvements."
+    },
+    {
+      "query": "all:\"transformer neural network\"",
+      "priority": "high",
+      "description": "Papers mentioning transformer neural networks anywhere, capturing broad mentions of this architecture."
+    },
+    {
+      "query": "cat:cs.LG AND all:\"transformer\"",
+      "priority": "high",
+      "description": "Papers in machine learning category that discuss transformers, ensuring relevance to learned models."
+    },
+    {
+      "query": "cat:cs.CL AND abs:\"transformer architecture\"",
+      "priority": "medium",
+      "description": "Papers in computational linguistics focusing on transformer architecture, relevant for NLP applications."
+    },
+    {
+      "query": "cat:cs.CV AND abs:\"vision transformer\"",
+      "priority": "medium",
+      "description": "Papers discussing vision transformers in computer vision category, specifically for image and video-related applications."
+    },
+    {
+      "query": "ti:\"attention is all you need\"",
+      "priority": "medium",
+      "description": "Papers referring to the seminal work on transformers, likely discussing or building upon foundational transformer concepts."
+    },
+    {
+      "query": "au:\"Vaswani\" AND abs:\"transformer\"",
+      "priority": "medium",
+      "description": "Papers by authors with the surname Vaswani discussing transformers, possibly involving original authors or influential follow-up work."
+    },
+    {
+      "query": "abs:\"BERT\" OR abs:\"GPT\" OR abs:\"T5\"",
+      "priority": "medium",
+      "description": "Papers discussing specific transformer-based models like BERT, GPT, or T5, capturing cutting-edge uses and developments."
+    },
+    {
+      "query": "cat:cs.AI AND all:\"transformer\"",
+      "priority": "medium",
+      "description": "Papers discussing transformers within the broader AI category, ensuring coverage beyond just machine learning."
+    },
+    {
+      "query": "all:\"multi-head attention\" AND cat:cs.LG",
+      "priority": "medium",
+      "description": "Papers that discuss the multi-head attention mechanism predominant in transformers within machine learning."
+    },
+    {
+      "query": "abs:\"transformer encoder\" OR abs:\"transformer decoder\"",
+      "priority": "low",
+      "description": "Papers focusing on specific parts of the transformer architecture, namely encoders and decoders."
+    },
+    {
+      "query": "cat:stat.ML AND all:\"transformer\"",
+      "priority": "low",
+      "description": "Papers discussing transformers in the statistical machine learning context, possibly addressing theoretical aspects."
+    },
+    {
+      "query": "ti:\"scalable transformer\" OR abs:\"scalable transformer\"",
+      "priority": "low",
+      "description": "Papers discussing the scalability of transformer models, a critical aspect for large-scale applications."
+    },
+    {
+      "query": "cat:eess.SP AND all:\"transformer\"",
+      "priority": "low",
+      "description": "Papers in signal processing discussing transformers, useful for understanding non-NLP applications."
+    }
+  ],
+  "categories": [
+    "cs.LG",
+    "cs.CL",
+    "cs.CV",
+    "cs.AI",
+    "stat.ML",
+    "eess.SP"
+  ],
+  "filter_keywords": [
+    "transformer",
+    "attention mechanism",
+    "encoder-decoder",
+    "multi-head attention",
+    "self-attention"
+  ],
+  "related_terms": [
+    "attention mechanism",
+    "neural networks",
+    "BERT",
+    "GPT",
+    "self-attention",
+    "encoder-decoder",
+    "scalable transformers"
+  ]
+}

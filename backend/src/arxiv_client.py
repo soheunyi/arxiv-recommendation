@@ -193,6 +193,15 @@ class ArXivClient:
         
         url = f"{self.BASE_URL}?{urlencode(params)}"
         
+        # Debug logging for ArXiv queries with flush for real-time visibility
+        logger.info(f"🔍 ArXiv Search Query: {query}")
+        logger.debug(f"📡 ArXiv API URL: {url}")
+        
+        # Force log flush for real-time debugging
+        import sys
+        sys.stdout.flush()
+        sys.stderr.flush()
+        
         try:
             await self._rate_limit()
             
@@ -364,20 +373,106 @@ class ArXivClient:
         """
         import re
         
-        # Patterns for different arXiv URL formats
+        # Enhanced patterns for different arXiv URL formats (including versions)
         patterns = [
-            r'arxiv\.org/abs/(\d{4}\.\d{4,5})',
-            r'arxiv\.org/pdf/(\d{4}\.\d{4,5})',
-            r'arXiv:(\d{4}\.\d{4,5})',
-            r'(\d{4}\.\d{4,5})'  # Just the ID itself
+            r'arxiv\.org/abs/(\d{4}\.\d{4,5}(?:v\d+)?)',
+            r'arxiv\.org/pdf/(\d{4}\.\d{4,5}(?:v\d+)?)',
+            r'arXiv:(\d{4}\.\d{4,5}(?:v\d+)?)',
+            r'(\d{4}\.\d{4,5}(?:v\d+)?)\.pdf',  # PDF filename pattern
+            r'(\d{4}\.\d{4,5}(?:v\d+)?)'  # Just the ID itself
         ]
         
         for pattern in patterns:
             match = re.search(pattern, arxiv_url, re.IGNORECASE)
             if match:
-                return match.group(1)
+                # Clean up the ID (remove version if present for consistency)
+                arxiv_id = match.group(1)
+                clean_id = re.sub(r'v\d+$', '', arxiv_id)
+                return clean_id
         
         return None
+    
+    def extract_arxiv_ids_from_text(self, text: str) -> List[str]:
+        """
+        Extract multiple ArXiv IDs from text content (useful for DuckDuckGo results).
+        
+        Args:
+            text: Text content to search for ArXiv IDs
+            
+        Returns:
+            List of unique ArXiv IDs found in the text
+        """
+        import re
+        
+        arxiv_ids = set()
+        
+        # Enhanced patterns for text extraction
+        patterns = [
+            r'arxiv\.org/abs/(\d{4}\.\d{4,5}(?:v\d+)?)',
+            r'arxiv\.org/pdf/(\d{4}\.\d{4,5}(?:v\d+)?)',
+            r'arXiv:(\d{4}\.\d{4,5}(?:v\d+)?)',
+            r'(\d{4}\.\d{4,5}(?:v\d+)?)\.pdf',
+            # More liberal pattern for standalone IDs in academic text
+            r'\b(\d{4}\.\d{4,5}(?:v\d+)?)\b'
+        ]
+        
+        for pattern in patterns:
+            matches = re.findall(pattern, text, re.IGNORECASE)
+            for match in matches:
+                # Clean up the ID and validate
+                clean_id = re.sub(r'v\d+$', '', match)
+                if self._is_valid_arxiv_id(clean_id):
+                    arxiv_ids.add(clean_id)
+        
+        return list(arxiv_ids)
+    
+    def _is_valid_arxiv_id(self, arxiv_id: str) -> bool:
+        """
+        Validate ArXiv ID format.
+        
+        Args:
+            arxiv_id: ArXiv ID to validate
+            
+        Returns:
+            True if valid ArXiv ID format, False otherwise
+        """
+        import re
+        # ArXiv IDs follow format: YYMM.NNNN or YYMM.NNNNN
+        pattern = r'^\d{4}\.\d{4,5}$'
+        return bool(re.match(pattern, arxiv_id))
+    
+    async def get_paper_by_id(self, arxiv_id: str) -> Optional[PaperMetadata]:
+        """
+        Fetch a single paper's metadata by arXiv ID.
+        
+        Args:
+            arxiv_id: ArXiv paper ID (e.g., "2301.12345")
+            
+        Returns:
+            PaperMetadata object or None if not found
+        """
+        try:
+            logger.info(f"Fetching paper metadata for arXiv ID: {arxiv_id}")
+            
+            # Search for the specific arXiv ID
+            search_query = f"id:{arxiv_id}"
+            papers = await self._search_papers(
+                query=search_query,
+                max_results=1,
+                sort_by="submittedDate",
+                sort_order="descending"
+            )
+            
+            if papers:
+                logger.info(f"Found paper: {papers[0].title}")
+                return papers[0]
+            else:
+                logger.warning(f"Paper not found for arXiv ID: {arxiv_id}")
+                return None
+                
+        except Exception as e:
+            logger.error(f"Failed to fetch paper {arxiv_id}: {e}")
+            return None
 
 
 # Convenience functions for common use cases

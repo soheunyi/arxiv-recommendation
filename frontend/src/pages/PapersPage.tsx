@@ -4,15 +4,17 @@ import {
   BookOpenIcon,
   FunnelIcon,
   ChevronDownIcon,
-  ArrowPathIcon
+  ArrowPathIcon,
+  DocumentPlusIcon
 } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
-import { useAppDispatch, useAppSelector } from '@store';
+import { useAppDispatch, useAppSelector } from '@store/index';
 import { fetchPapers } from '@store/slices/papersSlice';
 import { updateRating } from '@store/slices/ratingsSlice';
 import { PaperCard } from '@components/papers/PaperCard';
 import { LoadingSpinner } from '@components/common/LoadingSpinner';
+import { ManualPaperModal } from '@components/collection/ManualPaperModal';
 
 export const PapersPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +35,7 @@ export const PapersPage: React.FC = () => {
   const [sortBy, setSortBy] = useState<'date' | 'title' | 'rating'>('date');
   const [page, setPage] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
+  const [showManualModal, setShowManualModal] = useState(false);
   
   // Available categories (this could come from the API)
   const categories = [
@@ -130,20 +133,32 @@ export const PapersPage: React.FC = () => {
           </p>
         </div>
         
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          onClick={handleRefresh}
-          disabled={papersLoading.fetch}
-          className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          {papersLoading.fetch ? (
-            <LoadingSpinner size="sm" />
-          ) : (
-            <ArrowPathIcon className="h-4 w-4" />
-          )}
-          Refresh
-        </motion.button>
+        <div className="flex items-center gap-3">
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setShowManualModal(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          >
+            <DocumentPlusIcon className="h-4 w-4" />
+            Add Paper
+          </motion.button>
+          
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={handleRefresh}
+            disabled={papersLoading.fetch}
+            className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {papersLoading.fetch ? (
+              <LoadingSpinner size="sm" />
+            ) : (
+              <ArrowPathIcon className="h-4 w-4" />
+            )}
+            Refresh
+          </motion.button>
+        </div>
       </div>
       
       {/* Filters */}
@@ -253,6 +268,16 @@ export const PapersPage: React.FC = () => {
           </p>
         </div>
       )}
+
+      {/* Manual Paper Modal */}
+      <ManualPaperModal
+        isOpen={showManualModal}
+        onClose={() => setShowManualModal(false)}
+        onSuccess={(paper) => {
+          // Refresh papers list after successful addition
+          handleRefresh();
+        }}
+      />
     </div>
   );
 };

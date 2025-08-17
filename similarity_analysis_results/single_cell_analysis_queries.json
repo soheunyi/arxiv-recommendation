@@ -1,0 +1,114 @@
+{
+  "topic": "single cell analysis",
+  "search_queries": [
+    {
+      "query": "ti:\"single cell analysis\"",
+      "priority": "high",
+      "description": "Papers with 'single cell analysis' in the title."
+    },
+    {
+      "query": "abs:\"single-cell RNA sequencing\" OR abs:\"scRNA-seq\"",
+      "priority": "high",
+      "description": "Papers mentioning 'single-cell RNA sequencing' or 'scRNA-seq' in the abstract, common methodologies for single cell analysis."
+    },
+    {
+      "query": "all:\"single cell transcriptomics\" AND cat:q-bio.GN",
+      "priority": "medium",
+      "description": "Papers related to single cell transcriptomics within genomics."
+    },
+    {
+      "query": "all:\"single cell proteomics\"",
+      "priority": "medium",
+      "description": "Papers discussing single cell proteomics."
+    },
+    {
+      "query": "abs:\"single-cell\" AND ti:\"analysis\" AND cat:q-bio.CB",
+      "priority": "high",
+      "description": "Papers in quantitative biology that mention 'single-cell' in the abstract and 'analysis' in the title."
+    },
+    {
+      "query": "ti:\"single cell\" AND abs:\"immunophenotyping\"",
+      "priority": "medium",
+      "description": "Papers with 'single cell' in the title and 'immunophenotyping' in the abstract."
+    },
+    {
+      "query": "ti:\"cytometry\" AND abs:\"single cell\"",
+      "priority": "medium",
+      "description": "Single cell analysis papers that focus on cytometry."
+    },
+    {
+      "query": "all:\"mass cytometry\" OR all:\"CyTOF\"",
+      "priority": "medium",
+      "description": "Papers on mass cytometry or CyTOF, techniques used in single cell analysis."
+    },
+    {
+      "query": "au:\"Sarah Teichmann\"",
+      "priority": "low",
+      "description": "Works by Sarah Teichmann, a key researcher in the field of single cell analysis."
+    },
+    {
+      "query": "abs:\"single cell genome sequencing\"",
+      "priority": "medium",
+      "description": "Papers discussing single cell genome sequencing."
+    },
+    {
+      "query": "all:\"cellular heterogeneity\" AND cat:stat.ME",
+      "priority": "low",
+      "description": "Statistical methods papers discussing cellular heterogeneity, often relevant to single cell analysis."
+    },
+    {
+      "query": "ti:\"single-cell\" AND abs:\"tumor microenvironment\"",
+      "priority": "medium",
+      "description": "Single cell studies related to the tumor microenvironment."
+    },
+    {
+      "query": "all:\"single-cell epigenomics\" AND cat:genomics",
+      "priority": "medium",
+      "description": "Papers on single-cell epigenomics."
+    },
+    {
+      "query": "abs:\"single cell\" AND (abs:\"metabolomics\" OR abs:\"metabolic\" OR abs:\"metabolism\")",
+      "priority": "medium",
+      "description": "Papers focusing on single cell analysis within the metabolomics/metabolism domain."
+    },
+    {
+      "query": "all:\"single-cell resolution\" AND all:\"biosensors\"",
+      "priority": "low",
+      "description": "Papers discussing biosensors designed for single-cell resolution."
+    }
+  ],
+  "categories": [
+    "q-bio.GN",
+    "q-bio.CB",
+    "q-bio.MN",
+    "stat.ME",
+    "genomics"
+  ],
+  "filter_keywords": [
+    "single cell",
+    "scRNA-seq",
+    "transcriptomics",
+    "proteomics",
+    "cytometry",
+    "mass cytometry",
+    "CyTOF",
+    "cellular heterogeneity",
+    "tumor microenvironment",
+    "epigenomics",
+    "metabolomics"
+  ],
+  "related_terms": [
+    "scRNA-seq",
+    "single-cell RNA sequencing",
+    "single-cell genomics",
+    "single-cell proteomics",
+    "cytometry",
+    "mass cytometry",
+    "CyTOF",
+    "cellular heterogeneity",
+    "single-cell metabolism",
+    "tumor microenvironment",
+    "single-cell epigenomics",
+    "biosensors"
+  ]
+}

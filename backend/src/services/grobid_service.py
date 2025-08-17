@@ -229,8 +229,7 @@ class GrobidService:
                 ".//tei:title[@level='a']",  # Article title (most common)
                 ".//tei:title[@level='m']",  # Monograph/book title
                 ".//tei:title[@level='j']",  # Journal title (fallback)
-                ".//tei:title[not(@level)]", # Title without level attribute
-                ".//tei:title"               # Any title element
+                ".//tei:title"               # Any title element (including those without level)
             ]
             
             for pattern in title_patterns:
@@ -238,6 +237,27 @@ class GrobidService:
                 if title_elem is not None and title_elem.text and title_elem.text.strip():
                     ref.title = title_elem.text.strip()
                     break
+            
+            # If no title found in title elements, try to extract from note element
+            if not ref.title:
+                note_elem = ref_elem.find(".//tei:note[@type='report_type']", nsmap)
+                if note_elem is not None and note_elem.text and note_elem.text.strip():
+                    note_text = note_elem.text.strip()
+                    # Extract title from note text (e.g., "Layer normalization. arXiv preprint")
+                    if ". arXiv" in note_text:
+                        ref.title = note_text.split(". arXiv")[0].strip()
+                    elif note_text:
+                        ref.title = note_text
+                        
+                # If still no title, try any note element
+                if not ref.title:
+                    note_elem = ref_elem.find(".//tei:note", nsmap)
+                    if note_elem is not None and note_elem.text and note_elem.text.strip():
+                        note_text = note_elem.text.strip()
+                        if ". arXiv" in note_text:
+                            ref.title = note_text.split(". arXiv")[0].strip()
+                        elif note_text:
+                            ref.title = note_text
             
             # Extract authors
             authors = []
@@ -302,6 +322,25 @@ class GrobidService:
             arxiv_elem = ref_elem.find(".//tei:idno[@type='arXiv']", nsmap)
             if arxiv_elem is not None and arxiv_elem.text:
                 ref.arxiv_id = arxiv_elem.text.strip()
+            
+            # Fallback: Extract arXiv ID from raw text if not found in structured XML
+            if not ref.arxiv_id:
+                # Get raw text for pattern matching
+                raw_text = ET.tostring(ref_elem, encoding='unicode', method='text').strip()
+                
+                # Look for ArXiv patterns: "abs/XXXX.YYYY", "CoRR, abs/XXXX.YYYY", "arXiv:XXXX.YYYY"
+                arxiv_patterns = [
+                    r'(?:CoRR,\s*)?abs/(\d{4}\.\d{4,5})',  # CoRR, abs/1409.0473 or abs/1409.0473
+                    r'arXiv:(\d{4}\.\d{4,5})',            # arXiv:1409.0473
+                    r'(?:arXiv|ArXiv)\s+(\d{4}\.\d{4,5})', # ArXiv 1409.0473
+                ]
+                
+                for pattern in arxiv_patterns:
+                    match = re.search(pattern, raw_text)
+                    if match:
+                        ref.arxiv_id = match.group(1)
+                        logger.debug(f"Extracted ArXiv ID from raw text: {ref.arxiv_id}")
+                        break
             
             # Extract ISBN
             isbn_elem = ref_elem.find(".//tei:idno[@type='ISBN']", nsmap)

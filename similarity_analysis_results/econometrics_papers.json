@@ -1,0 +1,1657 @@
+[
+  {
+    "id": "0801.3047v1",
+    "title": "Econometrics as Sorcery",
+    "abstract": "The paper deals with the problem of identifying the internal dependencies and similarities among a large number of random processes. Linear models are considered to describe the relations among the time series and the energy associated to the corresponding modeling error is the criterion adopted to quantify their similarities. Such an approach is interpreted in terms of graph theory suggesting a natural way to group processes together when one provides the best model to explain the other. Moreover, the clustering technique introduced in this paper will turn out to be the dynamical generalization of other multivariate procedures described in literature.",
+    "authors": [
+      "G. Innocenti",
+      "D. Materassi"
+    ],
+    "category": "q-fin.ST",
+    "published_date": "2008-01-19 19:29:18+00:00",
+    "updated_date": "2008-01-19 19:29:18+00:00",
+    "arxiv_url": "http://arxiv.org/abs/0801.3047v1",
+    "pdf_url": "https://arxiv.org/pdf/0801.3047v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1505.00720v1",
+    "title": "Econometrics for Learning Agents",
+    "abstract": "The main goal of this paper is to develop a theory of inference of player valuations from observed data in the generalized second price auction without relying on the Nash equilibrium assumption. Existing work in Economics on inferring agent values from data relies on the assumption that all participant strategies are best responses of the observed play of other players, i.e. they constitute a Nash equilibrium. In this paper, we show how to perform inference relying on a weaker assumption instead: assuming that players are using some form of no-regret learning. Learning outcomes emerged in recent years as an attractive alternative to Nash equilibrium in analyzing game outcomes, modeling players who haven't reached a stable equilibrium, but rather use algorithmic learning, aiming to learn the best way to play from previous observations. In this paper we show how to infer values of players who use algorithmic learning strategies. Such inference is an important first step before we move to testing any learning theoretic behavioral model on auction data. We apply our techniques to a dataset from Microsoft's sponsored search ad auction system.",
+    "authors": [
+      "Denis Nekipelov",
+      "Vasilis Syrgkanis",
+      "Eva Tardos"
+    ],
+    "category": "cs.GT",
+    "published_date": "2015-05-04 17:28:47+00:00",
+    "updated_date": "2015-05-04 17:28:47+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1505.00720v1",
+    "pdf_url": "https://arxiv.org/pdf/1505.00720v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1809.04016v1",
+    "title": "Bootstrap Methods in Econometrics",
+    "abstract": "The bootstrap is a method for estimating the distribution of an estimator or test statistic by re-sampling the data or a model estimated from the data. Under conditions that hold in a wide variety of econometric applications, the bootstrap provides approximations to distributions of statistics, coverage probabilities of confidence intervals, and rejection probabilities of hypothesis tests that are more accurate than the approximations of first-order asymptotic distribution theory. The reductions in the differences between true and nominal coverage or rejection probabilities can be very large. In addition, the bootstrap provides a way to carry out inference in certain settings where obtaining analytic distributional approximations is difficult or impossible. This article explains the usefulness and limitations of the bootstrap in contexts of interest in econometrics. The presentation is informal and expository. It provides an intuitive understanding of how the bootstrap works. Mathematical details are available in references that are cited.",
+    "authors": [
+      "Joel L. Horowitz"
+    ],
+    "category": "econ.EM",
+    "published_date": "2018-09-11 16:39:03+00:00",
+    "updated_date": "2018-09-11 16:39:03+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1809.04016v1",
+    "pdf_url": "https://arxiv.org/pdf/1809.04016v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0710.2912v1",
+    "title": "Updating Probabilities: An Econometric Example",
+    "abstract": "We demonstrate how information in the form of observable data and moment constraints are introduced into the method of Maximum relative Entropy (ME). A general example of updating with data and moments is shown. A specific econometric example is solved in detail which can then be used as a template for real world problems. A numerical example is compared to a large deviation solution which illustrates some of the advantages of the ME method.",
+    "authors": [
+      "Adom Giffin"
+    ],
+    "category": "stat.ME",
+    "published_date": "2007-10-15 20:59:55+00:00",
+    "updated_date": "2007-10-15 20:59:55+00:00",
+    "arxiv_url": "http://arxiv.org/abs/0710.2912v1",
+    "pdf_url": "https://arxiv.org/pdf/0710.2912v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1607.00698v1",
+    "title": "The Econometrics of Randomized Experiments",
+    "abstract": "In this review, we present econometric and statistical methods for analyzing randomized experiments. For basic experiments we stress randomization-based inference as opposed to sampling-based inference. In randomization-based inference, uncertainty in estimates arises naturally from the random assignment of the treatments, rather than from hypothesized sampling from a large population. We show how this perspective relates to regression analyses for randomized experiments. We discuss the analyses of stratified, paired, and clustered randomized experiments, and we stress the general efficiency gains from stratification. We also discuss complications in randomized experiments such as non-compliance. In the presence of non-compliance we contrast intention-to-treat analyses with instrumental variables analyses allowing for general treatment effect heterogeneity. We consider in detail estimation and inference for heterogeneous treatment effects in settings with (possibly many) covariates. These methods allow researchers to explore heterogeneity by identifying subpopulations with different treatment effects while maintaining the ability to construct valid confidence intervals. We also discuss optimal assignment to treatment based on covariates in such settings. Finally, we discuss estimation and inference in experiments in settings with interactions between units, both in general network settings and in settings where the population is partitioned into groups with all interactions contained within these groups.",
+    "authors": [
+      "Susan Athey",
+      "Guido Imbens"
+    ],
+    "category": "stat.ME",
+    "published_date": "2016-07-03 22:57:14+00:00",
+    "updated_date": "2016-07-03 22:57:14+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1607.00698v1",
+    "pdf_url": "https://arxiv.org/pdf/1607.00698v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1810.02956v1",
+    "title": "Low rank spatial econometric models",
+    "abstract": "This article presents a re-structuring of spatial econometric models in a linear mixed model framework. To that end, it proposes low rank spatial econometric models that are robust to the existence of noise (i.e., measurement error), and can enjoy fast parameter estimation and inference by Type II restricted likelihood maximization (empirical Bayes) techniques. The small sample properties of the proposed low rank spatial econometric models are examined using Monte Carlo simulation experiments, the results of these experiments confirm that direct effects and indirect effects a la LeSage and Pace (2009) can be estimated with a high degree of accuracy. Also, when data are noisy, estimators for coefficients in the proposed models have lower root mean squared errors compared to conventional specifications, despite them being low rank approximations. The proposed approach is implemented in an R package \"spmoran\".",
+    "authors": [
+      "Daisuke Murakami",
+      "Hajime Seya",
+      "Daniel A. Griffith"
+    ],
+    "category": "stat.ME",
+    "published_date": "2018-10-06 08:09:31+00:00",
+    "updated_date": "2018-10-06 08:09:31+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1810.02956v1",
+    "pdf_url": "https://arxiv.org/pdf/1810.02956v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2207.04082v1",
+    "title": "Spatial Econometrics for Misaligned Data",
+    "abstract": "We produce methodology for regression analysis when the geographic locations of the independent and dependent variables do not coincide, in which case we speak of misaligned data. We develop and investigate two complementary methods for regression analysis with misaligned data that circumvent the need to estimate or specify the covariance of the regression errors. We carry out a detailed reanalysis of Maccini and Yang (2009) and find economically significant quantitative differences but sustain most qualitative conclusions.",
+    "authors": [
+      "Guillaume Allaire Pouliot"
+    ],
+    "category": "econ.EM",
+    "published_date": "2022-07-08 18:12:50+00:00",
+    "updated_date": "2022-07-08 18:12:50+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2207.04082v1",
+    "pdf_url": "https://arxiv.org/pdf/2207.04082v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1605.03486v1",
+    "title": "An Overview of Spatial Econometrics",
+    "abstract": "This paper offers an expository overview of the field of spatial econometrics. It first justifies the necessity of special statistical procedures for the analysis of spatial data and then proceeds to describe the fundamentals of these procedures. In particular, this paper covers three crucial techniques for building models with spatial data. First, we discuss how to create a spatial weights matrix based on the distances between each data point in a dataset. Next, we describe the conventional methods to formally detect spatial autocorrelation, both global and local. Finally, we outline the chief components of a spatial autoregressive model, noting the circumstances under which it would be appropriate to incorporate each component into a model. This paper seeks to offer a concise introduction to spatial econometrics that will be accessible to interested individuals with a background in statistics or econometrics.",
+    "authors": [
+      "Alexander J. Tybl"
+    ],
+    "category": "stat.AP",
+    "published_date": "2016-05-11 15:52:25+00:00",
+    "updated_date": "2016-05-11 15:52:25+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1605.03486v1",
+    "pdf_url": "https://arxiv.org/pdf/1605.03486v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1910.07781v2",
+    "title": "Econometric Models of Network Formation",
+    "abstract": "This article provides a selective review on the recent literature on econometric models of network formation. The survey starts with a brief exposition on basic concepts and tools for the statistical description of networks. I then offer a review of dyadic models, focussing on statistical models on pairs of nodes and describe several developments of interest to the econometrics literature. The article also presents a discussion of non-dyadic models where link formation might be influenced by the presence or absence of additional links, which themselves are subject to similar influences. This is related to the statistical literature on conditionally specified models and the econometrics of game theoretical models. I close with a (non-exhaustive) discussion of potential areas for further development.",
+    "authors": [
+      "Aureo de Paula"
+    ],
+    "category": "econ.EM",
+    "published_date": "2019-10-17 09:18:59+00:00",
+    "updated_date": "2020-01-11 09:07:10+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1910.07781v2",
+    "pdf_url": "https://arxiv.org/pdf/1910.07781v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2405.03021v1",
+    "title": "Tuning parameter selection in econometrics",
+    "abstract": "I review some of the main methods for selecting tuning parameters in nonparametric and $\\ell_1$-penalized estimation. For the nonparametric estimation, I consider the methods of Mallows, Stein, Lepski, cross-validation, penalization, and aggregation in the context of series estimation. For the $\\ell_1$-penalized estimation, I consider the methods based on the theory of self-normalized moderate deviations, bootstrap, Stein's unbiased risk estimation, and cross-validation in the context of Lasso estimation. I explain the intuition behind each of the methods and discuss their comparative advantages. I also give some extensions.",
+    "authors": [
+      "Denis Chetverikov"
+    ],
+    "category": "econ.EM",
+    "published_date": "2024-05-05 18:08:24+00:00",
+    "updated_date": "2024-05-05 18:08:24+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2405.03021v1",
+    "pdf_url": "https://arxiv.org/pdf/2405.03021v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0304215v1",
+    "title": "Econometric Analysis on Efficiency of Estimator",
+    "abstract": "This paper investigates the efficiency of an alternative to ratio estimator under the super population model with uncorrelated errors and a gamma-distributed auxiliary variable. Comparisons with usual ratio and unbiased estimators are also made.",
+    "authors": [
+      "M. Khoshnevisan",
+      "F. Kaymram",
+      "Housila P. Singh",
+      "Rajesh Singh",
+      "Florentin Smarandache"
+    ],
+    "category": "math.GM",
+    "published_date": "2003-04-16 00:09:37+00:00",
+    "updated_date": "2003-04-16 00:09:37+00:00",
+    "arxiv_url": "http://arxiv.org/abs/math/0304215v1",
+    "pdf_url": "https://arxiv.org/pdf/0304215v1.pdf",
+    "doi": null,
+    "journal_ref": "Published in Libertas Mathematica, University of Texas at\n  Arlington, Vol. XXIII, 183-194, 2003."
+  },
+  {
+    "id": "1106.5242v2",
+    "title": "High Dimensional Sparse Econometric Models: An Introduction",
+    "abstract": "In this chapter we discuss conceptually high dimensional sparse econometric models as well as estimation of these models using L1-penalization and post-L1-penalization methods. Focusing on linear and nonparametric regression frameworks, we discuss various econometric examples, present basic theoretical results, and illustrate the concepts and methods with Monte Carlo simulations and an empirical application. In the application, we examine and confirm the empirical validity of the Solow-Swan model for international economic growth.",
+    "authors": [
+      "Alexandre Belloni",
+      "Victor Chernozhukov"
+    ],
+    "category": "stat.AP",
+    "published_date": "2011-06-26 18:21:14+00:00",
+    "updated_date": "2011-09-02 02:20:42+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1106.5242v2",
+    "pdf_url": "https://arxiv.org/pdf/1106.5242v2.pdf",
+    "doi": null,
+    "journal_ref": "Inverse Problems and High-Dimensional Estimation, Lecture Notes in\n  Statistics, Vol. 203, 2011, pp. 121-156"
+  },
+  {
+    "id": "1201.0220v1",
+    "title": "Inference for High-Dimensional Sparse Econometric Models",
+    "abstract": "This article is about estimation and inference methods for high dimensional sparse (HDS) regression models in econometrics. High dimensional sparse models arise in situations where many regressors (or series terms) are available and the regression function is well-approximated by a parsimonious, yet unknown set of regressors. The latter condition makes it possible to estimate the entire regression function effectively by searching for approximately the right set of regressors. We discuss methods for identifying this set of regressors and estimating their coefficients based on $\\ell_1$-penalization and describe key theoretical results. In order to capture realistic practical situations, we expressly allow for imperfect selection of regressors and study the impact of this imperfect selection on estimation and inference results. We focus the main part of the article on the use of HDS models and methods in the instrumental variables model and the partially linear model. We present a set of novel inference results for these models and illustrate their use with applications to returns to schooling and growth regression.",
+    "authors": [
+      "Alexandre Belloni",
+      "Victor Chernozhukov",
+      "Christian Hansen"
+    ],
+    "category": "stat.ME",
+    "published_date": "2011-12-31 04:31:00+00:00",
+    "updated_date": "2011-12-31 04:31:00+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1201.0220v1",
+    "pdf_url": "https://arxiv.org/pdf/1201.0220v1.pdf",
+    "doi": null,
+    "journal_ref": "Advances in Economics and Econometrics, 10th World Congress of\n  Econometric Society, 2011"
+  },
+  {
+    "id": "1212.6757v2",
+    "title": "Testing Regression Monotonicity in Econometric Models",
+    "abstract": "Monotonicity is a key qualitative prediction of a wide array of economic models derived via robust comparative statics. It is therefore important to design effective and practical econometric methods for testing this prediction in empirical analysis. This paper develops a general nonparametric framework for testing monotonicity of a regression function. Using this framework, a broad class of new tests is introduced, which gives an empirical researcher a lot of flexibility to incorporate ex ante information she might have. The paper also develops new methods for simulating critical values, which are based on the combination of a bootstrap procedure and new selection algorithms. These methods yield tests that have correct asymptotic size and are asymptotically nonconservative. It is also shown how to obtain an adaptive rate optimal test that has the best attainable rate of uniform consistency against models whose regression function has Lipschitz-continuous first-order derivatives and that automatically adapts to the unknown smoothness of the regression function. Simulations show that the power of the new tests in many cases significantly exceeds that of some prior tests, e.g. that of Ghosal, Sen, and Van der Vaart (2000). An application of the developed procedures to the dataset of Ellison and Ellison (2011) shows that there is some evidence of strategic entry deterrence in pharmaceutical industry where incumbents may use strategic investment to prevent generic entries when their patents expire.",
+    "authors": [
+      "Denis Chetverikov"
+    ],
+    "category": "math.ST",
+    "published_date": "2012-12-30 17:59:23+00:00",
+    "updated_date": "2013-12-03 19:25:17+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1212.6757v2",
+    "pdf_url": "https://arxiv.org/pdf/1212.6757v2.pdf",
+    "doi": "http://dx.doi.org/10.1017/S0266466618000282",
+    "journal_ref": "Econom. Theory 35 (2019) 729-776"
+  },
+  {
+    "id": "1612.02024v5",
+    "title": "Impossible Inference in Econometrics: Theory and Applications",
+    "abstract": "This paper studies models in which hypothesis tests have trivial power, that is, power smaller than size. This testing impossibility, or impossibility type A, arises when any alternative is not distinguishable from the null. We also study settings in which it is impossible to have almost surely bounded confidence sets for a parameter of interest. This second type of impossibility (type B) occurs under a condition weaker than the condition for type A impossibility: the parameter of interest must be nearly unidentified. Our theoretical framework connects many existing publications on impossible inference that rely on different notions of topologies to show models are not distinguishable or nearly unidentified. We also derive both types of impossibility using the weak topology induced by convergence in distribution. Impossibility in the weak topology is often easier to prove, it is applicable for many widely-used tests, and it is useful for robust hypothesis testing. We conclude by demonstrating impossible inference in multiple economic applications of models with discontinuity and time-series models.",
+    "authors": [
+      "Marinho Bertanha",
+      "Marcelo J. Moreira"
+    ],
+    "category": "math.ST",
+    "published_date": "2016-12-06 21:15:33+00:00",
+    "updated_date": "2020-02-17 21:38:24+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1612.02024v5",
+    "pdf_url": "https://arxiv.org/pdf/1612.02024v5.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1907.01954v4",
+    "title": "An Econometric Perspective on Algorithmic Subsampling",
+    "abstract": "Datasets that are terabytes in size are increasingly common, but computer bottlenecks often frustrate a complete analysis of the data. While more data are better than less, diminishing returns suggest that we may not need terabytes of data to estimate a parameter or test a hypothesis. But which rows of data should we analyze, and might an arbitrary subset of rows preserve the features of the original data? This paper reviews a line of work that is grounded in theoretical computer science and numerical linear algebra, and which finds that an algorithmically desirable sketch, which is a randomly chosen subset of the data, must preserve the eigenstructure of the data, a property known as a subspace embedding. Building on this work, we study how prediction and inference can be affected by data sketching within a linear regression setup. We show that the sketching error is small compared to the sample size effect which a researcher can control. As a sketch size that is algorithmically optimal may not be suitable for prediction and inference, we use statistical arguments to provide 'inference conscious' guides to the sketch size. When appropriately implemented, an estimator that pools over different sketches can be nearly as efficient as the infeasible one using the full sample.",
+    "authors": [
+      "Sokbae Lee",
+      "Serena Ng"
+    ],
+    "category": "econ.EM",
+    "published_date": "2019-07-03 14:04:12+00:00",
+    "updated_date": "2020-04-30 16:44:12+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1907.01954v4",
+    "pdf_url": "https://arxiv.org/pdf/1907.01954v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2004.11486v1",
+    "title": "Machine Learning Econometrics: Bayesian algorithms and methods",
+    "abstract": "As the amount of economic and other data generated worldwide increases vastly, a challenge for future generations of econometricians will be to master efficient algorithms for inference in empirical models with large information sets. This Chapter provides a review of popular estimation algorithms for Bayesian inference in econometrics and surveys alternative algorithms developed in machine learning and computing science that allow for efficient computation in high-dimensional settings. The focus is on scalability and parallelizability of each algorithm, as well as their ability to be adopted in various empirical settings in economics and finance.",
+    "authors": [
+      "Dimitris Korobilis",
+      "Davide Pettenuzzo"
+    ],
+    "category": "stat.CO",
+    "published_date": "2020-04-23 23:15:33+00:00",
+    "updated_date": "2020-04-23 23:15:33+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2004.11486v1",
+    "pdf_url": "https://arxiv.org/pdf/2004.11486v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1912.09104v4",
+    "title": "Causal Inference and Data Fusion in Econometrics",
+    "abstract": "Learning about cause and effect is arguably the main goal in applied econometrics. In practice, the validity of these causal inferences is contingent on a number of critical assumptions regarding the type of data that has been collected and the substantive knowledge that is available. For instance, unobserved confounding factors threaten the internal validity of estimates, data availability is often limited to non-random, selection-biased samples, causal effects need to be learned from surrogate experiments with imperfect compliance, and causal knowledge has to be extrapolated across structurally heterogeneous populations. A powerful causal inference framework is required to tackle these challenges, which plague most data analysis to varying degrees. Building on the structural approach to causality introduced by Haavelmo (1943) and the graph-theoretic framework proposed by Pearl (1995), the artificial intelligence (AI) literature has developed a wide array of techniques for causal learning that allow to leverage information from various imperfect, heterogeneous, and biased data sources (Bareinboim and Pearl, 2016). In this paper, we discuss recent advances in this literature that have the potential to contribute to econometric methodology along three dimensions. First, they provide a unified and comprehensive framework for causal inference, in which the aforementioned problems can be addressed in full generality. Second, due to their origin in AI, they come together with sound, efficient, and complete algorithmic criteria for automatization of the corresponding identification task. And third, because of the nonparametric description of structural models that graph-theoretic approaches build on, they combine the strengths of both structural econometrics as well as the potential outcomes framework, and thus offer an effective middle ground between these two literature streams.",
+    "authors": [
+      "Paul H\u00fcnermund",
+      "Elias Bareinboim"
+    ],
+    "category": "econ.EM",
+    "published_date": "2019-12-19 10:24:04+00:00",
+    "updated_date": "2023-03-02 17:00:20+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1912.09104v4",
+    "pdf_url": "https://arxiv.org/pdf/1912.09104v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1605.03838v2",
+    "title": "An Experimental Evaluation of Regret-Based Econometrics",
+    "abstract": "Using data obtained in a controlled ad-auction experiment that we ran, we evaluate the regret-based approach to econometrics that was recently suggested by Nekipelov, Syrgkanis, and Tardos (EC 2015). We found that despite the weak regret-based assumptions, the results were (at least) as accurate as those obtained using classic equilibrium-based assumptions. En route we studied to what extent humans actually minimize regret in our ad auction, and found a significant difference between the \"high types\" (players with a high valuation) who indeed rationally minimized regret and the \"low types\" who significantly overbid. We suggest that correcting for these biases and adjusting the regret-based econometric method may improve the accuracy of estimated values.",
+    "authors": [
+      "Noam Nisan",
+      "Gali Noti"
+    ],
+    "category": "cs.GT",
+    "published_date": "2016-05-12 14:43:41+00:00",
+    "updated_date": "2017-02-26 14:45:22+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1605.03838v2",
+    "pdf_url": "https://arxiv.org/pdf/1605.03838v2.pdf",
+    "doi": "http://dx.doi.org/10.1145/3038912.3052621",
+    "journal_ref": null
+  },
+  {
+    "id": "2202.11581v1",
+    "title": "Can LSTM outperform volatility-econometric models?",
+    "abstract": "Volatility prediction for financial assets is one of the essential questions for understanding financial risks and quadratic price variation. However, although many novel deep learning models were recently proposed, they still have a \"hard time\" surpassing strong econometric volatility models. Why is this the case? The volatility prediction task is of non-trivial complexity due to noise, market microstructure, heteroscedasticity, exogenous and asymmetric effect of news, and the presence of different time scales, among others. In this paper, we analyze the class of long short-term memory (LSTM) recurrent neural networks for the task of volatility prediction and compare it with strong volatility-econometric models.",
+    "authors": [
+      "German Rodikov",
+      "Nino Antulov-Fantulin"
+    ],
+    "category": "q-fin.CP",
+    "published_date": "2022-02-23 15:57:41+00:00",
+    "updated_date": "2022-02-23 15:57:41+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2202.11581v1",
+    "pdf_url": "https://arxiv.org/pdf/2202.11581v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1806.01888v2",
+    "title": "High-Dimensional Econometrics and Regularized GMM",
+    "abstract": "This chapter presents key concepts and theoretical results for analyzing estimation and inference in high-dimensional models. High-dimensional models are characterized by having a number of unknown parameters that is not vanishingly small relative to the sample size. We first present results in a framework where estimators of parameters of interest may be represented directly as approximate means. Within this context, we review fundamental results including high-dimensional central limit theorems, bootstrap approximation of high-dimensional limit distributions, and moderate deviation theory. We also review key concepts underlying inference when many parameters are of interest such as multiple testing with family-wise error rate or false discovery rate control. We then turn to a general high-dimensional minimum distance framework with a special focus on generalized method of moments problems where we present results for estimation and inference about model parameters. The presented results cover a wide array of econometric applications, and we discuss several leading special cases including high-dimensional linear regression and linear instrumental variables models to illustrate the general results.",
+    "authors": [
+      "Alexandre Belloni",
+      "Victor Chernozhukov",
+      "Denis Chetverikov",
+      "Christian Hansen",
+      "Kengo Kato"
+    ],
+    "category": "math.ST",
+    "published_date": "2018-06-05 18:46:12+00:00",
+    "updated_date": "2018-06-10 15:21:13+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1806.01888v2",
+    "pdf_url": "https://arxiv.org/pdf/1806.01888v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2208.02098v3",
+    "title": "The Econometrics of Financial Duration Modeling",
+    "abstract": "We establish new results for estimation and inference in financial durations models, where events are observed over a given time span, such as a trading day, or a week. For the classical autoregressive conditional duration (ACD) models by Engle and Russell (1998, Econometrica 66, 1127-1162), we show that the large sample behavior of likelihood estimators is highly sensitive to the tail behavior of the financial durations. In particular, even under stationarity, asymptotic normality breaks down for tail indices smaller than one or, equivalently, when the clustering behaviour of the observed events is such that the unconditional distribution of the durations has no finite mean. Instead, we find that estimators are mixed Gaussian and have non-standard rates of convergence. The results are based on exploiting the crucial fact that for duration data the number of observations within any given time span is random. Our results apply to general econometric models where the number of observed events is random.",
+    "authors": [
+      "Giuseppe Cavaliere",
+      "Thomas Mikosch",
+      "Anders Rahbek",
+      "Frederik Vilandt"
+    ],
+    "category": "econ.EM",
+    "published_date": "2022-08-03 14:28:03+00:00",
+    "updated_date": "2022-12-01 10:31:10+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2208.02098v3",
+    "pdf_url": "https://arxiv.org/pdf/2208.02098v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2208.06521v2",
+    "title": "Non-strategic Econometrics (for Initial Play)",
+    "abstract": "Modelling agent preferences has applications in a range of fields including economics and increasingly, artificial intelligence. These preferences are not always known and thus may need to be estimated from observed behavior, in which case a model is required to map agent preferences to behavior, also known as structural estimation. Traditional models are based on the assumption that agents are perfectly rational: that is, they perfectly optimize and behave in accordance with their own interests. Work in the field of behavioral game theory has shown, however, that human agents often make decisions that are imperfectly rational, and the field has developed models that relax the perfect rationality assumption. We apply models developed for predicting behavior towards estimating preferences and show that they outperform both traditional and commonly used benchmark models on data collected from human subjects. In fact, Nash equilibrium and its relaxation, quantal response equilibrium (QRE), can induce an inaccurate estimate of agent preferences when compared against ground truth.   A key finding is that modelling non-strategic behavior, conventionally considered uniform noise, is important for estimating preferences. To this end, we introduce quantal-linear4, a rich non-strategic model. We also propose an augmentation to the popular quantal response equilibrium with a non-strategic component. We call this augmented model QRE+L0 and find an improvement in estimating values over the standard QRE.   QRE+L0 allows for alternative models of non-strategic behavior in addition to quantal-linear4.",
+    "authors": [
+      "Daniel Chui",
+      "Jason Hartline",
+      "James R. Wright"
+    ],
+    "category": "cs.GT",
+    "published_date": "2022-08-12 22:37:10+00:00",
+    "updated_date": "2023-03-01 03:55:23+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2208.06521v2",
+    "pdf_url": "https://arxiv.org/pdf/2208.06521v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2311.06256v1",
+    "title": "From Deep Filtering to Deep Econometrics",
+    "abstract": "Calculating true volatility is an essential task for option pricing and risk management. However, it is made difficult by market microstructure noise. Particle filtering has been proposed to solve this problem as it favorable statistical properties, but relies on assumptions about underlying market dynamics. Machine learning methods have also been proposed but lack interpretability, and often lag in performance. In this paper we implement the SV-PF-RNN: a hybrid neural network and particle filter architecture. Our SV-PF-RNN is designed specifically with stochastic volatility estimation in mind. We then show that it can improve on the performance of a basic particle filter.",
+    "authors": [
+      "Robert Stok",
+      "Paul Bilokon"
+    ],
+    "category": "q-fin.ST",
+    "published_date": "2023-09-13 19:57:13+00:00",
+    "updated_date": "2023-09-13 19:57:13+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2311.06256v1",
+    "pdf_url": "https://arxiv.org/pdf/2311.06256v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2409.10030v2",
+    "title": "Econometric Inference for High Dimensional Predictive Regressions",
+    "abstract": "LASSO introduces shrinkage bias into estimated coefficients, which can adversely affect the desirable asymptotic normality and invalidate the standard inferential procedure based on the $t$-statistic. The desparsified LASSO has emerged as a well-known remedy for this issue. In the context of high dimensional predictive regression, the desparsified LASSO faces an additional challenge: the Stambaugh bias arising from nonstationary regressors. To restore the standard inferential procedure, we propose a novel estimator called IVX-desparsified LASSO (XDlasso). XDlasso eliminates the shrinkage bias and the Stambaugh bias simultaneously and does not require prior knowledge about the identities of nonstationary and stationary regressors. We establish the asymptotic properties of XDlasso for hypothesis testing, and our theoretical findings are supported by Monte Carlo simulations. Applying our method to real-world applications from the FRED-MD database -- which includes a rich set of control variables -- we investigate two important empirical questions: (i) the predictability of the U.S. stock returns based on the earnings-price ratio, and (ii) the predictability of the U.S. inflation using the unemployment rate.",
+    "authors": [
+      "Zhan Gao",
+      "Ji Hyung Lee",
+      "Ziwei Mei",
+      "Zhentao Shi"
+    ],
+    "category": "stat.ME",
+    "published_date": "2024-09-16 06:41:58+00:00",
+    "updated_date": "2024-11-09 15:23:48+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2409.10030v2",
+    "pdf_url": "https://arxiv.org/pdf/2409.10030v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2410.08416v1",
+    "title": "Econometrics of Insurance with Multidimensional Types",
+    "abstract": "In this paper, we address the identification and estimation of insurance models where insurees have private information about their risk and risk aversion. The model includes random damages and allows for several claims, while insurers choose from a finite number of coverages. We show that the joint distribution of risk and risk aversion is nonparametrically identified despite bunching due to multidimensional types and a finite number of coverages. Our identification strategy exploits the observed number of claims as well as an exclusion restriction, and a full support assumption. Furthermore, our results apply to any form of competition. We propose a novel estimation procedure combining nonparametric estimators and GMM estimation that we illustrate in a Monte Carlo study.",
+    "authors": [
+      "Gaurab Aryal",
+      "Isabelle Perrigne",
+      "Quang Vuong",
+      "Haiqing Xu"
+    ],
+    "category": "econ.GN",
+    "published_date": "2024-10-10 23:11:37+00:00",
+    "updated_date": "2024-10-10 23:11:37+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2410.08416v1",
+    "pdf_url": "https://arxiv.org/pdf/2410.08416v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2412.07031v2",
+    "title": "Large Language Models: An Applied Econometric Framework",
+    "abstract": "How can we use the novel capacities of large language models (LLMs) in empirical research? And how can we do so while accounting for their limitations, which are themselves only poorly understood? We develop an econometric framework to answer this question that distinguishes between two types of empirical tasks. Using LLMs for prediction problems (including hypothesis generation) is valid under one condition: no ``leakage'' between the LLM's training dataset and the researcher's sample. No leakage can be ensured by using open-source LLMs with documented training data and published weights. Using LLM outputs for estimation problems to automate the measurement of some economic concept (expressed either by some text or from human subjects) requires the researcher to collect at least some validation data: without such data, the errors of the LLM's automation cannot be assessed and accounted for. As long as these steps are taken, LLM outputs can be used in empirical research with the familiar econometric guarantees we desire. Using two illustrative applications to finance and political economy, we find that these requirements are stringent; when they are violated, the limitations of LLMs now result in unreliable empirical estimates. Our results suggest the excitement around the empirical uses of LLMs is warranted -- they allow researchers to effectively use even small amounts of language data for both prediction and estimation -- but only with these safeguards in place.",
+    "authors": [
+      "Jens Ludwig",
+      "Sendhil Mullainathan",
+      "Ashesh Rambachan"
+    ],
+    "category": "econ.EM",
+    "published_date": "2024-12-09 22:37:48+00:00",
+    "updated_date": "2025-01-03 14:19:58+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2412.07031v2",
+    "pdf_url": "https://arxiv.org/pdf/2412.07031v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2508.00263v1",
+    "title": "Robust Econometrics for Growth-at-Risk",
+    "abstract": "The Growth-at-Risk (GaR) framework has garnered attention in recent econometric literature, yet current approaches implicitly assume a constant Pareto exponent. We introduce novel and robust econometrics to estimate the tails of GaR based on a rigorous theoretical framework and establish validity and effectiveness. Simulations demonstrate consistent outperformance relative to existing alternatives in terms of predictive accuracy. We perform a long-term GaR analysis that provides accurate and insightful predictions, effectively capturing financial anomalies better than current methods.",
+    "authors": [
+      "Tobias Adrian",
+      "Yuya Sasaki",
+      "Yulong Wang"
+    ],
+    "category": "econ.EM",
+    "published_date": "2025-08-01 02:10:16+00:00",
+    "updated_date": "2025-08-01 02:10:16+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2508.00263v1",
+    "pdf_url": "https://arxiv.org/pdf/2508.00263v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2506.00856v2",
+    "title": "Can AI Master Econometrics? Evidence from Econometrics AI Agent on   Expert-Level Tasks",
+    "abstract": "Can AI effectively perform complex econometric analysis traditionally requiring human expertise? This paper evaluates AI agents' capability to master econometrics, focusing on empirical analysis performance. We develop an ``Econometrics AI Agent'' built on the open-source MetaGPT framework. This agent exhibits outstanding performance in: (1) planning econometric tasks strategically, (2) generating and executing code, (3) employing error-based reflection for improved robustness, and (4) allowing iterative refinement through multi-round conversations. We construct two datasets from academic coursework materials and published research papers to evaluate performance against real-world challenges. Comparative testing shows our domain-specialized AI agent significantly outperforms both benchmark large language models (LLMs) and general-purpose AI agents. This work establishes a testbed for exploring AI's impact on social science research and enables cost-effective integration of domain expertise, making advanced econometric methods accessible to users with minimal coding skills. Furthermore, our AI agent enhances research reproducibility and offers promising pedagogical applications for econometrics teaching.",
+    "authors": [
+      "Qiang Chen",
+      "Tianyang Han",
+      "Jin Li",
+      "Ye Luo",
+      "Yuxiao Wu",
+      "Xiaowei Zhang",
+      "Tuo Zhou"
+    ],
+    "category": "econ.EM",
+    "published_date": "2025-06-01 06:34:42+00:00",
+    "updated_date": "2025-06-13 14:28:21+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2506.00856v2",
+    "pdf_url": "https://arxiv.org/pdf/2506.00856v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0411034v1",
+    "title": "A selective overview of nonparametric methods in financial econometrics",
+    "abstract": "This paper gives a brief overview on the nonparametric techniques that are useful for financial econometric problems. The problems include estimation and inferences of instantaneous returns and volatility functions of time-homogeneous and time-dependent diffusion processes, and estimation of transition densities and state price densities. We first briefly describe the problems and then outline main techniques and main results. Some useful probabilistic aspects of diffusion processes are also briefly summarized to facilitate our presentation and applications.",
+    "authors": [
+      "Jianqing Fan"
+    ],
+    "category": "math.ST",
+    "published_date": "2004-11-01 20:00:23+00:00",
+    "updated_date": "2004-11-01 20:00:23+00:00",
+    "arxiv_url": "http://arxiv.org/abs/math/0411034v1",
+    "pdf_url": "https://arxiv.org/pdf/0411034v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0503711v1",
+    "title": "Limit theorems for bipower variation in financial econometrics",
+    "abstract": "In this paper we provide an asymptotic analysis of generalised bipower measures of the variation of price processes in financial economics. These measures encompass the usual quadratic variation, power variation and bipower variations which have been highlighted in recent years in financial econometrics. The analysis is carried out under some rather general Brownian semimartingale assumptions, which allow for standard leverage effects.",
+    "authors": [
+      "Ole E. Barndorff-Nielsen",
+      "Svend E. Graversen",
+      "Jean Jacod",
+      "Neil Shephard"
+    ],
+    "category": "math.PR",
+    "published_date": "2005-03-30 14:28:41+00:00",
+    "updated_date": "2005-03-30 14:28:41+00:00",
+    "arxiv_url": "http://arxiv.org/abs/math/0503711v1",
+    "pdf_url": "https://arxiv.org/pdf/0503711v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0709.2003v1",
+    "title": "On rate optimality for ill-posed inverse problems in econometrics",
+    "abstract": "In this paper, we clarify the relations between the existing sets of regularity conditions for convergence rates of nonparametric indirect regression (NPIR) and nonparametric instrumental variables (NPIV) regression models. We establish minimax risk lower bounds in mean integrated squared error loss for the NPIR and the NPIV models under two basic regularity conditions that allow for both mildly ill-posed and severely ill-posed cases. We show that both a simple projection estimator for the NPIR model, and a sieve minimum distance estimator for the NPIV model, can achieve the minimax risk lower bounds, and are rate-optimal uniformly over a large class of structure functions, allowing for mildly ill-posed and severely ill-posed cases.",
+    "authors": [
+      "Xiaohong Chen",
+      "Markus Reiss"
+    ],
+    "category": "math.ST",
+    "published_date": "2007-09-13 07:31:19+00:00",
+    "updated_date": "2007-09-13 07:31:19+00:00",
+    "arxiv_url": "http://arxiv.org/abs/0709.2003v1",
+    "pdf_url": "https://arxiv.org/pdf/0709.2003v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0801.1599v2",
+    "title": "Parametric and nonparametric models and methods in financial   econometrics",
+    "abstract": "Financial econometrics has become an increasingly popular research field. In this paper we review a few parametric and nonparametric models and methods used in this area. After introducing several widely used continuous-time and discrete-time models, we study in detail dependence structures of discrete samples, including Markovian property, hidden Markovian structure, contaminated observations, and random samples. We then discuss several popular parametric and nonparametric estimation methods. To avoid model mis-specification, model validation plays a key role in financial modeling. We discuss several model validation techniques, including pseudo-likelihood ratio test, nonparametric curve regression based test, residuals based test, generalized likelihood ratio test, simultaneous confidence band construction, and density based test. Finally, we briefly touch on tools for studying large sample properties.",
+    "authors": [
+      "Zhibiao Zhao"
+    ],
+    "category": "q-fin.ST",
+    "published_date": "2008-01-10 13:49:09+00:00",
+    "updated_date": "2008-03-20 09:24:29+00:00",
+    "arxiv_url": "http://arxiv.org/abs/0801.1599v2",
+    "pdf_url": "https://arxiv.org/pdf/0801.1599v2.pdf",
+    "doi": "http://dx.doi.org/10.1214/08-SS034",
+    "journal_ref": "Statistics Surveys 2008, Vol. 2, 1-42"
+  },
+  {
+    "id": "1105.4519v1",
+    "title": "State-Observation Sampling and the Econometrics of Learning Models",
+    "abstract": "In nonlinear state-space models, sequential learning about the hidden state can proceed by particle filtering when the density of the observation conditional on the state is available analytically (e.g. Gordon et al., 1993). This condition need not hold in complex environments, such as the incomplete-information equilibrium models considered in financial economics. In this paper, we make two contributions to the learning literature. First, we introduce a new filtering method, the state-observation sampling (SOS) filter, for general state-space models with intractable observation densities. Second, we develop an indirect inference-based estimator for a large class of incomplete-information economies. We demonstrate the good performance of these techniques on an asset pricing model with investor learning applied to over 80 years of daily equity returns.",
+    "authors": [
+      "Laurent E. Calvet",
+      "Veronika Czellar"
+    ],
+    "category": "stat.ME",
+    "published_date": "2011-05-23 14:49:52+00:00",
+    "updated_date": "2011-05-23 14:49:52+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1105.4519v1",
+    "pdf_url": "https://arxiv.org/pdf/1105.4519v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1212.2812v1",
+    "title": "A Review of Kernel Density Estimation with Applications to Econometrics",
+    "abstract": "Nonparametric density estimation is of great importance when econometricians want to model the probabilistic or stochastic structure of a data set. This comprehensive review summarizes the most important theoretical aspects of kernel density estimation and provides an extensive description of classical and modern data analytic methods to compute the smoothing parameter. Throughout the text, several references can be found to the most up-to-date and cut point research approaches in this area, while econometric data sets are analyzed as examples. Lastly, we present SIZer, a new approach introduced by Chaudhuri and Marron (2000), whose objective is to analyze the visible features representing important underlying structures for different bandwidths.",
+    "authors": [
+      "Adriano Zanin Zambom",
+      "Ronaldo Dias"
+    ],
+    "category": "stat.ME",
+    "published_date": "2012-12-12 13:30:23+00:00",
+    "updated_date": "2012-12-12 13:30:23+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1212.2812v1",
+    "pdf_url": "https://arxiv.org/pdf/1212.2812v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1404.2015v5",
+    "title": "Econometric Inference on a Large Bayesian Game with Heterogeneous   Beliefs",
+    "abstract": "Econometric models of strategic interactions among people or firms have received a great deal of attention in the literature. Less attention has been paid to the role of the underlying assumptions about the way agents form beliefs about other agents. We focus on a single large Bayesian game with idiosyncratic strategic neighborhoods and develop an approach of empirical modeling that relaxes the assumption of rational expectations and allows the players to form beliefs differently. By drawing on the main intuition of Kalai (2004), we introduce the notion of hindsight regret, which measures each player's ex-post value of other players' type information, and obtain the belief-free bound for the hindsight regret. Using this bound, we derive testable implications and develop a bootstrap inference procedure for the structural parameters. Our inference method is uniformly valid regardless of the size of strategic neighborhoods and tends to exhibit high power when the neighborhoods are large. We demonstrate the finite sample performance of the method through Monte Carlo simulations.",
+    "authors": [
+      "Denis Kojevnikov",
+      "Kyungchul Song"
+    ],
+    "category": "stat.AP",
+    "published_date": "2014-04-08 05:53:29+00:00",
+    "updated_date": "2023-05-24 04:05:32+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1404.2015v5",
+    "pdf_url": "https://arxiv.org/pdf/1404.2015v5.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1504.04472v1",
+    "title": "On econometric inference and multiple use of the same data",
+    "abstract": "In fields that are mainly nonexperimental, such as economics and finance, it is inescapable to compute test statistics and confidence regions that are not probabilistically independent from previously examined data. The Bayesian and Neyman-Pearson inference theories are known to be inadequate for such a practice. We show that these inadequacies also hold m.a.e. (modulo approximation error). We develop a general econometric theory, called the neoclassical inference theory, that is immune to this inadequacy m.a.e. The neoclassical inference theory appears to nest model calibration, and most econometric practices, whether they are labelled Bayesian or \\`a la Neyman-Pearson. We derive a general, but simple adjustment to make standard errors account for the approximation error.",
+    "authors": [
+      "Benjamin Holcblat",
+      "Steffen Gr\u00f8nneberg"
+    ],
+    "category": "math.ST",
+    "published_date": "2015-04-17 09:53:02+00:00",
+    "updated_date": "2015-04-17 09:53:02+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1504.04472v1",
+    "pdf_url": "https://arxiv.org/pdf/1504.04472v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1607.00699v1",
+    "title": "The State of Applied Econometrics - Causality and Policy Evaluation",
+    "abstract": "In this paper we discuss recent developments in econometrics that we view as important for empirical researchers working on policy evaluation questions. We focus on three main areas, where in each case we highlight recommendations for applied work. First, we discuss new research on identification strategies in program evaluation, with particular focus on synthetic control methods, regression discontinuity, external validity, and the causal interpretation of regression methods. Second, we discuss various forms of supplementary analyses to make the identification strategies more credible. These include placebo analyses as well as sensitivity and robustness analyses. Third, we discuss recent advances in machine learning methods for causal effects. These advances include methods to adjust for differences between treated and control units in high-dimensional settings, and methods for identifying and estimating heterogeneous treatment effects.",
+    "authors": [
+      "Susan Athey",
+      "Guido Imbens"
+    ],
+    "category": "stat.ME",
+    "published_date": "2016-07-03 23:08:26+00:00",
+    "updated_date": "2016-07-03 23:08:26+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1607.00699v1",
+    "pdf_url": "https://arxiv.org/pdf/1607.00699v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1703.01273v2",
+    "title": "Estimating Spatial Econometrics Models with Integrated Nested Laplace   Approximation",
+    "abstract": "Integrated Nested Laplace Approximation provides a fast and effective method for marginal inference on Bayesian hierarchical models. This methodology has been implemented in the R-INLA package which permits INLA to be used from within R statistical software. Although INLA is implemented as a general methodology, its use in practice is limited to the models implemented in the R-INLA package.   Spatial autoregressive models are widely used in spatial econometrics but have until now been missing from the R-INLA package. In this paper, we describe the implementation and application of a new class of latent models in INLA made available through R-INLA. This new latent class implements a standard spatial lag model, which is widely used and that can be used to build more complex models in spatial econometrics.   The implementation of this latent model in R-INLA also means that all the other features of INLA can be used for model fitting, model selection and inference in spatial econometrics, as will be shown in this paper. Finally, we will illustrate the use of this new latent model and its applications with two datasets based on Gaussian and binary outcomes.",
+    "authors": [
+      "Virgilio Gomez-Rubio",
+      "Roger S. Bivand",
+      "H\u00e5vard Rue"
+    ],
+    "category": "stat.CO",
+    "published_date": "2017-03-03 18:07:15+00:00",
+    "updated_date": "2021-05-29 09:50:18+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1703.01273v2",
+    "pdf_url": "https://arxiv.org/pdf/1703.01273v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1704.05920v1",
+    "title": "Application of Econometric Data Analysis Methods to Physics Software",
+    "abstract": "We report an investigation of data analysis methods derived from other disciplines, which we applied to physics software systems. They concern the analysis of inequality, trend analysis and the analysis of diversity. The analysis of inequality exploits statistical methods originating from econometrics; trend analysis is typical of economics and environmental sciences; the analysis of diversity is based on concepts derived from ecology and treats software as an ecosystem. To the best of our knowledge, this is an innovative exploration, as we could not find track of previous use of these methods in the experimental physics domains within the scope of the IEEE Nuclear Science Symposium. We applied these methods in the context of Geant4 physics validation and Geant4 maintainability assessment.",
+    "authors": [
+      "Maria Grazia Pia",
+      "Elisabetta Ronchieri"
+    ],
+    "category": "cs.SE",
+    "published_date": "2017-04-19 20:11:51+00:00",
+    "updated_date": "2017-04-19 20:11:51+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1704.05920v1",
+    "pdf_url": "https://arxiv.org/pdf/1704.05920v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1709.00181v1",
+    "title": "Econometric applications of high-breakdown robust regression techniques",
+    "abstract": "A literature search shows that robust regression techniques are rarely used in applied econometrics. We list several misconceptions about robustness which lead to this situation. We show that most data sets are not normal, least squares performs very poorly even in large data sets with small numbers of outliers, and that commonly used techniques for achieving robustness fail to do so. We then provide newly developed techniques from the statistics literature which are easy to understand, and achieve robustness. We show the practical use of these techniques by re-analyzing three regression models from recent literature, and arriving at different conclusions from those reached by the authors.",
+    "authors": [
+      "Asad Zaman",
+      "Peter J. Rousseeuw",
+      "Mehmet Orhan"
+    ],
+    "category": "stat.AP",
+    "published_date": "2017-09-01 07:25:34+00:00",
+    "updated_date": "2017-09-01 07:25:34+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1709.00181v1",
+    "pdf_url": "https://arxiv.org/pdf/1709.00181v1.pdf",
+    "doi": "http://dx.doi.org/10.1016/S0165-1765(00)00404-3",
+    "journal_ref": "Economics Letters Volume 71, Issue 1, April 2001, Pages 1-8"
+  },
+  {
+    "id": "2009.12129v1",
+    "title": "A first econometric analysis of the CRIX family",
+    "abstract": "In order to price contingent claims one needs to first understand the dynamics of these indices. Here we provide a first econometric analysis of the CRIX family within a time-series framework. The key steps of our analysis include model selection, estimation and testing. Linear dependence is removed by an ARIMA model, the diagnostic checking resulted in an ARIMA(2,0,2) model for the available sample period from Aug 1st, 2014 to April 6th, 2016. The model residuals showed the well known phenomenon of volatility clustering. Therefore a further refinement lead us to an ARIMA(2,0,2)-t-GARCH(1,1) process. This specification conveniently takes care of fat-tail properties that are typical for financial markets. The multivariate GARCH models are implemented on the CRIX index family to explore the interaction.",
+    "authors": [
+      "Shi Chen",
+      "Cathy Yi-Hsuan Chen",
+      "Wolfgang Karl H\u00e4rdle"
+    ],
+    "category": "q-fin.ST",
+    "published_date": "2020-09-25 11:06:34+00:00",
+    "updated_date": "2020-09-25 11:06:34+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2009.12129v1",
+    "pdf_url": "https://arxiv.org/pdf/2009.12129v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1702.04254v2",
+    "title": "A \"Quantal Regret\" Method for Structural Econometrics in Repeated Games",
+    "abstract": "We suggest a general method for inferring players' values from their actions in repeated games. The method extends and improves upon the recent suggestion of (Nekipelov et al., EC 2015) and is based on the assumption that players are more likely to exhibit sequences of actions that have lower regret.   We evaluate this \"quantal regret\" method on two different datasets from experiments of repeated games with controlled player values: those of (Selten and Chmura, AER 2008) on a variety of two-player 2x2 games and our own experiment on ad-auctions (Noti et al., WWW 2014). We find that the quantal regret method is consistently and significantly more precise than either \"classic\" econometric methods that are based on Nash equilibria, or the \"min-regret\" method of (Nekipelov et al., EC 2015).",
+    "authors": [
+      "Noam Nisan",
+      "Gali Noti"
+    ],
+    "category": "cs.GT",
+    "published_date": "2017-02-14 15:10:35+00:00",
+    "updated_date": "2017-02-16 17:04:36+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1702.04254v2",
+    "pdf_url": "https://arxiv.org/pdf/1702.04254v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1812.09081v2",
+    "title": "Econometric modelling and forecasting of intraday electricity prices",
+    "abstract": "In the following paper, we analyse the ID$_3$-Price in the German Intraday Continuous electricity market using an econometric time series model. A multivariate approach is conducted for hourly and quarter-hourly products separately. We estimate the model using lasso and elastic net techniques and perform an out-of-sample, very short-term forecasting study. The model's performance is compared with benchmark models and is discussed in detail. Forecasting results provide new insights to the German Intraday Continuous electricity market regarding its efficiency and to the ID$_3$-Price behaviour.",
+    "authors": [
+      "Micha\u0142 Narajewski",
+      "Florian Ziel"
+    ],
+    "category": "q-fin.ST",
+    "published_date": "2018-12-21 12:36:07+00:00",
+    "updated_date": "2019-09-23 13:28:52+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1812.09081v2",
+    "pdf_url": "https://arxiv.org/pdf/1812.09081v2.pdf",
+    "doi": "http://dx.doi.org/10.1016/j.jcomm.2019.100107",
+    "journal_ref": null
+  },
+  {
+    "id": "2004.07725v1",
+    "title": "Functional SAC model: With application to spatial econometrics",
+    "abstract": "Spatial autoregressive combined (SAC) model has been widely studied in the literature for the analysis of spatial data in various areas such as geography, economics, demography, regional sciences. This is a linear model with scalar response, scalar explanatory variables and which allows for spatial interactions in the dependent variable and the disturbances. In this work we extend this modeling approach from scalar to functional covariate. The parameters of the model are estimated via the maximum likelihood estimation method. A simulation study is conducted to evaluate the performance of the proposed methodology. As an illustration, the model is used to establish the relationship between unemployment and illiteracy in Senegal.",
+    "authors": [
+      "Alassane Aw",
+      "Emmanuel Nicolas Cabral"
+    ],
+    "category": "stat.ME",
+    "published_date": "2020-04-16 16:05:17+00:00",
+    "updated_date": "2020-04-16 16:05:17+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2004.07725v1",
+    "pdf_url": "https://arxiv.org/pdf/2004.07725v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2107.02650v3",
+    "title": "Gravity models of networks: integrating maximum-entropy and econometric   approaches",
+    "abstract": "The World Trade Web (WTW) is the network of international trade relationships among world countries. Characterizing both the local link weights (observed trade volumes) and the global network structure (large-scale topology) of the WTW via a single model is still an open issue. While the traditional Gravity Model (GM) successfully replicates the observed trade volumes by employing macroeconomic properties such as GDP and geographic distance, it, unfortunately, predicts a fully connected network, thus returning a completely unrealistic topology of the WTW. To overcome this problem, two different classes of models have been introduced in econometrics and statistical physics. Econometric approaches interpret the traditional GM as the expected value of a probability distribution that can be chosen arbitrarily and tested against alternative distributions. Statistical physics approaches construct maximum-entropy probability distributions of (weighted) graphs from a chosen set of measurable structural constraints and test distributions resulting from different constraints. Here we compare and integrate the two approaches by considering a class of maximum-entropy models that can incorporate macroeconomic properties used in standard econometric models. We find that the integrated approach achieves a better performance than the purely econometric one. These results suggest that the maximum-entropy construction can serve as a viable econometric framework wherein extensive and intensive margins can be separately controlled for, by combining topological constraints and dyadic macroeconomic variables.",
+    "authors": [
+      "Marzio Di Vece",
+      "Diego Garlaschelli",
+      "Tiziano Squartini"
+    ],
+    "category": "physics.soc-ph",
+    "published_date": "2021-07-06 14:43:01+00:00",
+    "updated_date": "2022-05-09 13:36:44+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2107.02650v3",
+    "pdf_url": "https://arxiv.org/pdf/2107.02650v3.pdf",
+    "doi": "http://dx.doi.org/10.1103/PhysRevResearch.4.033105",
+    "journal_ref": "Phys. Rev. Research 4 (033105) (2022)"
+  },
+  {
+    "id": "2107.09765v1",
+    "title": "A conditional independence test for causality in econometrics",
+    "abstract": "The Y-test is a useful tool for detecting missing confounders in the context of a multivariate regression.However, it is rarely used in practice since it requires identifying multiple conditionally independent instruments, which is often impossible. We propose a heuristic test which relaxes the independence requirement. We then show how to apply this heuristic test on a price-demand and a firm loan-productivity problem. We conclude that the test is informative when the variables are linearly related with Gaussian additive noise, but it can be misleading in other contexts. Still, we believe that the test can be a useful concept for falsifying a proposed control set.",
+    "authors": [
+      "Jaime Sevilla",
+      "Alexandra Mayn"
+    ],
+    "category": "stat.ME",
+    "published_date": "2021-07-01 07:35:13+00:00",
+    "updated_date": "2021-07-01 07:35:13+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2107.09765v1",
+    "pdf_url": "https://arxiv.org/pdf/2107.09765v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2203.00729v1",
+    "title": "The Economics and Econometrics of Gene-Environment Interplay",
+    "abstract": "Economists and social scientists have debated the relative importance of nature (one's genes) and nurture (one's environment) for decades, if not centuries. This debate can now be informed by the ready availability of genetic data in a growing number of social science datasets. This paper explores the potential uses of genetic data in economics, with a focus on estimating the interplay between nature (genes) and nurture (environment). We discuss how economists can benefit from incorporating genetic data into their analyses even when they do not have a direct interest in estimating genetic effects. We argue that gene--environment (GxE) studies can be instrumental for (i) testing economic theory, (ii) uncovering economic or behavioral mechanisms, and (iii) analyzing treatment effect heterogeneity, thereby improving the understanding of how (policy) interventions affect population subgroups. We introduce the reader to essential genetic terminology, develop a conceptual economic model to interpret gene-environment interplay, and provide practical guidance to empirical researchers.",
+    "authors": [
+      "Pietro Biroli",
+      "Titus J. Galama",
+      "Stephanie von Hinke",
+      "Hans van Kippersluis",
+      "Cornelius A. Rietveld",
+      "Kevin Thom"
+    ],
+    "category": "econ.GN",
+    "published_date": "2022-03-01 20:33:29+00:00",
+    "updated_date": "2022-03-01 20:33:29+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2203.00729v1",
+    "pdf_url": "https://arxiv.org/pdf/2203.00729v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2203.11691v1",
+    "title": "GAM(L)A: An econometric model for interpretable Machine Learning",
+    "abstract": "Despite their high predictive performance, random forest and gradient boosting are often considered as black boxes or uninterpretable models which has raised concerns from practitioners and regulators. As an alternative, we propose in this paper to use partial linear models that are inherently interpretable. Specifically, this article introduces GAM-lasso (GAMLA) and GAM-autometrics (GAMA), denoted as GAM(L)A in short. GAM(L)A combines parametric and non-parametric functions to accurately capture linearities and non-linearities prevailing between dependent and explanatory variables, and a variable selection procedure to control for overfitting issues. Estimation relies on a two-step procedure building upon the double residual method. We illustrate the predictive performance and interpretability of GAM(L)A on a regression and a classification problem. The results show that GAM(L)A outperforms parametric models augmented by quadratic, cubic and interaction effects. Moreover, the results also suggest that the performance of GAM(L)A is not significantly different from that of random forest and gradient boosting.",
+    "authors": [
+      "Emmanuel Flachaire",
+      "Gilles Hacheme",
+      "Sullivan Hu\u00e9",
+      "S\u00e9bastien Laurent"
+    ],
+    "category": "stat.ML",
+    "published_date": "2022-03-17 09:09:44+00:00",
+    "updated_date": "2022-03-17 09:09:44+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2203.11691v1",
+    "pdf_url": "https://arxiv.org/pdf/2203.11691v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2203.12431v1",
+    "title": "Bounds for Bias-Adjusted Treatment Effect in Linear Econometric Models",
+    "abstract": "In linear econometric models with proportional selection on unobservables, omitted variable bias in estimated treatment effects are real roots of a cubic equation involving estimated parameters from a short and intermediate regression. The roots of the cubic are functions of $\\delta$, the degree of selection on unobservables, and $R_{max}$, the R-squared in a hypothetical long regression that includes the unobservable confounder and all observable controls. In this paper I propose and implement a novel algorithm to compute roots of the cubic equation over relevant regions of the $\\delta$-$R_{max}$ plane and use the roots to construct bounding sets for the true treatment effect. The algorithm is based on two well-known mathematical results: (a) the discriminant of the cubic equation can be used to demarcate regions of unique real roots from regions of three real roots, and (b) a small change in the coefficients of a polynomial equation will lead to small change in its roots because the latter are continuous functions of the former. I illustrate my method by applying it to the analysis of maternal behavior on child outcomes.",
+    "authors": [
+      "Deepankar Basu"
+    ],
+    "category": "econ.EM",
+    "published_date": "2022-03-23 14:11:44+00:00",
+    "updated_date": "2022-03-23 14:11:44+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2203.12431v1",
+    "pdf_url": "https://arxiv.org/pdf/2203.12431v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2401.06611v1",
+    "title": "Robust Analysis of Short Panels",
+    "abstract": "Many structural econometric models include latent variables on whose probability distributions one may wish to place minimal restrictions. Leading examples in panel data models are individual-specific variables sometimes treated as \"fixed effects\" and, in dynamic models, initial conditions. This paper presents a generally applicable method for characterizing sharp identified sets when models place no restrictions on the probability distribution of certain latent variables and no restrictions on their covariation with other variables. In our analysis latent variables on which restrictions are undesirable are removed, leading to econometric analysis robust to misspecification of restrictions on their distributions which are commonplace in the applied panel data literature. Endogenous explanatory variables are easily accommodated. Examples of application to some static and dynamic binary, ordered and multiple discrete choice and censored panel data models are presented.",
+    "authors": [
+      "Andrew Chesher",
+      "Adam M. Rosen",
+      "Yuanqi Zhang"
+    ],
+    "category": "econ.EM",
+    "published_date": "2024-01-12 14:58:07+00:00",
+    "updated_date": "2024-01-12 14:58:07+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2401.06611v1",
+    "pdf_url": "https://arxiv.org/pdf/2401.06611v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1812.09393v2",
+    "title": "Population Growth and Economic Development in Bangladesh: Revisited   Malthus",
+    "abstract": "Bangladesh is the 2nd largest growing country in the world in 2016 with 7.1% GDP growth. This study undertakes an econometric analysis to examine the relationship between population growth and economic development. This result indicates population growth adversely related to per capita GDP growth, which means rapid population growth is a real problem for the development of Bangladesh.",
+    "authors": [
+      "Md Niaz Murshed Chowdhury",
+      "Md. Mobarak Hossain"
+    ],
+    "category": "econ.GN",
+    "published_date": "2018-12-21 22:14:47+00:00",
+    "updated_date": "2019-01-05 18:52:30+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1812.09393v2",
+    "pdf_url": "https://arxiv.org/pdf/1812.09393v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2411.04880v1",
+    "title": "Bridging an energy system model with an ensemble deep-learning approach   for electricity price forecasting",
+    "abstract": "This paper combines a techno-economic energy system model with an econometric model to maximise electricity price forecasting accuracy. The proposed combination model is tested on the German day-ahead wholesale electricity market. Our paper also benchmarks the results against several econometric alternatives. Lastly, we demonstrate the economic value of improved price estimators maximising the revenue from an electric storage resource. The results demonstrate that our integrated model improves overall forecasting accuracy by 18 %, compared to available literature benchmarks. Furthermore, our robustness checks reveal that a) the Ensemble Deep Neural Network model performs best in our dataset and b) adding output from the techno-economic energy systems model as econometric model input improves the performance of all econometric models. The empirical relevance of the forecast improvement is confirmed by the results of the exemplary storage optimisation, in which the integration of the techno-economic energy system model leads to a revenue increase of up to 10 %.",
+    "authors": [
+      "Souhir Ben Amor",
+      "Thomas M\u00f6bius",
+      "Felix M\u00fcsgens"
+    ],
+    "category": "econ.GN",
+    "published_date": "2024-11-07 17:17:34+00:00",
+    "updated_date": "2024-11-07 17:17:34+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2411.04880v1",
+    "pdf_url": "https://arxiv.org/pdf/2411.04880v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1909.02282v1",
+    "title": "Reduced-bias estimation of spatial econometric models with incompletely   geocoded data",
+    "abstract": "The application of state-of-the-art spatial econometric models requires that the information about the spatial coordinates of statistical units is completely accurate, which is usually the case in the context of areal data. With micro-geographic point-level data, however, such information is inevitably affected by locational errors, that can be generated intentionally by the data producer for privacy protection or can be due to inaccuracy of the geocoding procedures. This unfortunate circumstance can potentially limit the use of the spatial econometric modelling framework for the analysis of micro data. Indeed, some recent contributions (see e.g. Arbia, Espa and Giuliani 2016) have shown that the presence of locational errors may have a non-negligible impact on the results. In particular, wrong spatial coordinates can lead to downward bias and increased variance in the estimation of model parameters. This contribution aims at developing a strategy to reduce the bias and produce more reliable inference for spatial econometrics models with location errors. The validity of the proposed approach is assessed by means of a Monte Carlo simulation study under different real-case scenarios. The study results show that the method is promising and can make the spatial econometric modelling of micro-geographic data possible.",
+    "authors": [
+      "Giuseppe Arbia",
+      "Maria Michela Dickson",
+      "Giuseppe Espa",
+      "Diego Giuliani",
+      "Flavio Santi"
+    ],
+    "category": "stat.ME",
+    "published_date": "2019-09-05 09:33:34+00:00",
+    "updated_date": "2019-09-05 09:33:34+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1909.02282v1",
+    "pdf_url": "https://arxiv.org/pdf/1909.02282v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2312.14637v2",
+    "title": "Faster identification of faster Formula 1 drivers via time-rank duality",
+    "abstract": "Two natural ways of modelling Formula 1 race outcomes are a probabilistic approach, based on the exponential distribution, and econometric modelling of the ranks. Both approaches lead to exactly soluble race-winning probabilities. Equating race-winning probabilities leads to a set of equivalent parametrisations. This time-rank duality is attractive theoretically and leads to quicker ways of dis-entangling driver and car level effects.",
+    "authors": [
+      "John Fry",
+      "Tom Brighton",
+      "Silvio Fanzon"
+    ],
+    "category": "stat.AP",
+    "published_date": "2023-12-22 12:15:47+00:00",
+    "updated_date": "2024-03-25 11:18:37+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2312.14637v2",
+    "pdf_url": "https://arxiv.org/pdf/2312.14637v2.pdf",
+    "doi": "http://dx.doi.org/10.1016/j.econlet.2024.111671",
+    "journal_ref": "Economics Letters, 237, 111671, 2024"
+  },
+  {
+    "id": "2412.05621v1",
+    "title": "Minimum Sliced Distance Estimation in a Class of Nonregular Econometric   Models",
+    "abstract": "This paper proposes minimum sliced distance estimation in structural econometric models with possibly parameter-dependent supports. In contrast to likelihood-based estimation, we show that under mild regularity conditions, the minimum sliced distance estimator is asymptotically normally distributed leading to simple inference regardless of the presence/absence of parameter dependent supports. We illustrate the performance of our estimator on an auction model.",
+    "authors": [
+      "Yanqin Fan",
+      "Hyeonseok Park"
+    ],
+    "category": "econ.EM",
+    "published_date": "2024-12-07 11:29:38+00:00",
+    "updated_date": "2024-12-07 11:29:38+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2412.05621v1",
+    "pdf_url": "https://arxiv.org/pdf/2412.05621v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2002.11017v1",
+    "title": "A Practical Approach to Social Learning",
+    "abstract": "Models of social learning feature either binary signals or abstract signal structures often deprived of micro-foundations. Both models are limited when analyzing interim results or performing empirical analysis. We present a method of generating signal structures which are richer than the binary model, yet are tractable enough to perform simulations and empirical analysis. We demonstrate the method's usability by revisiting two classical papers: (1) we discuss the economic significance of unbounded signals Smith and Sorensen (2000); (2) we use experimental data from Anderson and Holt (1997) to perform econometric analysis. Additionally, we provide a necessary and sufficient condition for the occurrence of action cascades.",
+    "authors": [
+      "Amir Ban",
+      "Moran Koren"
+    ],
+    "category": "econ.TH",
+    "published_date": "2020-02-25 16:41:23+00:00",
+    "updated_date": "2020-02-25 16:41:23+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2002.11017v1",
+    "pdf_url": "https://arxiv.org/pdf/2002.11017v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2112.00564v1",
+    "title": "Geo-political conflicts, economic sanctions and international knowledge   flows",
+    "abstract": "We address the question how sensitive international knowledge flows respond to geo-political conflicts taking the politico-economic tensions between EU-Russia since the Ukraine crisis 2014 as case study. We base our econometric analysis on comprehensive data covering more than 500 million scientific publications and 8 million international co-publications between 1995 and 2018. Our findings indicate that the imposition of EU sanctions and Russian counter-sanctions from 2014 onwards has significant negative effects on bilateral international scientific co-publication rates between EU countries and Russia. Depending on the chosen control group and sectors considered, effect size ranges from 15% to 70%. Effects are also observed to grow over time.",
+    "authors": [
+      "Teemu Makkonen",
+      "Timo Mitze"
+    ],
+    "category": "econ.GN",
+    "published_date": "2021-12-01 15:30:05+00:00",
+    "updated_date": "2021-12-01 15:30:05+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2112.00564v1",
+    "pdf_url": "https://arxiv.org/pdf/2112.00564v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2302.14114v1",
+    "title": "Econometric assessment of the monetary policy shocks in Morocco:   Evidence from a Bayesian Factor-Augmented VAR",
+    "abstract": "The analysis of the effects of monetary policy shocks using the common econometric models (such as VAR or SVAR) poses several empirical anomalies. However, it is known that in these econometric models the use of a large amount of information is accompanied by dimensionality problems. In this context, the approach in terms of FAVAR (Factor Augmented VAR) models tries to solve this problem. Moreover, the information contained in the factors is important for the correct identification of monetary policy shocks and it helps to correct the empirical anomalies usually encountered in empirical work. Following Bernanke, Boivin and Eliasz (2005) procedure, we will use the FAVAR model to analyze the impact of monetary policy shocks on the Moroccan economy. The model used allows us to obtain impulse response functions for all indicators in the macroeconomic dataset used (117 quarterly frequency series from 1985: Q1 to 2018: Q4) to have a more realistic and complete representation of the impact of monetary policy shocks in Morocco.",
+    "authors": [
+      "Marouane Daoui"
+    ],
+    "category": "econ.GN",
+    "published_date": "2023-02-27 19:52:58+00:00",
+    "updated_date": "2023-02-27 19:52:58+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2302.14114v1",
+    "pdf_url": "https://arxiv.org/pdf/2302.14114v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2401.09174v1",
+    "title": "Airline delays, congestion internalization and non-price spillover   effects of low cost carrier entry",
+    "abstract": "This paper develops an econometric model of flight delays to investigate the influence of competition and dominance on the incentives of carriers to maintain on-time performance. We consider both the route and the airport levels to inspect the local and global effects of competition, with a unifying framework to test the hypotheses of 1. airport congestion internalization and 2. the market competition-quality relationship in a single econometric model. In particular, we examine the impacts of the entry of low cost carriers (LCC) on the flight delays of incumbent full service carriers in the Brazilian airline industry. The main results indicate a highly significant effect of airport congestion self-internalization in parallel with route-level quality competition. Additionally, the potential competition caused by LCC presence provokes a global effect that suggests the existence of non-price spillovers of the LCC entry to non-entered routes.",
+    "authors": [
+      "William E. Bendinelli",
+      "Humberto F. A. J. Bettini",
+      "Alessandro V. M. Oliveira"
+    ],
+    "category": "econ.GN",
+    "published_date": "2024-01-17 12:27:53+00:00",
+    "updated_date": "2024-01-17 12:27:53+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2401.09174v1",
+    "pdf_url": "https://arxiv.org/pdf/2401.09174v1.pdf",
+    "doi": "http://dx.doi.org/10.1016/j.tra.2016.01.001",
+    "journal_ref": "Transportation Research Part A: Policy and Practice, 85, 39-52\n  (2016)"
+  },
+  {
+    "id": "2401.10255v1",
+    "title": "Nowcasting Madagascar's real GDP using machine learning algorithms",
+    "abstract": "We investigate the predictive power of different machine learning algorithms to nowcast Madagascar's gross domestic product (GDP). We trained popular regression models, including linear regularized regression (Ridge, Lasso, Elastic-net), dimensionality reduction model (principal component regression), k-nearest neighbors algorithm (k-NN regression), support vector regression (linear SVR), and tree-based ensemble models (Random forest and XGBoost regressions), on 10 Malagasy quarterly macroeconomic leading indicators over the period 2007Q1--2022Q4, and we used simple econometric models as a benchmark. We measured the nowcast accuracy of each model by calculating the root mean square error (RMSE), mean absolute error (MAE), and mean absolute percentage error (MAPE). Our findings reveal that the Ensemble Model, formed by aggregating individual predictions, consistently outperforms traditional econometric models. We conclude that machine learning models can deliver more accurate and timely nowcasts of Malagasy economic performance and provide policymakers with additional guidance for data-driven decision making.",
+    "authors": [
+      "Franck Ramaharo",
+      "Gerzhino Rasolofomanana"
+    ],
+    "category": "econ.GN",
+    "published_date": "2023-12-24 20:40:54+00:00",
+    "updated_date": "2023-12-24 20:40:54+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2401.10255v1",
+    "pdf_url": "https://arxiv.org/pdf/2401.10255v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2405.05644v1",
+    "title": "Estimation of ill-conditioned models using penalized sums of squares of   the residuals",
+    "abstract": "This paper analyzes the estimation of econometric models by penalizing the sum of squares of the residuals with a factor that makes the model estimates approximate those that would be obtained when considering the possible simple regressions between the dependent variable of the econometric model and each of its independent variables. It is shown that the ridge estimator is a particular case of the penalized estimator obtained, which, upon analysis of its main characteristics, presents better properties than the ridge especially in reference to the individual boostrap inference of the coefficients of the model and the numerical stability of the estimates obtained. This improvement is due to the fact that instead of shrinking the estimator towards zero, the estimator shrinks towards the estimates of the coefficients of the simple regressions discussed above.",
+    "authors": [
+      "Rom\u00e1n Salmer\u00f3n G\u00f3mez",
+      "Catalina B. Garc\u00eda Garc\u00eda"
+    ],
+    "category": "math.ST",
+    "published_date": "2024-05-09 09:34:54+00:00",
+    "updated_date": "2024-05-09 09:34:54+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2405.05644v1",
+    "pdf_url": "https://arxiv.org/pdf/2405.05644v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2407.03595v1",
+    "title": "Machine Learning for Economic Forecasting: An Application to China's GDP   Growth",
+    "abstract": "This paper aims to explore the application of machine learning in forecasting Chinese macroeconomic variables. Specifically, it employs various machine learning models to predict the quarterly real GDP growth of China, and analyzes the factors contributing to the performance differences among these models. Our findings indicate that the average forecast errors of machine learning models are generally lower than those of traditional econometric models or expert forecasts, particularly in periods of economic stability. However, during certain inflection points, although machine learning models still outperform traditional econometric models, expert forecasts may exhibit greater accuracy in some instances due to experts' more comprehensive understanding of the macroeconomic environment and real-time economic variables. In addition to macroeconomic forecasting, this paper employs interpretable machine learning methods to identify the key attributive variables from different machine learning models, aiming to enhance the understanding and evaluation of their contributions to macroeconomic fluctuations.",
+    "authors": [
+      "Yanqing Yang",
+      "Xingcheng Xu",
+      "Jinfeng Ge",
+      "Yan Xu"
+    ],
+    "category": "econ.GN",
+    "published_date": "2024-07-04 03:04:55+00:00",
+    "updated_date": "2024-07-04 03:04:55+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2407.03595v1",
+    "pdf_url": "https://arxiv.org/pdf/2407.03595v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2411.04239v2",
+    "title": "An Adversarial Approach to Identification",
+    "abstract": "We introduce a new framework for characterizing identified sets of structural and counterfactual parameters in econometric models. By reformulating the identification problem as a set membership question, we leverage the separating hyperplane theorem in the space of observed probability measures to characterize the identified set through the zeros of a discrepancy function with an adversarial game interpretation. The set can be a singleton, resulting in point identification. A feature of many econometric models, with or without distributional assumptions on the error terms, is that the probability measure of observed variables can be expressed as a linear transformation of the probability measure of latent variables. This structure provides a unifying framework and facilitates computation and inference via linear programming. We demonstrate the versatility of our approach by applying it to nonlinear panel models with fixed effects, with parametric and nonparametric error distributions, and across various exogeneity restrictions, including strict and sequential.",
+    "authors": [
+      "Irene Botosaru",
+      "Isaac Loh",
+      "Chris Muris"
+    ],
+    "category": "econ.EM",
+    "published_date": "2024-11-06 20:08:05+00:00",
+    "updated_date": "2024-12-29 01:03:43+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2411.04239v2",
+    "pdf_url": "https://arxiv.org/pdf/2411.04239v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2502.04945v1",
+    "title": "Estimating Parameters of Structural Models Using Neural Networks",
+    "abstract": "We study an alternative use of machine learning. We train neural nets to provide the parameter estimate of a given (structural) econometric model, for example, discrete choice or consumer search. Training examples consist of datasets generated by the econometric model under a range of parameter values. The neural net takes the moments of a dataset as input and tries to recognize the parameter value underlying that dataset. Besides the point estimate, the neural net can also output statistical accuracy. This neural net estimator (NNE) tends to limited-information Bayesian posterior as the number of training datasets increases. We apply NNE to a consumer search model. It gives more accurate estimates at lighter computational costs than the prevailing approach. NNE is also robust to redundant moment inputs. In general, NNE offers the most benefits in applications where other estimation approaches require very heavy simulation costs. We provide code at: https://nnehome.github.io.",
+    "authors": [
+      "Yanhao",
+      "Wei",
+      "Zhenling Jiang"
+    ],
+    "category": "econ.EM",
+    "published_date": "2025-02-07 14:11:20+00:00",
+    "updated_date": "2025-02-07 14:11:20+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2502.04945v1",
+    "pdf_url": "https://arxiv.org/pdf/2502.04945v1.pdf",
+    "doi": "http://dx.doi.org/10.1287/mksc.2022.0360",
+    "journal_ref": "Marketing Science 44(1):102-128 (2024)"
+  },
+  {
+    "id": "2502.19807v1",
+    "title": "Advancing GDP Forecasting: The Potential of Machine Learning Techniques   in Economic Predictions",
+    "abstract": "The quest for accurate economic forecasting has traditionally been dominated by econometric models, which most of the times rely on the assumptions of linear relationships and stationarity in of the data. However, the complex and often nonlinear nature of global economies necessitates the exploration of alternative approaches. Machine learning methods offer promising advantages over traditional econometric techniques for Gross Domestic Product forecasting, given their ability to model complex, nonlinear interactions and patterns without the need for explicit specification of the underlying relationships. This paper investigates the efficacy of Recurrent Neural Networks, in forecasting GDP, specifically LSTM networks. These models are compared against a traditional econometric method, SARIMA. We employ the quarterly Romanian GDP dataset from 1995 to 2023 and build a LSTM network to forecast to next 4 values in the series. Our findings suggest that machine learning models, consistently outperform traditional econometric models in terms of predictive accuracy and flexibility",
+    "authors": [
+      "Bogdan Oancea"
+    ],
+    "category": "cs.LG",
+    "published_date": "2025-02-27 06:28:13+00:00",
+    "updated_date": "2025-02-27 06:28:13+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2502.19807v1",
+    "pdf_url": "https://arxiv.org/pdf/2502.19807v1.pdf",
+    "doi": "http://dx.doi.org/10.5507/ff.24.24465524",
+    "journal_ref": "Knowledge on Economics and Management Conference Proceedings,\n  2024, Olomouc, The Czech Republic"
+  },
+  {
+    "id": "0910.1205v1",
+    "title": "Financial Applications of Random Matrix Theory: a short review",
+    "abstract": "We discuss the applications of Random Matrix Theory in the context of financial markets and econometric models, a topic about which a considerable number of papers have been devoted to in the last decade. This mini-review is intended to guide the reader through various theoretical results (the Marcenko-Pastur spectrum and its various generalisations, random SVD, free matrices, largest eigenvalue statistics, etc.) as well as some concrete applications to portfolio optimisation and out-of-sample risk estimation.",
+    "authors": [
+      "J. P. Bouchaud",
+      "M. Potters"
+    ],
+    "category": "q-fin.ST",
+    "published_date": "2009-10-07 10:10:07+00:00",
+    "updated_date": "2009-10-07 10:10:07+00:00",
+    "arxiv_url": "http://arxiv.org/abs/0910.1205v1",
+    "pdf_url": "https://arxiv.org/pdf/0910.1205v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1403.7068v1",
+    "title": "Asymmetric COGARCH processes",
+    "abstract": "Financial data are as a rule asymmetric, although most econometric models are symmetric. This applies also to continuous-time models for high-frequency and irregularly spaced data. We discuss some asymmetric versions of the continuous-time GARCH model, concentrating then on the GJR-COGARCH. We calculate higher order moments and extend the first jump approximation. These results are prerequisites for moment estimation and pseudo maximum likelihood estimation of the GJR-COGARCH parameters, respectively, which we derive in detail.",
+    "authors": [
+      "Anita Behme",
+      "Claudia Kl\u00fcppelberg",
+      "Kathrin Mayr"
+    ],
+    "category": "math.ST",
+    "published_date": "2014-03-27 15:08:40+00:00",
+    "updated_date": "2014-03-27 15:08:40+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1403.7068v1",
+    "pdf_url": "https://arxiv.org/pdf/1403.7068v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1602.08773v1",
+    "title": "Macro vs. Micro Methods in Non-Life Claims Reserving (an Econometric   Perspective)",
+    "abstract": "Traditionally, actuaries have used run-off triangles to estimate reserve (\"macro\" models, on agregated data). But it is possible to model payments related to individual claims. If those models provide similar estimations, we investigate uncertainty related to reserves, with \"macro\" and \"micro\" models. We study theoretical properties of econometric models (Gaussian, Poisson and quasi-Poisson) on individual data, and clustered data. Finally, application on claims reserving are considered.",
+    "authors": [
+      "Arthur Charpentier",
+      "Mathieu Pigeon"
+    ],
+    "category": "stat.AP",
+    "published_date": "2016-02-28 21:58:59+00:00",
+    "updated_date": "2016-02-28 21:58:59+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1602.08773v1",
+    "pdf_url": "https://arxiv.org/pdf/1602.08773v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1809.05706v2",
+    "title": "Control Variables, Discrete Instruments, and Identification of   Structural Functions",
+    "abstract": "Control variables provide an important means of controlling for endogeneity in econometric models with nonseparable and/or multidimensional heterogeneity. We allow for discrete instruments, giving identification results under a variety of restrictions on the way the endogenous variable and the control variables affect the outcome. We consider many structural objects of interest, such as average or quantile treatment effects. We illustrate our results with an empirical application to Engel curve estimation.",
+    "authors": [
+      "Whitney Newey",
+      "Sami Stouli"
+    ],
+    "category": "econ.EM",
+    "published_date": "2018-09-15 12:05:07+00:00",
+    "updated_date": "2019-12-05 23:57:03+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1809.05706v2",
+    "pdf_url": "https://arxiv.org/pdf/1809.05706v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2102.06232v1",
+    "title": "Inference on two component mixtures under tail restrictions",
+    "abstract": "Many econometric models can be analyzed as finite mixtures. We focus on two-component mixtures and we show that they are nonparametrically point identified by a combination of an exclusion restriction and tail restrictions. Our identification analysis suggests simple closed-form estimators of the component distributions and mixing proportions, as well as a specification test. We derive their asymptotic properties using results on tail empirical processes and we present a simulation study that documents their finite-sample performance.",
+    "authors": [
+      "Marc Henry",
+      "Koen Jochmans",
+      "Bernard Salani\u00e9"
+    ],
+    "category": "econ.EM",
+    "published_date": "2021-02-11 19:27:47+00:00",
+    "updated_date": "2021-02-11 19:27:47+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2102.06232v1",
+    "pdf_url": "https://arxiv.org/pdf/2102.06232v1.pdf",
+    "doi": null,
+    "journal_ref": "Econometric Theory, 2017"
+  },
+  {
+    "id": "1804.08218v1",
+    "title": "Econometric Modeling of Regional Electricity Spot Prices in the   Australian Market",
+    "abstract": "Wholesale electricity markets are increasingly integrated via high voltage interconnectors, and inter-regional trade in electricity is growing. To model this, we consider a spatial equilibrium model of price formation, where constraints on inter-regional flows result in three distinct equilibria in prices. We use this to motivate an econometric model for the distribution of observed electricity spot prices that captures many of their unique empirical characteristics. The econometric model features supply and inter-regional trade cost functions, which are estimated using Bayesian monotonic regression smoothing methodology. A copula multivariate time series model is employed to capture additional dependence -- both cross-sectional and serial-- in regional prices. The marginal distributions are nonparametric, with means given by the regression means. The model has the advantage of preserving the heavy right-hand tail in the predictive densities of price. We fit the model to half-hourly spot price data in the five interconnected regions of the Australian national electricity market. The fitted model is then used to measure how both supply and price shocks in one region are transmitted to the distribution of prices in all regions in subsequent periods. Finally, to validate our econometric model, we show that prices forecast using the proposed model compare favorably with those from some benchmark alternatives.",
+    "authors": [
+      "Michael Stanley Smith",
+      "Thomas S. Shively"
+    ],
+    "category": "econ.EM",
+    "published_date": "2018-04-23 01:52:35+00:00",
+    "updated_date": "2018-04-23 01:52:35+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1804.08218v1",
+    "pdf_url": "https://arxiv.org/pdf/1804.08218v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2209.10664v1",
+    "title": "Modelling the Frequency of Home Deliveries: An Induced Travel Demand   Contribution of Aggrandized E-shopping in Toronto during COVID-19 Pandemics",
+    "abstract": "The COVID-19 pandemic dramatically catalyzed the proliferation of e-shopping. The dramatic growth of e-shopping will undoubtedly cause significant impacts on travel demand. As a result, transportation modeller's ability to model e-shopping demand is becoming increasingly important. This study developed models to predict household' weekly home delivery frequencies. We used both classical econometric and machine learning techniques to obtain the best model. It is found that socioeconomic factors such as having an online grocery membership, household members' average age, the percentage of male household members, the number of workers in the household and various land use factors influence home delivery demand. This study also compared the interpretations and performances of the machine learning models and the classical econometric model. Agreement is found in the variable's effects identified through the machine learning and econometric models. However, with similar recall accuracy, the ordered probit model, a classical econometric model, can accurately predict the aggregate distribution of household delivery demand. In contrast, both machine learning models failed to match the observed distribution.",
+    "authors": [
+      "Yicong Liu",
+      "Kaili Wang",
+      "Patrick Loa",
+      "Khandker Nurul Habib"
+    ],
+    "category": "econ.EM",
+    "published_date": "2022-09-21 21:18:25+00:00",
+    "updated_date": "2022-09-21 21:18:25+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2209.10664v1",
+    "pdf_url": "https://arxiv.org/pdf/2209.10664v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2004.11485v1",
+    "title": "High-dimensional macroeconomic forecasting using message passing   algorithms",
+    "abstract": "This paper proposes two distinct contributions to econometric analysis of large information sets and structural instabilities. First, it treats a regression model with time-varying coefficients, stochastic volatility and exogenous predictors, as an equivalent high-dimensional static regression problem with thousands of covariates. Inference in this specification proceeds using Bayesian hierarchical priors that shrink the high-dimensional vector of coefficients either towards zero or time-invariance. Second, it introduces the frameworks of factor graphs and message passing as a means of designing efficient Bayesian estimation algorithms. In particular, a Generalized Approximate Message Passing (GAMP) algorithm is derived that has low algorithmic complexity and is trivially parallelizable. The result is a comprehensive methodology that can be used to estimate time-varying parameter regressions with arbitrarily large number of exogenous predictors. In a forecasting exercise for U.S. price inflation this methodology is shown to work very well.",
+    "authors": [
+      "Dimitris Korobilis"
+    ],
+    "category": "stat.ME",
+    "published_date": "2020-04-23 23:10:04+00:00",
+    "updated_date": "2020-04-23 23:10:04+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2004.11485v1",
+    "pdf_url": "https://arxiv.org/pdf/2004.11485v1.pdf",
+    "doi": "http://dx.doi.org/10.1080/07350015.2019.1677472",
+    "journal_ref": null
+  },
+  {
+    "id": "2004.11780v1",
+    "title": "Environmental Economics and Uncertainty: Review and a Machine Learning   Outlook",
+    "abstract": "Economic assessment in environmental science concerns the measurement or valuation of environmental impacts, adaptation, and vulnerability. Integrated assessment modeling is a unifying framework of environmental economics, which attempts to combine key elements of physical, ecological, and socioeconomic systems. Uncertainty characterization in integrated assessment varies by component models: uncertainties associated with mechanistic physical models are often assessed with an ensemble of simulations or Monte Carlo sampling, while uncertainties associated with impact models are evaluated by conjecture or econometric analysis. Manifold sampling is a machine learning technique that constructs a joint probability model of all relevant variables which may be concentrated on a low-dimensional geometric structure. Compared with traditional density estimation methods, manifold sampling is more efficient especially when the data is generated by a few latent variables. The manifold-constrained joint probability model helps answer policy-making questions from prediction, to response, and prevention. Manifold sampling is applied to assess risk of offshore drilling in the Gulf of Mexico.",
+    "authors": [
+      "Ruda Zhang",
+      "Patrick Wingo",
+      "Rodrigo Duran",
+      "Kelly Rose",
+      "Jennifer Bauer",
+      "Roger Ghanem"
+    ],
+    "category": "econ.GN",
+    "published_date": "2020-04-24 14:40:59+00:00",
+    "updated_date": "2020-04-24 14:40:59+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2004.11780v1",
+    "pdf_url": "https://arxiv.org/pdf/2004.11780v1.pdf",
+    "doi": "http://dx.doi.org/10.1093/acrefore/9780199389414.013.572",
+    "journal_ref": null
+  },
+  {
+    "id": "2107.07348v1",
+    "title": "Article Processing Charges based publications: to which extent the price   explains scientific impact?",
+    "abstract": "The present study aims to analyze relationship between Citations Normalized Score (NCS) of scientific publications and Article Processing Charges (APCs) amounts of Gold Open access publications. To do so, we use APCs information provided by OpenAPC database and citations scores of publications in the Web of Science database (WoS). Database covers the period from 2006 to 2019 with 83,752 articles published in 4751 journals belonging to 267 distinct publishers. Results show that contrary to this belief, paying dearly does not necessarily increase the impact of publications. First, large publishers with high impact are not the most expensive. Second, publishers with the highest APCs are not necessarily the best in terms of impact. Correlation between APCs and impact is moderate. Otherwise, in the econometric analysis we have shown that publication quality is strongly determined by journal quality in which it is published. International collaboration also plays an important role in citations score.",
+    "authors": [
+      "Abdelghani Maddi",
+      "David Sapinho"
+    ],
+    "category": "econ.GN",
+    "published_date": "2021-07-02 09:52:20+00:00",
+    "updated_date": "2021-07-02 09:52:20+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2107.07348v1",
+    "pdf_url": "https://arxiv.org/pdf/2107.07348v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1912.10328v1",
+    "title": "Portfolio optimization based on forecasting models using vine copulas:   An empirical assessment for the financial crisis",
+    "abstract": "We employ and examine vine copulas in modeling symmetric and asymmetric dependency structures and forecasting financial returns. We analyze the asset allocations performed during the 2008-2009 financial crisis and test different portfolio strategies such as maximum Sharpe ratio, minimum variance, and minimum conditional Value-at-Risk. We then specify the regular, drawable, and canonical vine copulas, such as the Student-t, Clayton, Frank, Joe, Gumbel, and mixed copulas, and analyze both in-sample and out-of-sample portfolio performances. Out-of-sample portfolio back-testing shows that vine copulas reduce portfolio risk better than simple copulas. Our econometric analysis of the outcomes of the various models shows that in terms of reducing conditional Value-at-Risk, D-vines appear to be better than R- and C-vines. Overall, we find that the Student-t drawable vine copula models perform best with regard to risk reduction, both for the entire period 2005-2012 as well as during the financial crisis.",
+    "authors": [
+      "Maziar Sahamkhadam",
+      "Andreas Stephan"
+    ],
+    "category": "q-fin.PM",
+    "published_date": "2019-12-21 20:08:58+00:00",
+    "updated_date": "2019-12-21 20:08:58+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1912.10328v1",
+    "pdf_url": "https://arxiv.org/pdf/1912.10328v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2005.04398v1",
+    "title": "Day of the week submission effect for accepted papers in Physica A, PLOS   ONE, Nature and Cell",
+    "abstract": "The particular day of the week when an event occurs seems to have unexpected consequences. For example, the day of the week when a paper is submitted to a peer reviewed journal correlates with whether that paper is accepted. Using an econometric analysis (a mix of log-log and semi-log based on undated and panel structured data) we find that more papers are submitted to certain peer review journals on particular weekdays than others, with fewer papers being submitted on weekends. Seasonal effects, geographical information as well as potential changes over time are examined. This finding rests on a large (178 000) and reliable sample; the journals polled are broadly recognized (Nature, Cell, PLOS ONE and Physica A). Day of the week effect in the submission of accepted papers should be of interest to many researchers, editors and publishers, and perhaps also to managers and psychologists.",
+    "authors": [
+      "Catalin Emilian Boja",
+      "Claudiu Herteliu",
+      "Marian Dardala",
+      "Bogdan Vasile Ileanu"
+    ],
+    "category": "cs.DL",
+    "published_date": "2020-05-09 09:23:44+00:00",
+    "updated_date": "2020-05-09 09:23:44+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2005.04398v1",
+    "pdf_url": "https://arxiv.org/pdf/2005.04398v1.pdf",
+    "doi": "http://dx.doi.org/10.1007/s11192-018-2911-7",
+    "journal_ref": "Published, Scientometrics, Volume 117, Issue 2, 2018, pp. 887-918"
+  },
+  {
+    "id": "2404.03989v1",
+    "title": "Instruments And Effects Of Monetary And Fiscal Policy: The Relationship   Between Inflation, Vat, And Deposit Interest Rate",
+    "abstract": "In this study, we aimed to examine the effect of VAT revenues and Deposit Interest Rates on Inflation in Turkey between 1985-2022. Within the framework of econometric analysis of the obtained data, the analysis was carried out using ADF unit root test, Johansen Co-Integration Test, Error Terms and VECM (Vector Error Correction Model) models. According to the analysis results, it was understood that the data were stationary at the I(I) level, it was determined that there was a cointegrated relationship between them in the long term, and by estimating the error term, causality findings were determined within the framework of VECM analysis. According to the causality results of the Wald Test; causality is found from Deposit Interest Rate to VAT and Inflation, and from Inflation to VAT and Deposit Interest Rate (bidirectional), while causality is also found from VAT to Inflation and Deposit Interest Rates.",
+    "authors": [
+      "Ali Dogdu",
+      "Murad Kayacan"
+    ],
+    "category": "econ.GN",
+    "published_date": "2024-04-05 09:52:59+00:00",
+    "updated_date": "2024-04-05 09:52:59+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2404.03989v1",
+    "pdf_url": "https://arxiv.org/pdf/2404.03989v1.pdf",
+    "doi": "http://dx.doi.org/10.58884/akademik-hassasiyetler.1445402",
+    "journal_ref": "2024"
+  },
+  {
+    "id": "2408.10359v1",
+    "title": "How Small is Big Enough? Open Labeled Datasets and the Development of   Deep Learning",
+    "abstract": "We investigate the emergence of Deep Learning as a technoscientific field, emphasizing the role of open labeled datasets. Through qualitative and quantitative analyses, we evaluate the role of datasets like CIFAR-10 in advancing computer vision and object recognition, which are central to the Deep Learning revolution. Our findings highlight CIFAR-10's crucial role and enduring influence on the field, as well as its importance in teaching ML techniques. Results also indicate that dataset characteristics such as size, number of instances, and number of categories, were key factors. Econometric analysis confirms that CIFAR-10, a small-but-sufficiently-large open dataset, played a significant and lasting role in technological advancements and had a major function in the development of the early scientific literature as shown by citation metrics.",
+    "authors": [
+      "Daniel Souza",
+      "Aldo Geuna",
+      "Jeff Rodr\u00edguez"
+    ],
+    "category": "econ.GN",
+    "published_date": "2024-08-19 18:56:21+00:00",
+    "updated_date": "2024-08-19 18:56:21+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2408.10359v1",
+    "pdf_url": "https://arxiv.org/pdf/2408.10359v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2410.15713v1",
+    "title": "Nonparametric method of structural break detection in stochastic time   series regression model",
+    "abstract": "We propose a nonparametric algorithm to detect structural breaks in the conditional mean and/or variance of a time series. Our method does not assume any specific parametric form for the dependence structure of the regressor, the time series model, or the distribution of the model noise. This flexibility allows our algorithm to be applicable to a wide range of time series structures commonly encountered in financial econometrics. The effectiveness of the proposed algorithm is validated through an extensive simulation study and a real data application in detecting structural breaks in the mean and volatility of Bitcoin returns. The algorithm's ability to identify structural breaks in the data highlights its practical utility in econometric analysis and financial modeling.",
+    "authors": [
+      "Archi Roy",
+      "Moumanti Podder",
+      "Soudeep Deb"
+    ],
+    "category": "stat.ME",
+    "published_date": "2024-10-21 07:32:55+00:00",
+    "updated_date": "2024-10-21 07:32:55+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2410.15713v1",
+    "pdf_url": "https://arxiv.org/pdf/2410.15713v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1301.0741v1",
+    "title": "A bivariate marginal likelihood specification of spatial econometric   modeling of very large datasets",
+    "abstract": "This paper proposes a bivariate marginal likelihood specification of spatial econometrics models that simplifies the derivation of the log-likelihood and leads to a closed form expression for the estimation of the parameters. With respect to the more traditional specifications of spatial autoregressive models, our method avoids the arbitrariness of the specification of a weight matrix, presents analytical and computational advantages and provides interesting interpretative insights. We establish small sample and asymptotic properties of the estimators and we derive the associated Fisher information matrix needed in confidence interval estimation and hypothesis testing.",
+    "authors": [
+      "Giuseppe Arbia"
+    ],
+    "category": "stat.ME",
+    "published_date": "2013-01-04 15:02:48+00:00",
+    "updated_date": "2013-01-04 15:02:48+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1301.0741v1",
+    "pdf_url": "https://arxiv.org/pdf/1301.0741v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1501.00818v2",
+    "title": "Forecasting day ahead electricity spot prices: The impact of the EXAA to   other European electricity markets",
+    "abstract": "In our paper we analyze the relationship between the day-ahead electricity price of the Energy Exchange Austria (EXAA) and other day-ahead electricity prices in Europe. We focus on markets, which settle their prices after the EXAA, which enables traders to include the EXAA price into their calculations. For each market we employ econometric models to incorporate the EXAA price and compare them with their counterparts without the price of the Austrian exchange. By employing a forecasting study, we find that electricity price models can be improved when EXAA prices are considered.",
+    "authors": [
+      "Florian Ziel",
+      "Rick Steinert",
+      "Sven Husmann"
+    ],
+    "category": "q-fin.TR",
+    "published_date": "2015-01-05 11:07:11+00:00",
+    "updated_date": "2015-12-01 12:27:49+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1501.00818v2",
+    "pdf_url": "https://arxiv.org/pdf/1501.00818v2.pdf",
+    "doi": "http://dx.doi.org/10.1016/j.eneco.2015.08.005",
+    "journal_ref": "Energy Economics, 51 (2015) 430-444"
+  },
+  {
+    "id": "1611.04639v1",
+    "title": "Day of the week effect in paper submission/acceptance/rejection to/in/by   peer review journals. II. An ARCH econometric-like modeling",
+    "abstract": "This paper aims at providing a statistical model for the preferred behavior of authors submitting a paper to a scientific journal. The electronic submission of (about 600) papers to the Journal of the Serbian Chemical Society has been recorded for every day from Jan. 01, 2013 till Dec. 31, 2014, together with the acceptance or rejection paper fate. Seasonal effects and editor roles (through desk rejection and subfield editors) are examined. An ARCH-like econometric model is derived stressing the main determinants of the favorite day-of-week process.",
+    "authors": [
+      "Marcel Ausloos",
+      "Olgica Nedic",
+      "Aleksandar Dekanski",
+      "Maciej J. Mrowinski",
+      "Piotr Fronczak",
+      "Agata Fronczak"
+    ],
+    "category": "cs.DL",
+    "published_date": "2016-11-14 22:46:23+00:00",
+    "updated_date": "2016-11-14 22:46:23+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1611.04639v1",
+    "pdf_url": "https://arxiv.org/pdf/1611.04639v1.pdf",
+    "doi": "http://dx.doi.org/10.1016/j.physa.2016.10.078",
+    "journal_ref": "Physica A 468 (2017) 462-474"
+  },
+  {
+    "id": "1801.05770v3",
+    "title": "The macroeconomics determinants of default of the borrowers: The case of   Moroccan bank",
+    "abstract": "This article aims to explore an empirical approach to analyze the macroeconomicsdeterminants of default of borrowers. For this purpose, we have measured the impact of the adverse economic conditions on the degradation of the credit portfolio quality.In our paper, we have shed more light on the question of the aggravation of default rate. For this, we have undertaken econometric modeling of the default rate distribution of a Moroccan bank while we inspired from some studies carried out. Our findings demonstrate that the decline in the economic situation has a positive impact on default of borrowers. Hence, the bank also has responsibility for monitoring the adverse economic conditions.",
+    "authors": [
+      "Anas Yassine",
+      "Abdelmadjid Ibenrissoul"
+    ],
+    "category": "q-fin.ST",
+    "published_date": "2018-01-15 09:53:49+00:00",
+    "updated_date": "2018-03-28 13:57:14+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1801.05770v3",
+    "pdf_url": "https://arxiv.org/pdf/1801.05770v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1801.06936v3",
+    "title": "Evolution of Regional Innovation with Spatial Knowledge Spillovers:   Convergence or Divergence?",
+    "abstract": "This paper extends endogenous economic growth models to incorporate knowledge externality. We explores whether spatial knowledge spillovers among regions exist, whether spatial knowledge spillovers promote regional innovative activities, and whether external knowledge spillovers affect the evolution of regional innovations in the long run. We empirically verify the theoretical results through applying spatial statistics and econometric model in the analysis of panel data of 31 regions in China. An accurate estimate of the range of knowledge spillovers is achieved and the convergence of regional knowledge growth rate is found, with clear evidences that developing regions benefit more from external knowledge spillovers than developed regions.",
+    "authors": [
+      "Jinwen Qiu",
+      "Wenjian Liu",
+      "Ning Ning"
+    ],
+    "category": "econ.EM",
+    "published_date": "2018-01-22 02:14:53+00:00",
+    "updated_date": "2018-03-06 07:49:31+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1801.06936v3",
+    "pdf_url": "https://arxiv.org/pdf/1801.06936v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1810.01654v1",
+    "title": "Granger causality on horizontal sum of Boolean algebras",
+    "abstract": "The intention of this paper is to discuss the mathematical model of causality introduced by C.W.J. Granger in 1969. The Granger's model of causality has become well-known and often used in various econometric models describing causal systems, e.g., between commodity prices and exchange rates.   Our paper presents a new mathematical model of causality between two measured objects. We have slightly modified the well-known Kolmogorovian probability model. In particular, we use the horizontal sum of set $\\sigma$-algebras instead of their direct product.",
+    "authors": [
+      "M. Bohdalov\u00e1",
+      "M. Kalina",
+      "O. N\u00e1n\u00e1siov\u00e1"
+    ],
+    "category": "econ.EM",
+    "published_date": "2018-10-03 09:27:43+00:00",
+    "updated_date": "2018-10-03 09:27:43+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1810.01654v1",
+    "pdf_url": "https://arxiv.org/pdf/1810.01654v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1905.07848v1",
+    "title": "Time Series Analysis and Forecasting of the US Housing Starts using   Econometric and Machine Learning Model",
+    "abstract": "In this research paper, I have performed time series analysis and forecasted the monthly value of housing starts for the year 2019 using several econometric methods - ARIMA(X), VARX, (G)ARCH and machine learning algorithms - artificial neural networks, ridge regression, K-Nearest Neighbors, and support vector regression, and created an ensemble model. The ensemble model stacks the predictions from various individual models, and gives a weighted average of all predictions. The analyses suggest that the ensemble model has performed the best among all the models as the prediction errors are the lowest, while the econometric models have higher error rates.",
+    "authors": [
+      "Sudiksha Joshi"
+    ],
+    "category": "econ.EM",
+    "published_date": "2019-05-20 02:17:28+00:00",
+    "updated_date": "2019-05-20 02:17:28+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1905.07848v1",
+    "pdf_url": "https://arxiv.org/pdf/1905.07848v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1805.11138v2",
+    "title": "Modeling the residential electricity consumption within a restructured   power market",
+    "abstract": "The United States' power market is featured by the lack of judicial power at the federal level. The market thus provides a unique testing environment for the market organization structure. At the same time, the econometric modeling and forecasting of electricity market consumption become more challenging. Import and export, which generally follow simple rules in European countries, can be a result of direct market behaviors. This paper seeks to build a general model for power consumption and using the model to test several hypotheses.",
+    "authors": [
+      "Chelsea Sun"
+    ],
+    "category": "econ.EM",
+    "published_date": "2018-05-28 19:19:00+00:00",
+    "updated_date": "2018-06-12 03:57:23+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1805.11138v2",
+    "pdf_url": "https://arxiv.org/pdf/1805.11138v2.pdf",
+    "doi": null,
+    "journal_ref": "Journal of Energy Efficiency, Vol 2, Jun 2018"
+  },
+  {
+    "id": "1911.00797v1",
+    "title": "Bayesian model averaging with the integrated nested Laplace   approximation",
+    "abstract": "The integrated nested Laplace approximation (INLA) for Bayesian inference is an efficient approach to estimate the posterior marginal distributions of the parameters and latent effects of Bayesian hierarchical models that can be expressed as latent Gaussian Markov random fields (GMRF). The representation as a GMRF allows the associated software R-INLA to estimate the posterior marginals in a fraction of the time as typical Markov chain Monte Carlo algorithms. INLA can be extended by means of Bayesian model averaging (BMA) to increase the number of models that it can fit to conditional latent GMRF. In this paper we review the use of BMA with INLA and propose a new example on spatial econometrics models.",
+    "authors": [
+      "Virgilio G\u00f3mez-Rubio",
+      "Roger S. Bivand",
+      "H\u00e5vard Rue"
+    ],
+    "category": "stat.CO",
+    "published_date": "2019-11-02 23:46:07+00:00",
+    "updated_date": "2019-11-02 23:46:07+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1911.00797v1",
+    "pdf_url": "https://arxiv.org/pdf/1911.00797v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1912.08916v1",
+    "title": "Hybrid threats as an exogenous economic shock",
+    "abstract": "The aim of this study is to contribute to the theory of exogenous economic shocks and their equivalents in an attempt to explain business cycle fluctuations, which still do not have a clear explanation. To this end the author has developed an econometric model based on a regression analysis. Another objective is to tackle the issue of hybrid threats, which have not yet been subjected to a cross-disciplinary research. These were reviewed in terms of their economic characteristics in order to complement research in the fields of defence and security.",
+    "authors": [
+      "Shteryo Nozharov"
+    ],
+    "category": "econ.GN",
+    "published_date": "2019-12-17 15:32:03+00:00",
+    "updated_date": "2019-12-17 15:32:03+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1912.08916v1",
+    "pdf_url": "https://arxiv.org/pdf/1912.08916v1.pdf",
+    "doi": null,
+    "journal_ref": "Economic Archive (4), pp.21-29 (2019)"
+  },
+  {
+    "id": "2101.05644v1",
+    "title": "A new volatility model: GQARCH-It\u00f4 model",
+    "abstract": "Volatility asymmetry is a hot topic in high-frequency financial market. In this paper, we propose a new econometric model, which could describe volatility asymmetry based on high-frequency historical data and low-frequency historical data. After providing the quasi-maximum likelihood estimators for the parameters, we establish their asymptotic properties. We also conduct a series of simulation studies to check the finite sample performance and volatility forecasting performance of the proposed methodologies. And an empirical application is demonstrated that the new model has stronger volatility prediction power than GARCH-It\\^{o} model in the literature.",
+    "authors": [
+      "Huiling Yuan",
+      "Yong Zhou",
+      "Lu Xu",
+      "Yun Lei Sun",
+      "Xiang Yu Cui"
+    ],
+    "category": "stat.ME",
+    "published_date": "2021-01-14 14:58:03+00:00",
+    "updated_date": "2021-01-14 14:58:03+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2101.05644v1",
+    "pdf_url": "https://arxiv.org/pdf/2101.05644v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2101.12583v1",
+    "title": "Discovering dependencies in complex physical systems using Neural   Networks",
+    "abstract": "In todays age of data, discovering relationships between different variables is an interesting and a challenging problem. This problem becomes even more critical with regards to complex dynamical systems like weather forecasting and econometric models, which can show highly non-linear behavior. A method based on mutual information and deep neural networks is proposed as a versatile framework for discovering non-linear relationships ranging from functional dependencies to causality. We demonstrate the application of this method to actual multivariable non-linear dynamical systems. We also show that this method can find relationships even for datasets with small number of datapoints, as is often the case with empirical data.",
+    "authors": [
+      "Sachin Kasture"
+    ],
+    "category": "physics.data-an",
+    "published_date": "2021-01-27 18:59:19+00:00",
+    "updated_date": "2021-01-27 18:59:19+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2101.12583v1",
+    "pdf_url": "https://arxiv.org/pdf/2101.12583v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2102.04151v1",
+    "title": "A test of non-identifying restrictions and confidence regions for   partially identified parameters",
+    "abstract": "We propose an easily implementable test of the validity of a set of theoretical restrictions on the relationship between economic variables, which do not necessarily identify the data generating process. The restrictions can be derived from any model of interactions, allowing censoring and multiple equilibria. When the restrictions are parameterized, the test can be inverted to yield confidence regions for partially identified parameters, thereby complementing other proposals, primarily Chernozhukov et al. [Chernozhukov, V., Hong, H., Tamer, E., 2007. Estimation and confidence regions for parameter sets in econometric models. Econometrica 75, 1243-1285].",
+    "authors": [
+      "Alfred Galichon",
+      "Marc Henry"
+    ],
+    "category": "econ.EM",
+    "published_date": "2021-02-08 12:01:13+00:00",
+    "updated_date": "2021-02-08 12:01:13+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2102.04151v1",
+    "pdf_url": "https://arxiv.org/pdf/2102.04151v1.pdf",
+    "doi": "http://dx.doi.org/10.1016/j.jeconom.2009.01.010",
+    "journal_ref": "Journal of Econometrics 152-2 (2009) pp. 186-196"
+  },
+  {
+    "id": "2103.01115v4",
+    "title": "Structural models for policy-making: Coping with parametric uncertainty",
+    "abstract": "The ex-ante evaluation of policies using structural econometric models is based on estimated parameters as a stand-in for the true parameters. This practice ignores uncertainty in the counterfactual policy predictions of the model. We develop a generic approach that deals with parametric uncertainty using uncertainty sets and frames model-informed policy-making as a decision problem under uncertainty. The seminal human capital investment model by Keane and Wolpin (1997) provides a well-known, influential, and empirically-grounded test case. We document considerable uncertainty in the models's policy predictions and highlight the resulting policy recommendations obtained from using different formal rules of decision-making under uncertainty.",
+    "authors": [
+      "Philipp Eisenhauer",
+      "Jano\u015b Gabler",
+      "Lena Janys",
+      "Christopher Walsh"
+    ],
+    "category": "econ.EM",
+    "published_date": "2021-03-01 16:34:48+00:00",
+    "updated_date": "2022-06-14 13:34:02+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2103.01115v4",
+    "pdf_url": "https://arxiv.org/pdf/2103.01115v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1605.05658v4",
+    "title": "Heteroscedastic stratified two-way EC models of single equations and SUR   systems",
+    "abstract": "A relevant issue in panel data estimation is heteroscedasticity, which often occurs when the sample is large and individual units are of varying size. Furthermore, many of the available panel data sets are unbalanced in nature, because of attrition or accretion, and micro-econometric models applied to panel data are frequently multi-equation models. This paper considers the general least squares estimation of the heteroscedastic stratified two-way error component (EC) models of both single equations and seemingly unrelated regressions (SUR) systems (with cross-equations restrictions) on unbalanced panel data. The derived heteroscedastic estimators of both single equations and SUR systems improve the estimation efficiency.",
+    "authors": [
+      "Silvia Platoni",
+      "Laura Barbieri",
+      "Daniele Moro",
+      "Paolo Sckokai"
+    ],
+    "category": "stat.ME",
+    "published_date": "2016-05-18 16:56:58+00:00",
+    "updated_date": "2017-08-07 12:55:11+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1605.05658v4",
+    "pdf_url": "https://arxiv.org/pdf/1605.05658v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1404.1473v3",
+    "title": "Identification of Linear Regressions with Errors in all Variables",
+    "abstract": "This paper analyzes the classical linear regression model with measurement errors in all the variables. First, we provide necessary and sufficient conditions for identification of the coefficients. We show that the coefficients are not identified if and only if an independent normally distributed linear combination of regressors can be transferred from the regressors to the errors. Second, we introduce a new estimator for the coefficients using a continuum of moments that are based on second derivatives of the log characteristic function of the observables. In Monte Carlo simulations, the estimator performs well and is robust to the amount of measurement error and number of mismeasured regressors. In an application to firm investment decisions, the estimates are similar to those produced by a generalized method of moments estimator based on third to fifth moments.",
+    "authors": [
+      "Dan Ben-Moshe"
+    ],
+    "category": "stat.ME",
+    "published_date": "2014-04-05 12:21:19+00:00",
+    "updated_date": "2021-03-23 20:10:28+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1404.1473v3",
+    "pdf_url": "https://arxiv.org/pdf/1404.1473v3.pdf",
+    "doi": "http://dx.doi.org/10.1017/S0266466620000250",
+    "journal_ref": "Econom. Theory 37 (2021) 633-663"
+  },
+  {
+    "id": "1502.05815v1",
+    "title": "A lack-of-fit test for quantile regression models with high-dimensional   covariates",
+    "abstract": "We propose a new lack-of-fit test for quantile regression models that is suitable even with high-dimensional covariates. The test is based on the cumulative sum of residuals with respect to unidimensional linear projections of the covariates. The test adapts concepts proposed by Escanciano (Econometric Theory, 22, 2006) to cope with many covariates to the test proposed by He and Zhu (Journal of the American Statistical Association, 98, 2003). To approximate the critical values of the test, a wild bootstrap mechanism is used, similar to that proposed by Feng et al. (Biometrika, 98, 2011). An extensive simulation study was undertaken that shows the good performance of the new test, particularly when the dimension of the covariate is high. The test can also be applied and performs well under heteroscedastic regression models. The test is illustrated with real data about the economic growth of 161 countries.",
+    "authors": [
+      "Mercedes Conde-Amboage",
+      "C\u00e9sar S\u00e1nchez-Sellero",
+      "Wenceslao Gonz\u00e1lez-Manteiga"
+    ],
+    "category": "stat.ME",
+    "published_date": "2015-02-20 10:03:07+00:00",
+    "updated_date": "2015-02-20 10:03:07+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1502.05815v1",
+    "pdf_url": "https://arxiv.org/pdf/1502.05815v1.pdf",
+    "doi": "http://dx.doi.org/10.1016/j.csda.2015.02.016",
+    "journal_ref": null
+  },
+  {
+    "id": "1612.08099v1",
+    "title": "Nonparametric estimation of conditional value-at-risk and expected   shortfall based on extreme value theory",
+    "abstract": "We propose nonparametric estimators for conditional value-at-risk (CVaR) and conditional expected shortfall (CES) associated with conditional distributions of a series of returns on a financial asset. The return series and the conditioning covariates, which may include lagged returns and other exogenous variables, are assumed to be strong mixing and follow a nonparametric conditional location-scale model. First stage nonparametric estimators for location and scale are combined with a generalized Pareto approximation for distribution tails proposed by Pickands (1975) to give final estimators for CVaR and CES. We provide consistency and asymptotic normality of the proposed estimators under suitable normalization. We also present the results of a Monte Carlo study that sheds light on their finite sample performance. Empirical viability of the model and estimators is investigated through a backtesting exercise using returns on future contracts for five agricultural commodities.",
+    "authors": [
+      "Carlos Martins-Filho",
+      "Feng Yao",
+      "Maximo Torero"
+    ],
+    "category": "stat.ME",
+    "published_date": "2016-12-23 21:18:42+00:00",
+    "updated_date": "2016-12-23 21:18:42+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1612.08099v1",
+    "pdf_url": "https://arxiv.org/pdf/1612.08099v1.pdf",
+    "doi": "http://dx.doi.org/10.1017/S0266466616000517",
+    "journal_ref": null
+  },
+  {
+    "id": "1309.3145v4",
+    "title": "Nonparametric identification of positive eigenfunctions",
+    "abstract": "Important features of certain economic models may be revealed by studying positive eigenfunctions of appropriately chosen linear operators. Examples include long-run risk-return relationships in dynamic asset pricing models and components of marginal utility in external habit formation models. This paper provides identification conditions for positive eigenfunctions in nonparametric models. Identification is achieved if the operator satisfies two mild positivity conditions and a power compactness condition. Both existence and identification are achieved under a further non-degeneracy condition. The general results are applied to obtain new identification conditions for external habit formation models and for positive eigenfunctions of pricing operators in dynamic asset pricing models.",
+    "authors": [
+      "Timothy Christensen"
+    ],
+    "category": "stat.ME",
+    "published_date": "2013-09-12 13:08:39+00:00",
+    "updated_date": "2014-08-29 21:32:02+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1309.3145v4",
+    "pdf_url": "https://arxiv.org/pdf/1309.3145v4.pdf",
+    "doi": "http://dx.doi.org/10.1017/S0266466614000668",
+    "journal_ref": "Econometric Theory 31(6) (2015) 1310-1330"
+  }
+]

@@ -4,7 +4,7 @@ import { TrophyIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { PaperCard } from './PaperCard';
 import { LoadingSpinner } from '@components/common/LoadingSpinner';
 import { papersService } from '@services/papersService';
-import { type Paper } from '@types';
+import { type Paper } from '../../types';
 
 interface HighScoredPapersProps {
   limit?: number;

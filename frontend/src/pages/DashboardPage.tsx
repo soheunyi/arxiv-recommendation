@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
-import { useAppDispatch, useAppSelector } from '@store';
+import { useAppDispatch, useAppSelector } from '@store/index';
 import { fetchRecommendations, generateRecommendations } from '@store/slices/papersSlice';
 import { updateRating } from '@store/slices/ratingsSlice';
 import { fetchCacheStats } from '@store/slices/systemSlice';

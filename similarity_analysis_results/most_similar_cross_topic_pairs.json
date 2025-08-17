@@ -1,0 +1,238 @@
+[
+  {
+    "rank": 1,
+    "similarity": 0.5947330150217394,
+    "transformer_paper": {
+      "arxiv_id": "9801033v2",
+      "title": "Quantum Transformations",
+      "authors": [
+        "Alon E. Faraggi",
+        "Marco Matone"
+      ]
+    },
+    "optimal_transport_paper": {
+      "arxiv_id": "2105.06922v2",
+      "title": "Quantum Optimal Transport",
+      "authors": [
+        "Sam Cole",
+        "Micha\u0142 Eckstein",
+        "Shmuel Friedland",
+        "Karol \u017byczkowski"
+      ]
+    }
+  },
+  {
+    "rank": 2,
+    "similarity": 0.560002284280504,
+    "transformer_paper": {
+      "arxiv_id": "1807.03819v3",
+      "title": "Universal Transformers",
+      "authors": [
+        "Mostafa Dehghani",
+        "Stephan Gouws",
+        "Oriol Vinyals",
+        "Jakob Uszkoreit",
+        "\u0141ukasz Kaiser"
+      ]
+    },
+    "optimal_transport_paper": {
+      "arxiv_id": "2212.00133v6",
+      "title": "Universal Neural Optimal Transport",
+      "authors": [
+        "Jonathan Geuter",
+        "Gregor Kornhardt",
+        "Ingimar Tomasson",
+        "Vaios Laschos"
+      ]
+    }
+  },
+  {
+    "rank": 3,
+    "similarity": 0.5265256605649133,
+    "transformer_paper": {
+      "arxiv_id": "2111.07602v1",
+      "title": "Spectral Transform Forms Scalable Transformer",
+      "authors": [
+        "Bingxin Zhou",
+        "Xinliang Liu",
+        "Yuehua Liu",
+        "Yunying Huang",
+        "Pietro Li\u00f2",
+        "YuGuang Wang"
+      ]
+    },
+    "optimal_transport_paper": {
+      "arxiv_id": "2203.10453v1",
+      "title": "Fine-Tuning Graph Neural Networks via Graph Topology induced Optimal   Transport",
+      "authors": [
+        "Jiying Zhang",
+        "Xi Xiao",
+        "Long-Kai Huang",
+        "Yu Rong",
+        "Yatao Bian"
+      ]
+    }
+  },
+  {
+    "rank": 4,
+    "similarity": 0.515563660823972,
+    "transformer_paper": {
+      "arxiv_id": "1701.02110v2",
+      "title": "Transformation Forests",
+      "authors": [
+        "Torsten Hothorn",
+        "Achim Zeileis"
+      ]
+    },
+    "optimal_transport_paper": {
+      "arxiv_id": "2504.03188v2",
+      "title": "Pairwise Optimal Transports for Training All-to-All Flow-Based Condition   Transfer Model",
+      "authors": [
+        "Kotaro Ikeda",
+        "Masanori Koyama",
+        "Jinzhe Zhang",
+        "Kohei Hayashi",
+        "Kenji Fukumizu"
+      ]
+    }
+  },
+  {
+    "rank": 5,
+    "similarity": 0.5103247992186107,
+    "transformer_paper": {
+      "arxiv_id": "1701.02110v2",
+      "title": "Transformation Forests",
+      "authors": [
+        "Torsten Hothorn",
+        "Achim Zeileis"
+      ]
+    },
+    "optimal_transport_paper": {
+      "arxiv_id": "2210.12288v2",
+      "title": "Learning Ultrametric Trees for Optimal Transport Regression",
+      "authors": [
+        "Samantha Chen",
+        "Puoya Tabaghi",
+        "Yusu Wang"
+      ]
+    }
+  },
+  {
+    "rank": 6,
+    "similarity": 0.509590050281087,
+    "transformer_paper": {
+      "arxiv_id": "2102.04432v2",
+      "title": "Colorization Transformer",
+      "authors": [
+        "Manoj Kumar",
+        "Dirk Weissenborn",
+        "Nal Kalchbrenner"
+      ]
+    },
+    "optimal_transport_paper": {
+      "arxiv_id": "1307.5551v1",
+      "title": "Regularized Discrete Optimal Transport",
+      "authors": [
+        "Sira Ferradans",
+        "Nicolas Papadakis",
+        "Gabriel Peyr\u00e9",
+        "Jean-Fran\u00e7ois Aujol"
+      ]
+    }
+  },
+  {
+    "rank": 7,
+    "similarity": 0.5065763007993628,
+    "transformer_paper": {
+      "arxiv_id": "2307.01189v2",
+      "title": "Trainable Transformer in Transformer",
+      "authors": [
+        "Abhishek Panigrahi",
+        "Sadhika Malladi",
+        "Mengzhou Xia",
+        "Sanjeev Arora"
+      ]
+    },
+    "optimal_transport_paper": {
+      "arxiv_id": "2203.10453v1",
+      "title": "Fine-Tuning Graph Neural Networks via Graph Topology induced Optimal   Transport",
+      "authors": [
+        "Jiying Zhang",
+        "Xi Xiao",
+        "Long-Kai Huang",
+        "Yu Rong",
+        "Yatao Bian"
+      ]
+    }
+  },
+  {
+    "rank": 8,
+    "similarity": 0.5053582162055034,
+    "transformer_paper": {
+      "arxiv_id": "2010.15583v3",
+      "title": "Probabilistic Transformers",
+      "authors": [
+        "Javier R. Movellan",
+        "Prasad Gabbur"
+      ]
+    },
+    "optimal_transport_paper": {
+      "arxiv_id": "2205.00343v2",
+      "title": "Distributional Uncertainty Propagation via Optimal Transport",
+      "authors": [
+        "Liviu Aolaritei",
+        "Nicolas Lanzetti",
+        "Hongruyu Chen",
+        "Florian D\u00f6rfler"
+      ]
+    }
+  },
+  {
+    "rank": 9,
+    "similarity": 0.4929982047545652,
+    "transformer_paper": {
+      "arxiv_id": "2103.00112v3",
+      "title": "Transformer in Transformer",
+      "authors": [
+        "Kai Han",
+        "An Xiao",
+        "Enhua Wu",
+        "Jianyuan Guo",
+        "Chunjing Xu",
+        "Yunhe Wang"
+      ]
+    },
+    "optimal_transport_paper": {
+      "arxiv_id": "2203.10453v1",
+      "title": "Fine-Tuning Graph Neural Networks via Graph Topology induced Optimal   Transport",
+      "authors": [
+        "Jiying Zhang",
+        "Xi Xiao",
+        "Long-Kai Huang",
+        "Yu Rong",
+        "Yatao Bian"
+      ]
+    }
+  },
+  {
+    "rank": 10,
+    "similarity": 0.49056318177086455,
+    "transformer_paper": {
+      "arxiv_id": "1701.02110v2",
+      "title": "Transformation Forests",
+      "authors": [
+        "Torsten Hothorn",
+        "Achim Zeileis"
+      ]
+    },
+    "optimal_transport_paper": {
+      "arxiv_id": "2503.05087v1",
+      "title": "Partial Distribution Alignment via Adaptive Optimal Transport",
+      "authors": [
+        "Pei Yang",
+        "Qi Tan",
+        "Guihua Wen"
+      ]
+    }
+  }
+]

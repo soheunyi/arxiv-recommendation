@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  grobid:
+    image: lfoppiano/grobid:0.8.2
+    container_name: arxiv-grobid
+    ports:
+      - "8070:8070"
+    environment:
+      - GROBID_JAVA_OPTS=-Xmx4g
+    volumes:
+      - grobid_data:/opt/grobid
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8070/api/isalive"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+
+volumes:
+  grobid_data:
+    driver: local
+
+networks:
+  default:
+    name: arxiv-recommendation-network

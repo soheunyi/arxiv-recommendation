@@ -6,7 +6,7 @@ import {
   PaperFilters,
   PaginatedResponse,
   RecommendationResult 
-} from '@types';
+} from '../../types';
 
 export class PapersService {
   // Get paginated papers with filters
@@ -252,6 +252,23 @@ export class PapersService {
     note: string;
   }> {
     return apiClient.post('/collaboration/switch-provider', { provider });
+  }
+
+  // Manually add a paper by ArXiv ID
+  async addManualPaper(request: {
+    arxiv_id: string;
+    category?: string;
+  }): Promise<{
+    success: boolean;
+    data: {
+      paper: Paper;
+      manually_added: boolean;
+      already_exists?: boolean;
+      arxiv_id: string;
+    };
+    message: string;
+  }> {
+    return apiClient.post('/papers/manual-add', request);
   }
 }
 

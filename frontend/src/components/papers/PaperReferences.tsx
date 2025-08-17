@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import {
   DocumentTextIcon,
   ChevronDownIcon,
@@ -7,8 +8,6 @@ import {
   LinkIcon,
   ExclamationTriangleIcon,
   MagnifyingGlassIcon,
-  CalendarIcon,
-  UserGroupIcon,
   ArrowTopRightOnSquareIcon,
   BookOpenIcon
 } from '@heroicons/react/24/outline';
@@ -16,7 +15,7 @@ import clsx from 'clsx';
 import toast from 'react-hot-toast';
 
 import { LoadingSpinner } from '@components/common/LoadingSpinner';
-import { papersService } from '@services/papersService';
+import { GraphVisualization } from '@components/graph/GraphVisualization';
 
 interface Reference {
   id: number;
@@ -27,6 +26,7 @@ interface Reference {
   reference_context: string;
   citation_number?: number;
   is_arxiv_paper: boolean;
+  cited_paper_url?: string;
   created_at: string;
 }
 
@@ -55,7 +55,7 @@ interface PaperReferencesProps {
 
 export const PaperReferences: React.FC<PaperReferencesProps> = ({
   paperId,
-  paperTitle,
+  paperTitle: _paperTitle,
   className
 }) => {
   const [references, setReferences] = useState<Reference[]>([]);
@@ -68,16 +68,21 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
     network: false,
   });
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'references' | 'citations' | 'network'>('references');
+  const [activeTab, setActiveTab] = useState<'references' | 'citations' | 'network' | 'graph'>('references');
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Fetch references on component mount
   useEffect(() => {
-    if (isExpanded) {
+    fetchReferences();
+    fetchCitations();
+  }, [paperId]);
+
+  // Additional fetch when expanded (in case of refresh needs)
+  useEffect(() => {
+    if (isExpanded && references.length === 0) {
       fetchReferences();
-      fetchCitations();
     }
-  }, [paperId, isExpanded]);
+  }, [isExpanded]);
 
   const fetchReferences = async () => {
     try {
@@ -90,7 +95,7 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
       }
       
       const data = await response.json();
-      setReferences(data.data || []);
+      setReferences(data.data?.references || []);
     } catch (err: any) {
       console.error('Error fetching references:', err);
       setError(err.message);
@@ -109,7 +114,7 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
       }
       
       const data = await response.json();
-      setCitations(data.data || []);
+      setCitations(data.data?.citations || []);
     } catch (err: any) {
       console.error('Error fetching citations:', err);
       // Don't set error for citations failure, as it's less critical
@@ -132,7 +137,15 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
       }
       
       const data = await response.json();
-      toast.success(`Fetched ${data.data.references_count} references from ArXiv`);
+      const referencesFound = data.data?.references_found || 0;
+      const referencesEnhanced = data.data?.references_enhanced || 0;
+      const source = data.data?.source || 'grobid';
+      
+      if (referencesEnhanced > 0) {
+        toast.success(`Fetched ${referencesFound} references (${referencesEnhanced} AI-validated and enhanced via DuckDuckGo)`);
+      } else {
+        toast.success(`Fetched ${referencesFound} references from ${source}`);
+      }
       
       // Refresh references after fetching
       await fetchReferences();
@@ -155,7 +168,7 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
       }
       
       const data = await response.json();
-      setNetworkData(data.data.nodes || []);
+      setNetworkData(data.data?.nodes || []);
     } catch (err: any) {
       console.error('Error fetching citation network:', err);
       toast.error('Failed to load citation network');
@@ -164,7 +177,7 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
     }
   };
 
-  const handleTabChange = (tab: 'references' | 'citations' | 'network') => {
+  const handleTabChange = (tab: 'references' | 'citations' | 'network' | 'graph') => {
     setActiveTab(tab);
     if (tab === 'network' && networkData.length === 0) {
       fetchCitationNetwork();
@@ -189,6 +202,62 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
     return parts.join(', ') || ref.reference_context.substring(0, 100) + '...';
   };
 
+  const generateGoogleSearchUrl = (ref: Reference): string => {
+    const searchTerms: string[] = [];
+    
+    if (ref.cited_title) {
+      searchTerms.push(`"${ref.cited_title}"`);
+    }
+    
+    if (ref.cited_authors) {
+      // Extract first author name for search
+      const firstAuthor = ref.cited_authors.split(',')[0].trim();
+      searchTerms.push(firstAuthor);
+    }
+    
+    if (ref.cited_year) {
+      searchTerms.push(ref.cited_year.toString());
+    }
+    
+    const query = searchTerms.join(' ');
+    return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+  };
+
+  const ReferenceLink: React.FC<{ reference: Reference; children: React.ReactNode }> = ({ 
+    reference, 
+    children 
+  }) => {
+    // If we have a cited_paper_id and it exists in our database, link internally
+    if (reference.cited_paper_id && reference.cited_paper_url) {
+      return (
+        <Link
+          to={`/papers/${reference.cited_paper_id}`}
+          className="block text-gray-900 hover:text-primary-600 transition-colors"
+        >
+          {children}
+        </Link>
+      );
+    }
+    
+    // If we have citation info but no internal link, provide Google search
+    if (reference.cited_title || reference.cited_authors) {
+      return (
+        <a
+          href={generateGoogleSearchUrl(reference)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-gray-900 hover:text-primary-600 transition-colors"
+          title="Search on Google"
+        >
+          {children}
+        </a>
+      );
+    }
+    
+    // No actionable link available
+    return <div className="block text-gray-900">{children}</div>;
+  };
+
   const totalReferencesCount = references.length;
   const arxivReferencesCount = references.filter(ref => ref.is_arxiv_paper).length;
   const totalCitationsCount = citations.length;
@@ -197,11 +266,11 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
     <div className={clsx('bg-white border border-gray-200 rounded-lg', className)}>
       {/* Header */}
       <div className="p-4 border-b border-gray-200">
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center justify-between w-full text-left hover:bg-gray-50 -m-2 p-2 rounded-lg transition-colors"
-        >
-          <div className="flex items-center space-x-3">
+        <div className="flex items-center justify-between">
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="flex items-center space-x-3 hover:bg-gray-50 -m-2 p-2 rounded-lg transition-colors"
+          >
             <div className="flex items-center space-x-2">
               {isExpanded ? (
                 <ChevronDownIcon className="h-4 w-4 text-gray-500" />
@@ -221,7 +290,7 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
                 {totalReferencesCount === 0 && totalCitationsCount === 0 && 'View citation data'}
               </p>
             </div>
-          </div>
+          </button>
           
           <div className="flex items-center space-x-2">
             {arxivReferencesCount > 0 && (
@@ -229,12 +298,9 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
                 {arxivReferencesCount} ArXiv
               </span>
             )}
-            {totalReferencesCount === 0 && (
+            {totalReferencesCount === 0 ? (
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  fetchPaperReferences();
-                }}
+                onClick={fetchPaperReferences}
                 disabled={loading.fetching}
                 className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 transition-colors disabled:opacity-50"
               >
@@ -250,9 +316,28 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
                   </>
                 )}
               </button>
+            ) : (
+              <button
+                onClick={fetchPaperReferences}
+                disabled={loading.fetching}
+                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors disabled:opacity-50"
+                title="Re-fetch references from ArXiv"
+              >
+                {loading.fetching ? (
+                  <>
+                    <LoadingSpinner size="xs" className="mr-1" />
+                    Re-fetching...
+                  </>
+                ) : (
+                  <>
+                    <MagnifyingGlassIcon className="h-3 w-3 mr-1" />
+                    Re-fetch
+                  </>
+                )}
+              </button>
             )}
           </div>
-        </button>
+        </div>
       </div>
 
       {/* Content */}
@@ -272,6 +357,7 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
                   { key: 'references', label: 'References', count: totalReferencesCount },
                   { key: 'citations', label: 'Citations', count: totalCitationsCount },
                   { key: 'network', label: 'Network', count: networkData.length },
+                  { key: 'graph', label: 'Graph', count: 0 },
                 ].map((tab) => (
                   <button
                     key={tab.key}
@@ -326,7 +412,7 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.05 }}
-                          className="p-3 bg-gray-50 rounded-lg border border-gray-200"
+                          className="p-3 bg-gray-50 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors"
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
@@ -334,43 +420,86 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
                                 <span className="text-xs font-medium text-gray-500">
                                   #{ref.citation_number || index + 1}
                                 </span>
-                                {ref.is_arxiv_paper && (
+                                
+                                {/* Status indicators */}
+                                {ref.cited_paper_id && ref.cited_paper_url && (
+                                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                                    <LinkIcon className="w-3 h-3 mr-1" />
+                                    In Database
+                                  </span>
+                                )}
+                                
+                                {Boolean(ref.is_arxiv_paper) && (
                                   <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                     ArXiv
                                   </span>
                                 )}
+                                
                                 {ref.cited_year && (
                                   <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                                     {ref.cited_year}
                                   </span>
                                 )}
+                                
+                                {/* Clickable indicator */}
+                                {(ref.cited_title || ref.cited_authors) && (
+                                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                                    <MagnifyingGlassIcon className="w-3 h-3 mr-1" />
+                                    Searchable
+                                  </span>
+                                )}
                               </div>
                               
-                              <p className="text-sm text-gray-900 mb-2">
-                                {formatReferenceDisplay(ref)}
-                              </p>
-                              
-                              {ref.reference_context && ref.reference_context !== formatReferenceDisplay(ref) && (
-                                <p className="text-xs text-gray-600 bg-white p-2 rounded border">
-                                  {ref.reference_context.length > 200 
-                                    ? ref.reference_context.substring(0, 200) + '...'
-                                    : ref.reference_context
-                                  }
-                                </p>
-                              )}
+                              <ReferenceLink reference={ref}>
+                                <div className="cursor-pointer">
+                                  <p className="text-sm font-medium mb-2 hover:underline">
+                                    {formatReferenceDisplay(ref)}
+                                  </p>
+                                  
+                                  {ref.reference_context && ref.reference_context !== formatReferenceDisplay(ref) && (
+                                    <p className="text-xs text-gray-600 bg-white p-2 rounded border">
+                                      {ref.reference_context.length > 200 
+                                        ? ref.reference_context.substring(0, 200) + '...'
+                                        : ref.reference_context
+                                      }
+                                    </p>
+                                  )}
+                                </div>
+                              </ReferenceLink>
                             </div>
                             
-                            {ref.cited_paper_id && (
-                              <a
-                                href={`https://arxiv.org/abs/${ref.cited_paper_id}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="ml-3 p-1 text-gray-400 hover:text-blue-600 transition-colors"
-                                title="View on ArXiv"
-                              >
-                                <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-                              </a>
-                            )}
+                            <div className="flex items-center space-x-1 ml-3">
+                              {/* Internal link indicator */}
+                              {ref.cited_paper_id && ref.cited_paper_url ? (
+                                <span 
+                                  className="p-1 text-primary-500 hover:text-primary-600"
+                                  title="Available in database - click to view"
+                                >
+                                  <DocumentTextIcon className="h-4 w-4" />
+                                </span>
+                              ) : (ref.cited_title || ref.cited_authors) ? (
+                                <span 
+                                  className="p-1 text-gray-400 hover:text-gray-600"
+                                  title="Click to search on Google"
+                                >
+                                  <MagnifyingGlassIcon className="h-4 w-4" />
+                                </span>
+                              ) : null}
+                              
+                              {/* External ArXiv link if available */}
+                              {ref.cited_paper_id && Boolean(ref.is_arxiv_paper) && (
+                                <a
+                                  href={`https://arxiv.org/abs/${ref.cited_paper_id}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
+                                  title="View on ArXiv"
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+                                </a>
+                              )}
+                            </div>
                           </div>
                         </motion.div>
                       ))}
@@ -554,6 +683,23 @@ export const PaperReferences: React.FC<PaperReferencesProps> = ({
                       </div>
                     </div>
                   )}
+                </div>
+              )}
+
+              {/* Graph Tab */}
+              {activeTab === 'graph' && (
+                <div className="space-y-4">
+                  <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                    <p className="text-sm text-purple-700">
+                      <strong>Citation Graph:</strong> Interactive graph visualization of citation networks 
+                      using graph database analysis. Shows papers as nodes and citations as directed edges.
+                    </p>
+                  </div>
+                  
+                  <GraphVisualization 
+                    paperId={paperId}
+                    className="border-0"
+                  />
                 </div>
               )}
             </div>

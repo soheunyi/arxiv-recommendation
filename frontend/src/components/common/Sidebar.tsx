@@ -13,6 +13,7 @@ import {
   ChevronRightIcon,
   UserIcon,
   DocumentPlusIcon,
+  ChartBarSquareIcon,
 } from '@heroicons/react/24/outline';
 import {
   HomeIcon as HomeIconSolid,
@@ -21,6 +22,7 @@ import {
   ChartBarIcon as ChartBarIconSolid,
   Cog6ToothIcon as Cog6ToothIconSolid,
   DocumentPlusIcon as DocumentPlusIconSolid,
+  ChartBarSquareIcon as ChartBarSquareIconSolid,
 } from '@heroicons/react/24/solid';
 import { cn } from '@/lib/utils';
 
@@ -46,6 +48,7 @@ const navigationItems: NavigationItem[] = [
   { id: "collect-papers", name: "Collect Papers", icon: DocumentPlusIcon, activeIcon: DocumentPlusIconSolid, href: "/collect" },
   { id: "rate-papers", name: "Rate Papers", icon: StarIcon, activeIcon: StarIconSolid, href: "/rate" },
   { id: "search-papers", name: "Search Papers", icon: MagnifyingGlassIcon, activeIcon: MagnifyingGlassIconSolid, href: "/search" },
+  { id: "relevance-scores", name: "Relevance Scores", icon: ChartBarSquareIcon, activeIcon: ChartBarSquareIconSolid, href: "/scores" },
   { id: "analytics", name: "Analytics", icon: ChartBarIcon, activeIcon: ChartBarIconSolid, href: "/analytics" },
   { id: "settings", name: "Settings", icon: Cog6ToothIcon, activeIcon: Cog6ToothIconSolid, href: "/settings" },
 ];

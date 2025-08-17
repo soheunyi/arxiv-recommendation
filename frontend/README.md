@@ -71,7 +71,7 @@ frontend/
 ### Prerequisites
 
 - Node.js 18+ and npm
-- Backend API running on `http://localhost:8000`
+- Backend API running on port specified by `BACKEND_PORT` (default: 8000)
 
 ### Installation
 
@@ -87,7 +87,7 @@ frontend/
    ```
 
 3. **Open your browser**:
-   Navigate to `http://localhost:3000`
+   Navigate to `http://localhost:${FRONTEND_PORT}` (default: 3000)
 
 ### Available Scripts
 
@@ -299,8 +299,8 @@ This creates an optimized production build in the `dist/` directory.
 Create `.env.local` for local development:
 
 ```env
-VITE_API_BASE_URL=http://localhost:8000/api
-VITE_ENABLE_ANALYTICS=true
+FRONTEND_PORT=3000
+BACKEND_PORT=8000
 ```
 
 ### Hosting Options

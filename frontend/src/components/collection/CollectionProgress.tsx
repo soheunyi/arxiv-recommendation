@@ -8,7 +8,7 @@ import {
   ClockIcon 
 } from '@heroicons/react/24/outline';
 
-import { useAppDispatch, useAppSelector } from '@store';
+import { useAppDispatch, useAppSelector } from '@store/index';
 import { fetchCollectionStatus, clearCollection } from '@store/slices/papersSlice';
 
 interface CollectionProgressProps {

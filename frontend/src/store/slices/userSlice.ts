@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserPreferences, UserStats, UserSession } from '@types';
+import { UserPreferences, UserStats, UserSession } from '../../types';
 
 interface UserState {
   session: UserSession;

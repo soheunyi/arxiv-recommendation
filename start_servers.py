@@ -17,6 +17,8 @@ import time
 import signal
 import os
 import logging
+import threading
+import queue
 from pathlib import Path
 from typing import Optional, Tuple, List
 from rich.console import Console
@@ -24,6 +26,10 @@ from rich.table import Table
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.logging import RichHandler
+from rich.text import Text
+from rich.live import Live
+from rich.layout import Layout
+from datetime import datetime
 import requests
 import psutil
 
@@ -38,14 +44,126 @@ logging.basicConfig(
 )
 logger = logging.getLogger("arxiv-serve")
 
+class LogAggregator:
+    """Aggregates logs from multiple servers and displays them in real-time"""
+    
+    def __init__(self, console: Console):
+        self.console = console
+        self.log_queue = queue.Queue()
+        self.active = False
+        self.display_thread = None
+        self.max_log_lines = 50
+        self.log_history = []
+        
+    def start_monitoring(self):
+        """Start the log monitoring thread"""
+        self.active = True
+        self.display_thread = threading.Thread(target=self._display_logs, daemon=True)
+        self.display_thread.start()
+    
+    def stop_monitoring(self):
+        """Stop the log monitoring thread"""
+        self.active = False
+        if self.display_thread:
+            self.display_thread.join(timeout=1)
+    
+    def add_log(self, source: str, level: str, message: str):
+        """Add a log entry to the queue"""
+        timestamp = datetime.now().strftime("%H:%M:%S")
+        log_entry = {
+            'timestamp': timestamp,
+            'source': source,
+            'level': level,
+            'message': message.strip()
+        }
+        self.log_queue.put(log_entry)
+    
+    def _display_logs(self):
+        """Display logs in real-time"""
+        while self.active:
+            try:
+                # Process all queued logs
+                new_logs = []
+                while not self.log_queue.empty():
+                    try:
+                        log_entry = self.log_queue.get_nowait()
+                        new_logs.append(log_entry)
+                    except queue.Empty:
+                        break
+                
+                # Add new logs to history
+                self.log_history.extend(new_logs)
+                
+                # Keep only recent logs
+                if len(self.log_history) > self.max_log_lines:
+                    self.log_history = self.log_history[-self.max_log_lines:]
+                
+                # Display new logs
+                for log_entry in new_logs:
+                    self._print_log_entry(log_entry)
+                
+                time.sleep(0.1)
+            except Exception as e:
+                # Fail silently to avoid disrupting the main process
+                pass
+    
+    def _print_log_entry(self, log_entry: dict):
+        """Print a single log entry with formatting"""
+        timestamp = log_entry['timestamp']
+        source = log_entry['source']
+        level = log_entry['level']
+        message = log_entry['message']
+        
+        # Color coding for different sources
+        if source == 'backend':
+            source_color = 'blue'
+            prefix = '🔧'
+        elif source == 'frontend':
+            source_color = 'green'
+            prefix = '⚛️'
+        else:
+            source_color = 'white'
+            prefix = '📋'
+        
+        # Color coding for log levels
+        if level.upper() in ['ERROR', 'CRITICAL']:
+            level_color = 'red'
+        elif level.upper() == 'WARNING':
+            level_color = 'yellow'
+        elif level.upper() == 'INFO':
+            level_color = 'cyan'
+        else:
+            level_color = 'white'
+        
+        # Print formatted log
+        formatted_message = Text()
+        formatted_message.append(f"[{timestamp}] ", style="dim")
+        formatted_message.append(f"{prefix} ", style=source_color)
+        formatted_message.append(f"{source.upper():<8} ", style=f"bold {source_color}")
+        formatted_message.append(f"{level.upper():<7} ", style=level_color)
+        formatted_message.append(message, style="white")
+        
+        self.console.print(formatted_message)
+    
+    def show_log_summary(self):
+        """Show a summary of recent logs"""
+        if not self.log_history:
+            return
+        
+        self.console.print("\n[dim]Recent logs:[/dim]")
+        for log_entry in self.log_history[-10:]:  # Show last 10 logs
+            self._print_log_entry(log_entry)
+
 class ServerManager:
     """Manages frontend and backend server processes"""
     
     def __init__(self):
         self.frontend_process: Optional[subprocess.Popen] = None
         self.backend_process: Optional[subprocess.Popen] = None
-        self.frontend_port = 3000  # Default Vite dev server port
-        self.backend_port = 8000   # Default FastAPI port
+        self.frontend_port = int(os.getenv('FRONTEND_PORT', '3000'))  # Configurable via env
+        self.backend_port = int(os.getenv('BACKEND_PORT', '8000'))   # Configurable via env
+        self.log_aggregator = LogAggregator(console)
+        self.log_threads = []
         
         # Detect project root - always use current working directory first, fallback to file location
         cwd = Path.cwd()
@@ -114,7 +232,7 @@ class ServerManager:
         try:
             for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
                 try:
-                    for conn in proc.connections():
+                    for conn in proc.net_connections():
                         if conn.laddr.port == port:
                             return {
                                 'pid': proc.info['pid'],
@@ -231,9 +349,14 @@ class ServerManager:
                 cmd,
                 cwd=self.project_root,
                 stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                text=True
+                stderr=subprocess.STDOUT,  # Combine stderr with stdout
+                text=True,
+                bufsize=1,  # Line buffered
+                universal_newlines=True
             )
+            
+            # Start log monitoring for backend
+            self._start_log_monitoring('backend', self.backend_process)
             
             # Wait for server to start
             if self._wait_for_server("backend", "localhost", self.backend_port, "/health"):
@@ -287,11 +410,11 @@ class ServerManager:
         # Start frontend dev server (Vite)
         try:
             env = os.environ.copy()
-            env["PORT"] = str(self.frontend_port)
-            env["VITE_API_URL"] = f"http://localhost:{self.backend_port}"
+            env["FRONTEND_PORT"] = str(self.frontend_port)
+            env["BACKEND_PORT"] = str(self.backend_port)
             
             logger.info(f"Starting Vite dev server on port {self.frontend_port}")
-            logger.info(f"Backend API URL: {env['VITE_API_URL']}")
+            logger.info(f"Backend port: {self.backend_port}")
             
             self.frontend_process = subprocess.Popen(
                 ["npm", "run", "dev", "--", "--port", str(self.frontend_port), "--host", "0.0.0.0"],
@@ -299,8 +422,13 @@ class ServerManager:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,  # Combine stderr with stdout
                 text=True,
-                env=env
+                env=env,
+                bufsize=1,  # Line buffered
+                universal_newlines=True
             )
+            
+            # Start log monitoring for frontend
+            self._start_log_monitoring('frontend', self.frontend_process)
             
             # Wait for server to start
             if self._wait_for_server("frontend", "localhost", self.frontend_port):
@@ -478,9 +606,40 @@ if __name__ == "__main__":
                 border_style="green"
             ))
     
+    def _start_log_monitoring(self, source: str, process: subprocess.Popen):
+        """Start monitoring logs from a subprocess"""
+        def monitor_logs():
+            if process.stdout:
+                for line in iter(process.stdout.readline, ''):
+                    if line.strip():
+                        # Determine log level from content
+                        line_lower = line.lower()
+                        if any(word in line_lower for word in ['error', 'failed', 'exception']):
+                            level = 'ERROR'
+                        elif any(word in line_lower for word in ['warn', 'warning']):
+                            level = 'WARNING'
+                        elif any(word in line_lower for word in ['info', 'ready', 'started', 'listening']):
+                            level = 'INFO'
+                        else:
+                            level = 'DEBUG'
+                        
+                        self.log_aggregator.add_log(source, level, line)
+                    
+                    # Check if process is still alive
+                    if process.poll() is not None:
+                        break
+        
+        # Start monitoring thread
+        monitor_thread = threading.Thread(target=monitor_logs, daemon=True)
+        monitor_thread.start()
+        self.log_threads.append(monitor_thread)
+    
     def stop_servers(self) -> None:
         """Stop both servers gracefully"""
         console.print("\n[yellow]Stopping servers...[/yellow]")
+        
+        # Stop log monitoring
+        self.log_aggregator.stop_monitoring()
         
         if self.frontend_process:
             self.frontend_process.terminate()
@@ -499,6 +658,10 @@ if __name__ == "__main__":
             except subprocess.TimeoutExpired:
                 self.backend_process.kill()
                 console.print("[yellow]⚠ Backend server force stopped[/yellow]")
+        
+        # Wait for log threads to finish
+        for thread in self.log_threads:
+            thread.join(timeout=1)
     
     def debug_frontend_startup(self) -> None:
         """Debug frontend startup issues"""
@@ -563,36 +726,31 @@ if __name__ == "__main__":
     def monitor_servers(self) -> None:
         """Monitor running servers and handle shutdown"""
         try:
-            console.print("\n[blue]Press Ctrl+C to stop servers[/blue]")
-            console.print("[dim]Monitoring server processes...[/dim]")
+            # Start log aggregation
+            self.log_aggregator.start_monitoring()
+            
+            console.print("\n[blue]📊 Live Server Logs - Press Ctrl+C to stop servers[/blue]")
+            console.print("[dim]═" * 80 + "[/dim]")
+            
+            # Initial status log
+            self.log_aggregator.add_log('system', 'INFO', 'Server monitoring started')
+            self.log_aggregator.add_log('system', 'INFO', f'Frontend: http://localhost:{self.frontend_port}')
+            self.log_aggregator.add_log('system', 'INFO', f'Backend: http://localhost:{self.backend_port}')
             
             while True:
                 time.sleep(2)
                 
                 # Check if processes are still running
                 if self.frontend_process and self.frontend_process.poll() is not None:
-                    logger.error("Frontend server stopped unexpectedly")
-                    # Capture any remaining output
-                    try:
-                        stdout, stderr = self.frontend_process.communicate(timeout=1)
-                        if stdout:
-                            logger.error(f"Frontend final output: {stdout}")
-                    except:
-                        pass
+                    self.log_aggregator.add_log('frontend', 'ERROR', 'Server stopped unexpectedly')
                     break
                 
                 if self.backend_process and self.backend_process.poll() is not None:
-                    logger.error("Backend server stopped unexpectedly")
-                    try:
-                        stdout, stderr = self.backend_process.communicate(timeout=1)
-                        if stdout:
-                            logger.error(f"Backend final output: {stdout}")
-                    except:
-                        pass
+                    self.log_aggregator.add_log('backend', 'ERROR', 'Server stopped unexpectedly')
                     break
                     
         except KeyboardInterrupt:
-            logger.info("Shutdown requested by user")
+            self.log_aggregator.add_log('system', 'INFO', 'Shutdown requested by user')
         finally:
             self.stop_servers()
 
@@ -662,6 +820,11 @@ def main():
         
         # Show status and monitor
         manager.show_server_status()
+        
+        # Small delay to ensure servers are ready
+        time.sleep(1)
+        
+        # Start monitoring with live logs
         manager.monitor_servers()
         
     except Exception as e:

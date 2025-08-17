@@ -1,0 +1,109 @@
+{
+  "topic": "econometrics",
+  "search_queries": [
+    {
+      "query": "ti:\"econometrics\"",
+      "priority": "high",
+      "description": "Search for papers with 'econometrics' in the title, covering the core topic directly."
+    },
+    {
+      "query": "abs:\"econometric models\" OR abs:\"econometric analysis\"",
+      "priority": "high",
+      "description": "Search for papers with 'econometric models' or 'econometric analysis' in the abstract, targeting discussions on models and analysis techniques."
+    },
+    {
+      "query": "all:\"econometric theory\" AND cat:stat.ME",
+      "priority": "high",
+      "description": "Search for papers on econometric theory under the statistics methodology category, which is highly relevant to theoretical developments in econometrics."
+    },
+    {
+      "query": "au:\"Wooldridge, Jeffrey M.\"",
+      "priority": "medium",
+      "description": "Search for papers authored by Jeffrey M. Wooldridge, a prominent figure in econometrics."
+    },
+    {
+      "query": "cat:stat.AP AND abs:\"econometric\"",
+      "priority": "medium",
+      "description": "Search for econometric applications in the applied statistics category, finding papers focused on practical applications."
+    },
+    {
+      "query": "ti:\"time series econometrics\" AND cat:stat.CO",
+      "priority": "medium",
+      "description": "Search for papers on time series econometrics in the statistics computation category, relevant for computational methods in time series analysis."
+    },
+    {
+      "query": "all:\"panel data econometrics\"",
+      "priority": "medium",
+      "description": "Search for mentions of 'panel data econometrics', covering a specific econometric methodology involving panel data."
+    },
+    {
+      "query": "abs:\"causal inference\" AND abs:\"econometric\"",
+      "priority": "medium",
+      "description": "Search for papers discussing causal inference within econometrics, targeting this important aspect of econometric analysis."
+    },
+    {
+      "query": "ti:\"financial econometrics\" OR abs:\"economic forecasting\"",
+      "priority": "medium",
+      "description": "Search for papers on financial econometrics and economic forecasting, covering these two applied branches of econometric practice."
+    },
+    {
+      "query": "cat:q-fin.EC OR cat:q-fin.ST AND all:\"econometrics\"",
+      "priority": "low",
+      "description": "Search for econometric topics within quantitative finance categories, tapping into finance-oriented econometric research."
+    },
+    {
+      "query": "abs:\"structural econometric models\"",
+      "priority": "low",
+      "description": "Search for papers mentioning structural econometric models, which are key tools in policy analysis and industrial organization."
+    },
+    {
+      "query": "all:\"computational econometrics\" AND cat:cs.CE",
+      "priority": "low",
+      "description": "Search for computational approaches in econometrics under the computational engineering category, useful for those interested in algorithmic developments."
+    },
+    {
+      "query": "ti:\"non-parametric econometrics\"",
+      "priority": "low",
+      "description": "Search for papers with titles mentioning non-parametric econometrics, focusing on methodologies not assuming specific parametric forms."
+    },
+    {
+      "query": "abs:\"economic model estimation\" AND cat:stat.TH",
+      "priority": "low",
+      "description": "Search for discussions on the estimation of economic models in the statistics theory category, relevant for theoretical exploration."
+    },
+    {
+      "query": "au:\"Greene, William H.\" OR au:\"Cameron, A. Colin\"",
+      "priority": "low",
+      "description": "Search for papers by authors William H. Greene and A. Colin Cameron, who are influential in econometric analysis and methods."
+    }
+  ],
+  "categories": [
+    "stat.ME",
+    "stat.TH",
+    "stat.AP",
+    "q-fin.EC",
+    "q-fin.ST",
+    "cs.CE",
+    "stat.CO"
+  ],
+  "filter_keywords": [
+    "econometrics",
+    "econometric models",
+    "causal inference",
+    "panel data",
+    "time series",
+    "financial econometrics",
+    "structural models",
+    "non-parametric",
+    "economic forecasting"
+  ],
+  "related_terms": [
+    "econometric models",
+    "statistical analysis",
+    "time series analysis",
+    "panel data",
+    "causal inference",
+    "forecasting",
+    "computational methods"
+  ]
+}

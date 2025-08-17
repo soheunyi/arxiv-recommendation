@@ -275,7 +275,26 @@ class DatabaseManager:
         # Paper references table updates for OpenAlex
         await self._ensure_column(db, "paper_references", "openalex_work_id", "TEXT")
         await self._ensure_column(db, "paper_references", "confidence_score", "REAL")
+        
+        # Semantic Scholar integration fields
+        await self._ensure_column(db, "papers", "s2_paper_id", "TEXT")
+        await self._ensure_column(db, "papers", "s2_indexed_date", "TIMESTAMP")
+        await self._ensure_column(db, "papers", "s2_citation_count", "INTEGER DEFAULT 0")
+        await self._ensure_column(db, "papers", "s2_last_checked", "TIMESTAMP")
+        
+        # Paper references table updates for Semantic Scholar
+        await self._ensure_column(db, "paper_references", "s2_paper_id", "TEXT")
         await self._ensure_column(db, "paper_references", "source", "TEXT DEFAULT 'arxiv'")
+        
+        # GROBID integration fields
+        await self._ensure_column(db, "paper_references", "doi", "TEXT")
+        await self._ensure_column(db, "paper_references", "journal", "TEXT")
+        await self._ensure_column(db, "paper_references", "conference", "TEXT")
+        await self._ensure_column(db, "paper_references", "volume", "TEXT")
+        await self._ensure_column(db, "paper_references", "pages", "TEXT")
+        await self._ensure_column(db, "paper_references", "isbn", "TEXT")
+        await self._ensure_column(db, "paper_references", "publisher", "TEXT")
+        await self._ensure_column(db, "paper_references", "url", "TEXT")
 
     async def _ensure_column(
         self, db: aiosqlite.Connection, table: str, column: str, col_type: str
@@ -467,8 +486,9 @@ class DatabaseManager:
                         """
                         INSERT INTO paper_references 
                         (citing_paper_id, cited_paper_id, cited_title, cited_authors, 
-                         cited_year, reference_context, citation_number, is_arxiv_paper)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                         cited_year, reference_context, citation_number, is_arxiv_paper,
+                         source, doi, journal, conference, volume, pages, isbn, publisher, url, confidence_score)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
                         (
                             citing_paper_id,
@@ -478,7 +498,17 @@ class DatabaseManager:
                             ref.get("cited_year"),
                             ref.get("reference_context"),
                             i + 1,  # citation_number
-                            ref.get("is_arxiv_paper", False)
+                            ref.get("is_arxiv_paper", False),
+                            ref.get("source", "arxiv"),
+                            ref.get("doi"),
+                            ref.get("journal"),
+                            ref.get("conference"),
+                            ref.get("volume"),
+                            ref.get("pages"),
+                            ref.get("isbn"),
+                            ref.get("publisher"),
+                            ref.get("url"),
+                            ref.get("confidence_score", 1.0)
                         )
                     )
                 
@@ -874,7 +904,7 @@ class DatabaseManager:
 
             cursor = await db.execute(
                 """
-                SELECT p.id, p.title, p.abstract, p.category, p.authors, 
+                SELECT p.rowid, p.id, p.title, p.abstract, p.category, p.authors, 
                        p.published_date, p.arxiv_url, p.pdf_url, p.created_at,
                        p.current_score, p.score_updated_at,
                        r.rating, r.notes, r.created_at as rating_date
@@ -889,6 +919,7 @@ class DatabaseManager:
             for row in rows:
                 papers.append(
                     {
+                        "rowid": row["rowid"],
                         "id": row["id"],
                         "title": row["title"],
                         "abstract": row["abstract"],
@@ -955,7 +986,7 @@ class DatabaseManager:
 
             cursor = await db.execute(
                 """
-                SELECT p.id, p.title, p.abstract, p.category, p.authors, 
+                SELECT p.rowid, p.id, p.title, p.abstract, p.category, p.authors, 
                        p.published_date, p.arxiv_url, p.pdf_url, p.created_at,
                        p.current_score, p.score_updated_at,
                        r.rating, r.notes
@@ -972,6 +1003,7 @@ class DatabaseManager:
             for row in rows:
                 papers.append(
                     {
+                        "rowid": row["rowid"],
                         "id": row["id"],
                         "title": row["title"],
                         "abstract": row["abstract"],
@@ -1091,10 +1123,24 @@ class DatabaseManager:
             await db.commit()
 
     async def get_paper_by_id(self, paper_id: str) -> Optional[Dict[str, Any]]:
-        """Get a single paper by ID."""
+        """Get a single paper by ArXiv ID."""
         async with aiosqlite.connect(self.db_path) as db:
             db.row_factory = aiosqlite.Row
-            cursor = await db.execute("SELECT * FROM papers WHERE id = ?", (paper_id,))
+            cursor = await db.execute("SELECT rowid, * FROM papers WHERE id = ?", (paper_id,))
+            row = await cursor.fetchone()
+            
+            if row:
+                paper = dict(row)
+                paper['authors'] = json.loads(paper['authors']) if paper['authors'] else []
+                return paper
+            
+            return None
+
+    async def get_paper_by_rowid(self, rowid: int) -> Optional[Dict[str, Any]]:
+        """Get a single paper by database ROWID (for internal routing)."""
+        async with aiosqlite.connect(self.db_path) as db:
+            db.row_factory = aiosqlite.Row
+            cursor = await db.execute("SELECT rowid, * FROM papers WHERE rowid = ?", (rowid,))
             row = await cursor.fetchone()
             
             if row:
@@ -1196,6 +1242,94 @@ class DatabaseManager:
         except Exception as e:
             logger.error(f"Failed to get OpenAlex ID for {paper_id}: {e}")
             return None
+
+    # Semantic Scholar Integration Methods
+    async def update_paper_s2_data(
+        self, 
+        paper_id: str, 
+        s2_paper_id: str, 
+        citation_count: int = 0
+    ) -> bool:
+        """Update paper with Semantic Scholar metadata."""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                await db.execute(
+                    """
+                    UPDATE papers 
+                    SET s2_paper_id = ?, 
+                        s2_citation_count = ?, 
+                        s2_indexed_date = ?,
+                        updated_at = ?
+                    WHERE id = ?
+                    """,
+                    (
+                        s2_paper_id,
+                        citation_count,
+                        datetime.now(),
+                        datetime.now(),
+                        paper_id
+                    )
+                )
+                await db.commit()
+                logger.info(f"Updated paper {paper_id} with Semantic Scholar data: {s2_paper_id}")
+                return True
+        except Exception as e:
+            logger.error(f"Failed to update Semantic Scholar data for {paper_id}: {e}")
+            return False
+
+    async def get_s2_paper_id(self, paper_id: str) -> Optional[str]:
+        """Get Semantic Scholar paper ID for a paper."""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                db.row_factory = aiosqlite.Row
+                cursor = await db.execute(
+                    "SELECT s2_paper_id FROM papers WHERE id = ?",
+                    (paper_id,)
+                )
+                row = await cursor.fetchone()
+                return row['s2_paper_id'] if row else None
+        except Exception as e:
+            logger.error(f"Failed to get Semantic Scholar ID for {paper_id}: {e}")
+            return None
+
+    async def update_s2_check_time(self, paper_id: str):
+        """Update the last Semantic Scholar check time for a paper."""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                await db.execute(
+                    "UPDATE papers SET s2_last_checked = ? WHERE id = ?",
+                    (datetime.now(), paper_id)
+                )
+                await db.commit()
+        except Exception as e:
+            logger.error(f"Failed to update S2 check time for {paper_id}: {e}")
+
+    async def get_papers_without_s2(self, limit: int = 50) -> List[Dict[str, Any]]:
+        """Get papers that haven't been checked against Semantic Scholar recently."""
+        try:
+            async with aiosqlite.connect(self.db_path) as db:
+                db.row_factory = aiosqlite.Row
+                
+                # Papers that haven't been checked in the last 7 days or never checked
+                cursor = await db.execute(
+                    """
+                    SELECT id, title, doi, abstract
+                    FROM papers 
+                    WHERE (s2_last_checked IS NULL 
+                        OR s2_last_checked < datetime('now', '-7 days'))
+                    AND s2_paper_id IS NULL
+                    ORDER BY published_date DESC
+                    LIMIT ?
+                    """,
+                    (limit,)
+                )
+                
+                rows = await cursor.fetchall()
+                return [dict(row) for row in rows]
+                
+        except Exception as e:
+            logger.error(f"Failed to get papers without Semantic Scholar data: {e}")
+            return []
 
     async def get_papers_without_openalex(self, limit: int = 50) -> List[Dict[str, Any]]:
         """Get papers that haven't been checked with OpenAlex recently."""

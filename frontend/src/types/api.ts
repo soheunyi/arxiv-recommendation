@@ -10,6 +10,10 @@ export interface ApiError {
   message: string;
   statusCode: number;
   timestamp: string;
+  correlationId?: string;
+  responseTime?: string;
+  endpoint?: string;
+  method?: string;
 }
 
 export interface PaginatedResponse<T> {

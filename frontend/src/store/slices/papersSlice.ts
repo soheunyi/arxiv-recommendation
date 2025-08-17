@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Paper, PaperFilters, PaperSearchParams, PaperSearchResult } from '@types';
+import { Paper, PaperFilters, PaperSearchParams, PaperSearchResult } from '../../types';
 import { papersService } from '@services/papersService';
 
 interface CollectionStatus {

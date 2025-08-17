@@ -1,5 +1,5 @@
 import { apiClient } from './api';
-import { Rating, RatingUpdate, RatingStats, CategoryRating, RatingTimeline } from '@types';
+import { Rating, RatingUpdate, RatingStats, CategoryRating, RatingTimeline } from '../../types';
 
 export class RatingsService {
   // Get all user ratings

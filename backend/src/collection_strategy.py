@@ -25,6 +25,7 @@ from enum import Enum
 from database import DatabaseManager
 from arxiv_client import ArXivClient, PaperMetadata
 from config import config
+from services.query_refinement_service import QueryRefinementService
 
 logger = logging.getLogger(__name__)
 
@@ -79,6 +80,7 @@ class CollectionStrategy:
         self.topic = topic
         self.db_manager = DatabaseManager()
         self.arxiv_client = ArXivClient()
+        self.query_refinement_service = QueryRefinementService()
 
         # Strategy configuration
         self.max_papers_per_query = (
@@ -406,6 +408,23 @@ class CollectionStrategy:
                     f"{duplicate_count} duplicates in {execution_time:.2f}s"
                 )
 
+                # Check if DuckDuckGo fallback is needed (no results found)
+                if len(papers) == 0:
+                    logger.warning(
+                        f"🔄 Query returned 0 results, trying DuckDuckGo first: {query}"
+                    )
+                    ddg_result = await self._attempt_duckduckgo_fallback(query)
+                    if ddg_result:
+                        return ddg_result
+
+                    # If DuckDuckGo also fails, try query refinement as last resort
+                    logger.warning(
+                        f"🔄 DuckDuckGo also failed, attempting query refinement: {query}"
+                    )
+                    refined_results = await self._attempt_query_refinement(query)
+                    if refined_results:
+                        return refined_results
+
                 return QueryResult(
                     query=query,
                     papers_found=len(papers),
@@ -582,6 +601,275 @@ class CollectionStrategy:
             ),
             "cache_hit_rate": self._calculate_cache_hit_rate(),
         }
+
+    async def _attempt_query_refinement(
+        self, original_query: str
+    ) -> Optional[QueryResult]:
+        """
+        Attempt to refine a failed query and search with refined variations.
+
+        Args:
+            original_query: The original query that returned 0 results
+
+        Returns:
+            QueryResult if refinement successful, None otherwise
+        """
+        try:
+            # Generate refined queries using GPT-4o-nano
+            refinement_result = await self.query_refinement_service.refine_query(
+                original_query=original_query,
+                topic_context=self.topic,
+                max_variations=3,
+            )
+
+            refined_queries = refinement_result.get("refined_queries", [])
+            if not refined_queries:
+                logger.warning(f"🔄 No refined queries generated for: {original_query}")
+                return None
+
+            logger.info(f"🔄 Generated {len(refined_queries)} refined queries")
+
+            # Try each refined query until we find results
+            total_papers_found = 0
+            total_new_papers = 0
+            total_api_calls = 0
+            best_result = None
+
+            for i, refined_query_info in enumerate(refined_queries):
+                refined_query = refined_query_info.get("query", "")
+                strategy = refined_query_info.get("strategy", "unknown")
+                confidence = refined_query_info.get("confidence", 0.0)
+
+                if not refined_query:
+                    continue
+
+                logger.info(
+                    f"🔄 Trying refined query {i+1}/{len(refined_queries)} ({strategy}, confidence: {confidence:.2f}): {refined_query}"
+                )
+
+                try:
+                    # Execute refined query with rate limiting
+                    await asyncio.sleep(self.rate_limit_delay)
+
+                    papers = await self.arxiv_client.search_papers(
+                        refined_query, max_results=self.max_papers_per_query
+                    )
+
+                    total_api_calls += 1
+                    self.execution_stats["api_calls"] += 1
+
+                    if papers:
+                        # Process new papers
+                        new_papers = []
+                        duplicate_count = 0
+
+                        for paper in papers:
+                            if paper.id not in self.collected_papers:
+                                new_papers.append(paper)
+                                self.collected_papers.add(paper.id)
+                            else:
+                                duplicate_count += 1
+
+                        total_papers_found += len(papers)
+                        total_new_papers += len(new_papers)
+
+                        logger.info(
+                            f"✅ Refined query successful: {len(papers)} found, {len(new_papers)} new"
+                        )
+
+                        # Return immediately on first success
+                        best_result = QueryResult(
+                            query=f"{original_query} → {refined_query}",
+                            papers_found=len(papers),
+                            papers_new=len(new_papers),
+                            papers_duplicate=duplicate_count,
+                            api_calls_made=total_api_calls,
+                            execution_time=0.0,  # Will be calculated by caller
+                            success=True,
+                        )
+                        break
+
+                    else:
+                        logger.warning(
+                            f"🔄 Refined query still returned 0 results: {refined_query}"
+                        )
+
+                except Exception as e:
+                    logger.warning(f"🔄 Refined query failed: {e}")
+                    continue
+
+            if best_result:
+                logger.info(
+                    f"🔄 Query refinement successful: {total_papers_found} total papers, {total_new_papers} new"
+                )
+                return best_result
+            else:
+                logger.warning(f"🔄 All refined queries failed for: {original_query}")
+                return None
+
+        except Exception as e:
+            logger.error(f"🔄 Query refinement process failed: {e}")
+            return None
+
+    async def _attempt_duckduckgo_fallback(
+        self, original_query: str
+    ) -> Optional[QueryResult]:
+        """
+        Attempt to find ArXiv papers using DuckDuckGo as a fallback.
+
+        This method searches for ArXiv papers that may not have been found through
+        direct ArXiv API searches, using enhanced query patterns including "arxiv".
+
+        Args:
+            original_query: The original query that failed
+
+        Returns:
+            QueryResult if DuckDuckGo search successful, None otherwise
+        """
+        try:
+            from services.duckduckgo_academic_service import (
+                search_arxiv_papers_via_duckduckgo,
+            )
+
+            # Enhanced query patterns including "arxiv" keyword
+            arxiv_focused_queries = [
+                f"{original_query} arxiv",  # Your suggestion: include "arxiv" in query
+                f"arxiv {original_query}",
+                f'"{original_query}" arxiv.org',
+                f"{original_query} preprint arxiv",
+            ]
+
+            total_arxiv_ids = set()
+            total_api_calls = 0
+
+            for i, enhanced_query in enumerate(arxiv_focused_queries):
+                try:
+                    logger.info(
+                        f"🌐 DuckDuckGo search {i+1}/{len(arxiv_focused_queries)}: '{enhanced_query}'"
+                    )
+
+                    # Search for ArXiv papers via DuckDuckGo
+                    arxiv_ids = await search_arxiv_papers_via_duckduckgo(
+                        enhanced_query, max_results=10
+                    )
+
+                    if arxiv_ids:
+                        logger.info(
+                            f"🎯 DuckDuckGo found {len(arxiv_ids)} ArXiv IDs: {arxiv_ids}"
+                        )
+                        total_arxiv_ids.update(arxiv_ids)
+
+                        # Log cumulative progress
+                        logger.info(
+                            f"📈 Cumulative ArXiv IDs found: {len(total_arxiv_ids)} total"
+                        )
+
+                        # Don't search more patterns if we found enough results
+                        if len(total_arxiv_ids) >= 5:
+                            logger.info(
+                                f"🎯 Reached target of {len(total_arxiv_ids)} ArXiv papers, stopping DuckDuckGo search"
+                            )
+                            break
+                    else:
+                        logger.info(
+                            f"🌐 No ArXiv papers found for pattern: '{enhanced_query}'"
+                        )
+
+                except Exception as e:
+                    logger.warning(
+                        f"🌐 DuckDuckGo search failed for '{enhanced_query}': {e}"
+                    )
+                    continue
+
+            if not total_arxiv_ids:
+                logger.info(
+                    f"🌐 DuckDuckGo fallback complete: No ArXiv papers found for query '{original_query}'"
+                )
+                logger.info(
+                    f"🔍 Searched {len(arxiv_focused_queries)} enhanced query patterns"
+                )
+                return None
+
+            # Fetch full paper metadata using existing ArXiv infrastructure
+            logger.info(
+                f"📄 DuckDuckGo fallback successful: Found {len(total_arxiv_ids)} unique ArXiv IDs"
+            )
+            logger.info(f"📄 ArXiv IDs to fetch: {sorted(list(total_arxiv_ids))}")
+            logger.info(
+                f"📄 Fetching metadata for {len(total_arxiv_ids)} ArXiv papers via ArXiv API"
+            )
+
+            new_papers = []
+            duplicate_count = 0
+
+            for idx, arxiv_id in enumerate(sorted(total_arxiv_ids), 1):
+                try:
+                    logger.debug(
+                        f"📄 Fetching {idx}/{len(total_arxiv_ids)}: {arxiv_id}"
+                    )
+
+                    # Use existing ArXiv client to get full metadata
+                    paper = await self.arxiv_client.get_paper_by_id(arxiv_id)
+                    total_api_calls += 1
+                    self.execution_stats["api_calls"] += 1
+
+                    if paper:
+                        if paper.id not in self.collected_papers:
+                            new_papers.append(paper)
+                            self.collected_papers.add(paper.id)
+                            logger.debug(f"✅ New paper added: {paper.title[:50]}...")
+                        else:
+                            duplicate_count += 1
+                            logger.debug(f"🔄 Duplicate paper skipped: {arxiv_id}")
+
+                        # Rate limiting for ArXiv API
+                        await asyncio.sleep(self.rate_limit_delay)
+                    else:
+                        logger.warning(f"📄 ArXiv API couldn't find paper: {arxiv_id}")
+
+                except Exception as e:
+                    logger.warning(f"📄 Failed to fetch ArXiv paper {arxiv_id}: {e}")
+                    continue
+
+            if new_papers:
+                logger.info(
+                    f"✅ DuckDuckGo fallback complete: {len(new_papers)} new papers, {duplicate_count} duplicates"
+                )
+                logger.info(f"📊 DuckDuckGo fallback summary:")
+                logger.info(f"   - Original query: '{original_query}'")
+                logger.info(
+                    f"   - Enhanced patterns tried: {len(arxiv_focused_queries)}"
+                )
+                logger.info(f"   - ArXiv IDs found: {len(total_arxiv_ids)}")
+                logger.info(
+                    f"   - Papers retrieved: {len(new_papers)} new, {duplicate_count} duplicates"
+                )
+                logger.info(f"   - API calls made: {total_api_calls}")
+
+                return QueryResult(
+                    query=f"{original_query} → DuckDuckGo ArXiv search",
+                    papers_found=len(total_arxiv_ids),
+                    papers_new=len(new_papers),
+                    papers_duplicate=duplicate_count,
+                    api_calls_made=total_api_calls,
+                    execution_time=0.0,  # Will be calculated by caller
+                    success=True,
+                )
+            else:
+                logger.info(
+                    f"🌐 DuckDuckGo found {len(total_arxiv_ids)} ArXiv IDs but no new papers after deduplication"
+                )
+                logger.info(
+                    f"📊 DuckDuckGo deduplication: all {len(total_arxiv_ids)} papers were already in collection"
+                )
+                return None
+
+        except ImportError:
+            logger.warning("🌐 DuckDuckGo service not available (missing ddgs library)")
+            return None
+        except Exception as e:
+            logger.error(f"🌐 DuckDuckGo fallback failed: {e}")
+            return None
 
     def get_strategy_stats(self) -> Dict[str, Any]:
         """Get collection strategy statistics."""

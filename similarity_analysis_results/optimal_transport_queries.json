@@ -1,0 +1,115 @@
+{
+  "topic": "optimal transport",
+  "search_queries": [
+    {
+      "query": "ti:\"optimal transport\" AND cat:math.OC",
+      "priority": "high",
+      "description": "Papers with 'optimal transport' explicitly in the title within the Optimization and Control category."
+    },
+    {
+      "query": "abs:\"optimal transport\" AND cat:cs.LG",
+      "priority": "high",
+      "description": "Papers discussing 'optimal transport' within the Machine Learning category."
+    },
+    {
+      "query": "all:\"Wasserstein distance\" AND cat:math.PR",
+      "priority": "medium",
+      "description": "Documents mentioning 'Wasserstein distance' related to Probability Theory, a concept linked to optimal transport."
+    },
+    {
+      "query": "all:\"Monge-Kantorovich problem\" AND cat:math.MG",
+      "priority": "medium",
+      "description": "Research papers referring to the 'Monge-Kantorovich problem' in the Metric Geometry category."
+    },
+    {
+      "query": "abs:\"entropic regularization\" AND cat:math.SP",
+      "priority": "medium",
+      "description": "Papers that reference entropic regularization techniques related to optimal transport in the Signal Processing category."
+    },
+    {
+      "query": "ti:\"Kantorovich duality\" AND cat:math.OC",
+      "priority": "medium",
+      "description": "Papers discussing Kantorovich duality in the context of Optimization and Control."
+    },
+    {
+      "query": "ti:\"discrete optimal transport\" AND cat:cs.LG",
+      "priority": "medium",
+      "description": "Research discussing discrete versions of optimal transport in machine learning."
+    },
+    {
+      "query": "all:\"Gaspard Monge\" AND ti:\"transport\"",
+      "priority": "low",
+      "description": "Historical papers potentially relevant due to Gaspard Monge's foundational work on transport theory."
+    },
+    {
+      "query": "abs:\"optimal matching\" OR abs:\"transport fitting\" AND cat:stat.ML",
+      "priority": "low",
+      "description": "Statistical method papers referring to techniques similar to optimal transport."
+    },
+    {
+      "query": "ti:\"computational transport\" AND cat:cs.CV",
+      "priority": "medium",
+      "description": "Papers discussing computational optimal transport applications in computer vision."
+    },
+    {
+      "query": "au:\"Gabriel Peyr\u00e9\" AND abs:\"optimal transport\"",
+      "priority": "high",
+      "description": "Papers authored by Gabriel Peyr\u00e9, a notable researcher in optimal transport, containing the phrase in the abstract."
+    },
+    {
+      "query": "all:\"Sinkhorn distance\" AND cat:math.DS",
+      "priority": "medium",
+      "description": "Research papers on the Sinkhorn distance, a regularized version of optimal transport, in the Dynamical Systems category."
+    },
+    {
+      "query": "abs:\"earth mover's distance\" AND (cat:cs.MM OR cat:cs.CV)",
+      "priority": "medium",
+      "description": "Papers on earth mover's distance, a concept related to optimal transport, within Multimedia and Computer Vision."
+    },
+    {
+      "query": "ti:\"multi-marginal transport\" AND cat:math.OC",
+      "priority": "medium",
+      "description": "Research focusing on multi-marginal extensions of optimal transport within Optimization and Control."
+    },
+    {
+      "query": "abs:\"minimum cost flow\" AND cat:cs.DS",
+      "priority": "low",
+      "description": "Papers discussing flow problems which can relate to optimal transport in the context of Data Structures and Algorithms."
+    }
+  ],
+  "categories": [
+    "math.OC",
+    "cs.LG",
+    "math.PR",
+    "math.MG",
+    "math.SP",
+    "stat.ML",
+    "cs.CV",
+    "cs.MM",
+    "cs.DS"
+  ],
+  "filter_keywords": [
+    "optimal transport",
+    "Wasserstein distance",
+    "Monge-Kantorovich",
+    "entropic regularization",
+    "Kantorovich duality",
+    "discrete optimal transport",
+    "Gaspard Monge",
+    "Sinkhorn distance",
+    "earth mover's distance",
+    "multi-marginal transport"
+  ],
+  "related_terms": [
+    "Wasserstein distance",
+    "Monge-Kantorovich problem",
+    "entropic regularization",
+    "Kantorovich duality",
+    "discrete optimal transport",
+    "Gaspard Monge",
+    "Sinkhorn distance",
+    "earth mover's distance",
+    "multi-marginal transport",
+    "minimum cost flow"
+  ]
+}

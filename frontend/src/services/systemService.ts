@@ -1,5 +1,5 @@
 import { apiClient } from './api';
-import { CacheStats, SystemConfig, RecommendationResult } from '@types';
+import { CacheStats, SystemConfig, RecommendationResult } from '../../types';
 
 export class SystemService {
   // Get system configuration

@@ -14,7 +14,7 @@ import {
 } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
 
-import { useAppDispatch, useAppSelector } from '@store';
+import { useAppDispatch, useAppSelector } from '@store/index';
 import { searchPapers, clearSearchResults } from '@store/slices/papersSlice';
 import { updateRating, fetchUserRatings } from '@store/slices/ratingsSlice';
 import { PaperCard } from '@components/papers/PaperCard';

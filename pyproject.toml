@@ -55,6 +55,8 @@ dependencies = [
     "apscheduler>=3.10.0", # Task scheduling
     # PDF processing and parsing
     "PyMuPDF>=1.23.0", # PDF text extraction
+    # Search capabilities
+    "ddgs>=1.0.0", # Academic paper search fallback (updated package name)
 ]
 
 [project.optional-dependencies]

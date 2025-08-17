@@ -32,7 +32,7 @@ class QueryRefinementService:
     def __init__(self, api_key: Optional[str] = None):
         """Initialize the query refinement service."""
         self.client = OpenAI(api_key=api_key or config.openai_api_key)
-        self.model = "gpt-4o-nano"  # Ultra cost-effective for refinement tasks
+        self.model = "gpt-4o-mini"  # Ultra cost-effective for refinement tasks
 
     def should_refine(self, search_results: List, min_results: int = 1) -> bool:
         """

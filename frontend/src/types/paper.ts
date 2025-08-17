@@ -1,5 +1,6 @@
 export interface Paper {
-  id: string;
+  id: string;  // ArXiv ID
+  rowid?: number;  // Internal database ID for routing
   title: string;
   authors: string[];
   abstract: string;

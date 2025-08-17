@@ -1,0 +1,94 @@
+╭──────────────────────────────────────────────── 🚀 Starting Servers ─────────────────────────────────────────────────╮
+│ ArXiv Recommendation System                                                                                          │
+│ Server Startup Manager                                                                                               │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+[19:23:35] INFO     Initializing Server Manager...                                                  start_servers.py:181
+           INFO     __file__ is: /Users/soheunyi/arxiv-recommendation/./start_servers.py            start_servers.py:182
+           INFO     Current working directory: /Users/soheunyi/arxiv-recommendation                 start_servers.py:183
+           INFO     UV version: uv 0.7.2 (Homebrew 2025-04-30)                                      start_servers.py:188
+           INFO     Node.js version: v23.11.0                                                       start_servers.py:197
+           INFO     Project root: /Users/soheunyi/arxiv-recommendation                              start_servers.py:317
+           INFO     Backend dir: /Users/soheunyi/arxiv-recommendation/backend                       start_servers.py:318
+           INFO     Backend exists: True                                                            start_servers.py:319
+           INFO     Waiting for backend server on localhost:8000                                    start_servers.py:448
+[19:23:36] INFO     backend server health check passed                                              start_servers.py:455
+✓ Backend server started on port 8000
+           INFO     Starting Vite dev server on port 3002                                           start_servers.py:416
+           INFO     Backend API URL: http://localhost:8000                                          start_servers.py:417
+           INFO     Waiting for frontend server on localhost:3002                                   start_servers.py:448
+[19:23:37] INFO     frontend server is responding on port 3002                                      start_servers.py:462
+✓ Frontend server started on port 3002
+⠴ ✓ Backend server started 
+⠴ ✓ Frontend server started
+                      🚀 Server Status                       
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Service          ┃ Port ┃ Status  ┃ URL                   ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━┩
+│ Frontend (React) │ 3002 │ Running │ http://localhost:3002 │
+│ Backend (API)    │ 8000 │ Running │ http://localhost:8000 │
+└──────────────────┴──────┴─────────┴───────────────────────┘
+╭───────────────────────────────────────────────────── ✨ Success ─────────────────────────────────────────────────────╮
+│ 🎉 Both servers are running!                                                                                         │
+│                                                                                                                      │
+│ • Frontend: http://localhost:3002                                                                                    │
+│ • Backend API: http://localhost:8000                                                                                 │
+│ • API Health: http://localhost:8000/health                                                                           │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+[19:23:35] 🔧 BACKEND  INFO    INFO:     Will watch for changes in these directories: 
+['/Users/soheunyi/arxiv-recommendation']
+[19:23:35] 🔧 BACKEND  INFO    INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[19:23:35] 🔧 BACKEND  INFO    INFO:     Started reloader process [62729] using StatReload
+[19:23:36] 🔧 BACKEND  INFO    {"timestamp": "2025-08-17T23:23:36.462005Z", "level": "INFO", "logger": "backend.api", 
+"message": "Successfully imported ArXiv recommendation modules", "module": "api", "function": "<module>", "line": 93}
+[19:23:36] 🔧 BACKEND  DEBUG   Successfully imported ArXiv recommendation modules
+[19:23:36] 🔧 BACKEND  INFO    INFO:     Started server process [62731]
+[19:23:36] 🔧 BACKEND  INFO    INFO:     Waiting for application startup.
+[19:23:36] 🔧 BACKEND  INFO    {"timestamp": "2025-08-17T23:23:36.470407Z", "level": "INFO", "logger": "backend.api", 
+"message": "Starting ArXiv Recommendation API...", "module": "api", "function": "startup_event", "line": 271}
+[19:23:36] 🔧 BACKEND  DEBUG   Starting ArXiv Recommendation API...
+[19:23:36] 🔧 BACKEND  DEBUG   Database initialized at data/papers.db
+[19:23:36] 🔧 BACKEND  INFO    {"timestamp": "2025-08-17T23:23:36.475742Z", "level": "INFO", "logger": "backend.api", 
+"message": "Database initialized successfully", "module": "api", "function": "startup_event", "line": 276}
+[19:23:36] 🔧 BACKEND  DEBUG   Database initialized successfully
+[19:23:36] 🔧 BACKEND  ERROR   {"timestamp": "2025-08-17T23:23:36.489577Z", "level": "ERROR", "logger": "backend.api", 
+"message": "Failed to initialize scheduler: SQLAlchemyJobStore requires SQLAlchemy installed", "module": "api", 
+"function": "startup_event", "line": 289}
+[19:23:36] 🔧 BACKEND  ERROR   Failed to initialize scheduler: SQLAlchemyJobStore requires SQLAlchemy installed
+[19:23:36] 🔧 BACKEND  INFO    {"timestamp": "2025-08-17T23:23:36.489637Z", "level": "INFO", "logger": "backend.api", 
+"message": "API startup completed successfully", "module": "api", "function": "startup_event", "line": 292}
+[19:23:36] 🔧 BACKEND  DEBUG   API startup completed successfully
+[19:23:36] 🔧 BACKEND  INFO    INFO:     Application startup complete.
+[19:23:36] 🔧 BACKEND  INFO    {"timestamp": "2025-08-17T23:23:36.552500Z", "level": "INFO", "logger": "api.access", 
+"message": "Incoming request", "module": "api", "function": "logging_middleware", "line": 187, "correlation_id": 
+"a1e270cc-c9e8-4882-b918-8d1965ac3660", "user_agent": "python-requests/2.32.3", "ip_address": "127.0.0.1", "endpoint": 
+"http://localhost:8000/health", "method": "GET"}
+
+📊 Live Server Logs - Press Ctrl+C to stop servers
+[19:23:36] 🔧 BACKEND  DEBUG   Incoming request
+════════════════════════════════════════════════════════════════════════════════
+[19:23:36] 🔧 BACKEND  INFO    {"timestamp": "2025-08-17T23:23:36.552795Z", "level": "INFO", "logger": "api.access", 
+"message": "Request completed", "module": "api", "function": "logging_middleware", "line": 208, "correlation_id": 
+"a1e270cc-c9e8-4882-b918-8d1965ac3660", "ip_address": "127.0.0.1", "endpoint": "http://localhost:8000/health", "method":
+"GET", "status_code": 200, "response_time_ms": 0.31}
+[19:23:36] 🔧 BACKEND  DEBUG   Request completed
+[19:23:36] 🔧 BACKEND  INFO    INFO:     127.0.0.1:51935 - "GET /health HTTP/1.1" 200 OK
+[19:23:36] ⚛️ FRONTEND DEBUG   > arxiv-recommendation-frontend@1.0.0 dev
+[19:23:36] ⚛️ FRONTEND DEBUG   > vite --port 3002 --host 0.0.0.0
+[19:23:36] ⚛️ FRONTEND INFO    VITE v6.3.5  ready in 204 ms
+[19:23:36] ⚛️ FRONTEND DEBUG   ➜  Local:   http://localhost:3002/
+[19:23:36] ⚛️ FRONTEND DEBUG   ➜  Network: http://192.168.1.157:3002/
+[19:23:36] ⚛️ FRONTEND DEBUG   ➜  Network: http://192.168.64.1:3002/
+[19:23:36] ⚛️ FRONTEND DEBUG   ➜  press h + enter to show help
+[19:23:38] 📋 SYSTEM   INFO    Server monitoring started
+[19:23:38] 📋 SYSTEM   INFO    Frontend: http://localhost:3002
+[19:23:38] 📋 SYSTEM   INFO    Backend: http://localhost:8000
+
+Received signal 2, shutting down...
+
+Stopping servers...
+✓ Frontend server stopped
+✓ Backend server stopped
+
+Stopping servers...
+✓ Frontend server stopped
+✓ Backend server stopped

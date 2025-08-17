@@ -1,0 +1,1352 @@
+[
+  {
+    "id": "2103.00112v3",
+    "title": "Transformer in Transformer",
+    "abstract": "Transformer is a new kind of neural architecture which encodes the input data as powerful features via the attention mechanism. Basically, the visual transformers first divide the input images into several local patches and then calculate both representations and their relationship. Since natural images are of high complexity with abundant detail and color information, the granularity of the patch dividing is not fine enough for excavating features of objects in different scales and locations. In this paper, we point out that the attention inside these local patches are also essential for building visual transformers with high performance and we explore a new architecture, namely, Transformer iN Transformer (TNT). Specifically, we regard the local patches (e.g., 16$\\times$16) as \"visual sentences\" and present to further divide them into smaller patches (e.g., 4$\\times$4) as \"visual words\". The attention of each word will be calculated with other words in the given visual sentence with negligible computational costs. Features of both words and sentences will be aggregated to enhance the representation ability. Experiments on several benchmarks demonstrate the effectiveness of the proposed TNT architecture, e.g., we achieve an 81.5% top-1 accuracy on the ImageNet, which is about 1.7% higher than that of the state-of-the-art visual transformer with similar computational cost. The PyTorch code is available at https://github.com/huawei-noah/CV-Backbones, and the MindSpore code is available at https://gitee.com/mindspore/models/tree/master/research/cv/TNT.",
+    "authors": [
+      "Kai Han",
+      "An Xiao",
+      "Enhua Wu",
+      "Jianyuan Guo",
+      "Chunjing Xu",
+      "Yunhe Wang"
+    ],
+    "category": "cs.CV",
+    "published_date": "2021-02-27 03:12:16+00:00",
+    "updated_date": "2021-10-26 02:24:24+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2103.00112v3",
+    "pdf_url": "https://arxiv.org/pdf/2103.00112v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2307.01189v2",
+    "title": "Trainable Transformer in Transformer",
+    "abstract": "Recent works attribute the capability of in-context learning (ICL) in large pre-trained language models to implicitly simulating and fine-tuning an internal model (e.g., linear or 2-layer MLP) during inference. However, such constructions require large memory overhead, which makes simulation of more sophisticated internal models intractable. In this work, we propose an efficient construction, Transformer in Transformer (in short, TinT), that allows a transformer to simulate and fine-tune complex models internally during inference (e.g., pre-trained language models). In particular, we introduce innovative approximation techniques that allow a TinT model with less than 2 billion parameters to simulate and fine-tune a 125 million parameter transformer model within a single forward pass. TinT accommodates many common transformer variants and its design ideas also improve the efficiency of past instantiations of simple models inside transformers. We conduct end-to-end experiments to validate the internal fine-tuning procedure of TinT on various language modeling and downstream tasks. For example, even with a limited one-step budget, we observe TinT for a OPT-125M model improves performance by 4-16% absolute on average compared to OPT-125M. These findings suggest that large pre-trained language models are capable of performing intricate subroutines. To facilitate further work, a modular and extensible codebase for TinT is included.",
+    "authors": [
+      "Abhishek Panigrahi",
+      "Sadhika Malladi",
+      "Mengzhou Xia",
+      "Sanjeev Arora"
+    ],
+    "category": "cs.CL",
+    "published_date": "2023-07-03 17:53:39+00:00",
+    "updated_date": "2024-02-08 16:19:14+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2307.01189v2",
+    "pdf_url": "https://arxiv.org/pdf/2307.01189v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "9801033v2",
+    "title": "Quantum Transformations",
+    "abstract": "We show that the stationary quantum Hamilton-Jacobi equation of non-relativistic 1D systems, underlying Bohmian mechanics, takes the classical form with $\\partial_q$ replaced by $\\partial_{\\hat q}$ where $d\\hat q={dq\\over \\sqrt{1-\\beta^2}}$. The $\\beta^2$ term essentially coincides with the quantum potential that, like $V-E$, turns out to be proportional to a curvature arising in projective geometry. In agreement with the recently formulated equivalence principle, these ``quantum transformations'' indicate that the classical and quantum potentials deform space geometry.",
+    "authors": [
+      "Alon E. Faraggi",
+      "Marco Matone"
+    ],
+    "category": "hep-th",
+    "published_date": "1998-01-09 00:50:38+00:00",
+    "updated_date": "1998-09-17 14:19:39+00:00",
+    "arxiv_url": "http://arxiv.org/abs/hep-th/9801033v2",
+    "pdf_url": "https://arxiv.org/pdf/9801033v2.pdf",
+    "doi": "http://dx.doi.org/10.1016/S0375-9601(98)00723-3",
+    "journal_ref": "Phys.Lett.A249:180-190,1998"
+  },
+  {
+    "id": "0409265v1",
+    "title": "Transformation Digroups",
+    "abstract": "We introduce the notion of a transformation digroup and prove that every digroup is isomorphic to a transformation digroup.",
+    "authors": [
+      "Keqin Liu"
+    ],
+    "category": "math.GR",
+    "published_date": "2004-09-16 16:32:13+00:00",
+    "updated_date": "2004-09-16 16:32:13+00:00",
+    "arxiv_url": "http://arxiv.org/abs/math/0409265v1",
+    "pdf_url": "https://arxiv.org/pdf/0409265v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1011.3947v2",
+    "title": "Covariant Transform",
+    "abstract": "The paper develops theory of covariant transform, which is inspired by the wavelet construction. It was observed that many interesting types of wavelets (or coherent states) arise from group representations which are not square integrable or vacuum vectors which are not admissible. Covariant transform extends an applicability of the popular wavelets construction to classic examples like the Hardy space H_2, Banach spaces, covariant functional calculus and many others.   Keywords: Wavelets, coherent states, group representations, Hardy space, Littlewood-Paley operator, functional calculus, Berezin calculus, Radon transform, Moebius map, maximal function, affine group, special linear group, numerical range, characteristic function, functional model.",
+    "authors": [
+      "Vladimir V. Kisil"
+    ],
+    "category": "math.FA",
+    "published_date": "2010-11-17 11:31:27+00:00",
+    "updated_date": "2011-01-26 13:23:18+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1011.3947v2",
+    "pdf_url": "https://arxiv.org/pdf/1011.3947v2.pdf",
+    "doi": "http://dx.doi.org/10.1088/1742-6596/284/1/012038",
+    "journal_ref": "J. Phys.: Conf. Ser. (2011), v. 284, p. 012038"
+  },
+  {
+    "id": "1103.0156v5",
+    "title": "Lorentz Transformations",
+    "abstract": "This paper describes a particularly didactic and transparent derivation of basic properties of the Lorentz group. The generators for rotations and boosts along an arbitrary direction, as well as their commutation relations, are written as functions of the unit vectors that define the axis of rotation or the direction of the boost (an approach that can be compared with the one that in electrodynamics, works with the electric and magnetic fields instead of the Maxwell stress tensor). For finite values of the angle of rotation or the boost's velocity, collectively denoted by V, the existence of an exponential expansion for the coordinate transformation's matrix, M (in terms of GV where G is the generator) requires that the matrix's derivative with respect to V, be equal to GM. This condition can only be satisfied if the transformation is additive as it is indeed the case for rotations, but not for velocities. If it is assumed, however, that for boosts such an expansion exists, with V = V(v), v being the velocity, and if the above condition is imposed on the boost's matrix then its expression in terms of hyperbolic cosh(V) and sinh(V} is recovered, and the expression for V(= arc tanh(v)) is determined. A general Lorentz transformation can be written as an exponential containing the sum of a rotation and a boost, which to first order is equal to the product of a boost with a rotation. The calculations of the second and third order terms show that the equations for the generators used in this paper, allow to reliably infer the expressions for the higher order generators, without having recourse to the commutation relations. The transformationmatrices for Weyl spinors are derived for finite values of the rotation and velocity, and field representations, leading to the expression for the angular momentum operator, are studied.",
+    "authors": [
+      "Bernard R. Durney"
+    ],
+    "category": "physics.gen-ph",
+    "published_date": "2011-03-01 12:38:13+00:00",
+    "updated_date": "2011-12-09 13:05:15+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1103.0156v5",
+    "pdf_url": "https://arxiv.org/pdf/1103.0156v5.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1406.6512v1",
+    "title": "Transforming magnets",
+    "abstract": "Based on the form-invariant of Maxwell's equations under coordinate transformations, we extend the theory of transformation optics to transformation magneto-statics, which can design magnets through coordinate transformations. Some novel DC magnetic field illusions created by magnets (e.g. shirking magnets, cancelling magnets and overlapping magnets) are designed and verified by numerical simulations. Our research will open a new door to designing magnets and controlling DC magnetic fields.",
+    "authors": [
+      "F. Sun",
+      "S. He"
+    ],
+    "category": "physics.class-ph",
+    "published_date": "2014-06-25 09:59:26+00:00",
+    "updated_date": "2014-06-25 09:59:26+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1406.6512v1",
+    "pdf_url": "https://arxiv.org/pdf/1406.6512v1.pdf",
+    "doi": "http://dx.doi.org/10.1038/srep06593",
+    "journal_ref": null
+  },
+  {
+    "id": "1510.05025v1",
+    "title": "ADE Transform",
+    "abstract": "There is a beautiful correspondence between configurations of lines on a rational surface and tautological bundles over that surface. We extend this correspondence to families, by means of a generalized Fourier-Mukai transform that relates spectral data to bundles over a rational surface fibration.",
+    "authors": [
+      "Ron Donagi",
+      "Martijn Wijnholt"
+    ],
+    "category": "math.AG",
+    "published_date": "2015-10-16 21:01:52+00:00",
+    "updated_date": "2015-10-16 21:01:52+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1510.05025v1",
+    "pdf_url": "https://arxiv.org/pdf/1510.05025v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1512.00795v2",
+    "title": "Actions ~ Transformations",
+    "abstract": "What defines an action like \"kicking ball\"? We argue that the true meaning of an action lies in the change or transformation an action brings to the environment. In this paper, we propose a novel representation for actions by modeling an action as a transformation which changes the state of the environment before the action happens (precondition) to the state after the action (effect). Motivated by recent advancements of video representation using deep learning, we design a Siamese network which models the action as a transformation on a high-level feature space. We show that our model gives improvements on standard action recognition datasets including UCF101 and HMDB51. More importantly, our approach is able to generalize beyond learned action categories and shows significant performance improvement on cross-category generalization on our new ACT dataset.",
+    "authors": [
+      "Xiaolong Wang",
+      "Ali Farhadi",
+      "Abhinav Gupta"
+    ],
+    "category": "cs.CV",
+    "published_date": "2015-12-02 18:17:32+00:00",
+    "updated_date": "2016-07-26 04:51:49+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1512.00795v2",
+    "pdf_url": "https://arxiv.org/pdf/1512.00795v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1608.03898v1",
+    "title": "Curvature transformation",
+    "abstract": "A transformation based on mean curvature is introduced which morphs triangulated surfaces into round spheres.",
+    "authors": [
+      "Dimitris Vartziotis"
+    ],
+    "category": "cs.GR",
+    "published_date": "2016-07-22 12:52:09+00:00",
+    "updated_date": "2016-07-22 12:52:09+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1608.03898v1",
+    "pdf_url": "https://arxiv.org/pdf/1608.03898v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1701.02110v2",
+    "title": "Transformation Forests",
+    "abstract": "Regression models for supervised learning problems with a continuous target are commonly understood as models for the conditional mean of the target given predictors. This notion is simple and therefore appealing for interpretation and visualisation. Information about the whole underlying conditional distribution is, however, not available from these models. A more general understanding of regression models as models for conditional distributions allows much broader inference from such models, for example the computation of prediction intervals. Several random forest-type algorithms aim at estimating conditional distributions, most prominently quantile regression forests (Meinshausen, 2006, JMLR). We propose a novel approach based on a parametric family of distributions characterised by their transformation function. A dedicated novel \"transformation tree\" algorithm able to detect distributional changes is developed. Based on these transformation trees, we introduce \"transformation forests\" as an adaptive local likelihood estimator of conditional distribution functions. The resulting models are fully parametric yet very general and allow broad inference procedures, such as the model-based bootstrap, to be applied in a straightforward way.",
+    "authors": [
+      "Torsten Hothorn",
+      "Achim Zeileis"
+    ],
+    "category": "stat.ME",
+    "published_date": "2017-01-09 09:52:03+00:00",
+    "updated_date": "2018-01-08 10:08:16+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1701.02110v2",
+    "pdf_url": "https://arxiv.org/pdf/1701.02110v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1802.05751v3",
+    "title": "Image Transformer",
+    "abstract": "Image generation has been successfully cast as an autoregressive sequence generation or transformation problem. Recent work has shown that self-attention is an effective way of modeling textual sequences. In this work, we generalize a recently proposed model architecture based on self-attention, the Transformer, to a sequence modeling formulation of image generation with a tractable likelihood. By restricting the self-attention mechanism to attend to local neighborhoods we significantly increase the size of images the model can process in practice, despite maintaining significantly larger receptive fields per layer than typical convolutional neural networks. While conceptually simple, our generative models significantly outperform the current state of the art in image generation on ImageNet, improving the best published negative log-likelihood on ImageNet from 3.83 to 3.77. We also present results on image super-resolution with a large magnification ratio, applying an encoder-decoder configuration of our architecture. In a human evaluation study, we find that images generated by our super-resolution model fool human observers three times more often than the previous state of the art.",
+    "authors": [
+      "Niki Parmar",
+      "Ashish Vaswani",
+      "Jakob Uszkoreit",
+      "\u0141ukasz Kaiser",
+      "Noam Shazeer",
+      "Alexander Ku",
+      "Dustin Tran"
+    ],
+    "category": "cs.CV",
+    "published_date": "2018-02-15 20:37:15+00:00",
+    "updated_date": "2018-06-15 23:27:07+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1802.05751v3",
+    "pdf_url": "https://arxiv.org/pdf/1802.05751v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1809.04281v3",
+    "title": "Music Transformer",
+    "abstract": "Music relies heavily on repetition to build structure and meaning. Self-reference occurs on multiple timescales, from motifs to phrases to reusing of entire sections of music, such as in pieces with ABA structure. The Transformer (Vaswani et al., 2017), a sequence model based on self-attention, has achieved compelling results in many generation tasks that require maintaining long-range coherence. This suggests that self-attention might also be well-suited to modeling music. In musical composition and performance, however, relative timing is critically important. Existing approaches for representing relative positional information in the Transformer modulate attention based on pairwise distance (Shaw et al., 2018). This is impractical for long sequences such as musical compositions since their memory complexity for intermediate relative information is quadratic in the sequence length. We propose an algorithm that reduces their intermediate memory requirement to linear in the sequence length. This enables us to demonstrate that a Transformer with our modified relative attention mechanism can generate minute-long compositions (thousands of steps, four times the length modeled in Oore et al., 2018) with compelling structure, generate continuations that coherently elaborate on a given motif, and in a seq2seq setup generate accompaniments conditioned on melodies. We evaluate the Transformer with our relative attention mechanism on two datasets, JSB Chorales and Piano-e-Competition, and obtain state-of-the-art results on the latter.",
+    "authors": [
+      "Cheng-Zhi Anna Huang",
+      "Ashish Vaswani",
+      "Jakob Uszkoreit",
+      "Noam Shazeer",
+      "Ian Simon",
+      "Curtis Hawthorne",
+      "Andrew M. Dai",
+      "Matthew D. Hoffman",
+      "Monica Dinculescu",
+      "Douglas Eck"
+    ],
+    "category": "cs.LG",
+    "published_date": "2018-09-12 07:15:26+00:00",
+    "updated_date": "2018-12-12 07:42:08+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1809.04281v3",
+    "pdf_url": "https://arxiv.org/pdf/1809.04281v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1902.09113v3",
+    "title": "Star-Transformer",
+    "abstract": "Although Transformer has achieved great successes on many NLP tasks, its heavy structure with fully-connected attention connections leads to dependencies on large training data. In this paper, we present Star-Transformer, a lightweight alternative by careful sparsification. To reduce model complexity, we replace the fully-connected structure with a star-shaped topology, in which every two non-adjacent nodes are connected through a shared relay node. Thus, complexity is reduced from quadratic to linear, while preserving capacity to capture both local composition and long-range dependency. The experiments on four tasks (22 datasets) show that Star-Transformer achieved significant improvements against the standard Transformer for the modestly sized datasets.",
+    "authors": [
+      "Qipeng Guo",
+      "Xipeng Qiu",
+      "Pengfei Liu",
+      "Yunfan Shao",
+      "Xiangyang Xue",
+      "Zheng Zhang"
+    ],
+    "category": "cs.CL",
+    "published_date": "2019-02-25 07:07:38+00:00",
+    "updated_date": "2022-04-24 08:56:39+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1902.09113v3",
+    "pdf_url": "https://arxiv.org/pdf/1902.09113v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1905.11006v2",
+    "title": "Levenshtein Transformer",
+    "abstract": "Modern neural sequence generation models are built to either generate tokens step-by-step from scratch or (iteratively) modify a sequence of tokens bounded by a fixed length. In this work, we develop Levenshtein Transformer, a new partially autoregressive model devised for more flexible and amenable sequence generation. Unlike previous approaches, the atomic operations of our model are insertion and deletion. The combination of them facilitates not only generation but also sequence refinement allowing dynamic length changes. We also propose a set of new training techniques dedicated at them, effectively exploiting one as the other's learning signal thanks to their complementary nature. Experiments applying the proposed model achieve comparable performance but much-improved efficiency on both generation (e.g. machine translation, text summarization) and refinement tasks (e.g. automatic post-editing). We further confirm the flexibility of our model by showing a Levenshtein Transformer trained by machine translation can straightforwardly be used for automatic post-editing.",
+    "authors": [
+      "Jiatao Gu",
+      "Changhan Wang",
+      "Jake Zhao"
+    ],
+    "category": "cs.CL",
+    "published_date": "2019-05-27 07:08:12+00:00",
+    "updated_date": "2019-10-28 07:52:19+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1905.11006v2",
+    "pdf_url": "https://arxiv.org/pdf/1905.11006v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2104.03964v1",
+    "title": "Handwriting Transformers",
+    "abstract": "We propose a novel transformer-based styled handwritten text image generation approach, HWT, that strives to learn both style-content entanglement as well as global and local writing style patterns. The proposed HWT captures the long and short range relationships within the style examples through a self-attention mechanism, thereby encoding both global and local style patterns. Further, the proposed transformer-based HWT comprises an encoder-decoder attention that enables style-content entanglement by gathering the style representation of each query character. To the best of our knowledge, we are the first to introduce a transformer-based generative network for styled handwritten text generation. Our proposed HWT generates realistic styled handwritten text images and significantly outperforms the state-of-the-art demonstrated through extensive qualitative, quantitative and human-based evaluations. The proposed HWT can handle arbitrary length of text and any desired writing style in a few-shot setting. Further, our HWT generalizes well to the challenging scenario where both words and writing style are unseen during training, generating realistic styled handwritten text images.",
+    "authors": [
+      "Ankan Kumar Bhunia",
+      "Salman Khan",
+      "Hisham Cholakkal",
+      "Rao Muhammad Anwer",
+      "Fahad Shahbaz Khan",
+      "Mubarak Shah"
+    ],
+    "category": "cs.CV",
+    "published_date": "2021-04-08 17:59:43+00:00",
+    "updated_date": "2021-04-08 17:59:43+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2104.03964v1",
+    "pdf_url": "https://arxiv.org/pdf/2104.03964v1.pdf",
+    "doi": null,
+    "journal_ref": "ICCV 2021"
+  },
+  {
+    "id": "2104.15031v1",
+    "title": "Strongest transformations",
+    "abstract": "We continue our study of maps transforming high-dimensional complicated objects into squares of stationary sets. Previously, we proved that many such transformations exist in ZFC, and here we address the consistency of the strongest conceivable transformations.   Along the way, we obtain new results on Shelah's coloring principle $Pr_1$. For $\\kappa$ inaccessible, we prove the consistency of $Pr_1(\\kappa,\\kappa,\\kappa,\\kappa)$. For successors of regulars, we obtain a full lifting of Galvin's 1980 theorem. In contrast, the full lifting of Galvin's theorem to successors of singulars is shown to be inconsistent.",
+    "authors": [
+      "Assaf Rinot",
+      "Jing Zhang"
+    ],
+    "category": "math.LO",
+    "published_date": "2021-04-30 14:38:28+00:00",
+    "updated_date": "2021-04-30 14:38:28+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2104.15031v1",
+    "pdf_url": "https://arxiv.org/pdf/2104.15031v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2105.00335v2",
+    "title": "Audio Transformers",
+    "abstract": "Over the past two decades, CNN architectures have produced compelling models of sound perception and cognition, learning hierarchical organizations of features. Analogous to successes in computer vision, audio feature classification can be optimized for a particular task of interest, over a wide variety of datasets and labels. In fact similar architectures designed for image understanding have proven effective for acoustic scene analysis. Here we propose applying Transformer based architectures without convolutional layers to raw audio signals. On a standard dataset of Free Sound 50K,comprising of 200 categories, our model outperforms convolutional models to produce state of the art results. This is significant as unlike in natural language processing and computer vision, we do not perform unsupervised pre-training for outperforming convolutional architectures. On the same training set, with respect mean aver-age precision benchmarks, we show a significant improvement. We further improve the performance of Transformer architectures by using techniques such as pooling inspired from convolutional net-work designed in the past few years. In addition, we also show how multi-rate signal processing ideas inspired from wavelets, can be applied to the Transformer embeddings to improve the results. We also show how our models learns a non-linear non constant band-width filter-bank, which shows an adaptable time frequency front end representation for the task of audio understanding, different from other tasks e.g. pitch estimation.",
+    "authors": [
+      "Prateek Verma",
+      "Jonathan Berger"
+    ],
+    "category": "cs.SD",
+    "published_date": "2021-05-01 19:38:30+00:00",
+    "updated_date": "2025-05-11 23:57:58+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2105.00335v2",
+    "pdf_url": "https://arxiv.org/pdf/2105.00335v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2203.08913v1",
+    "title": "Memorizing Transformers",
+    "abstract": "Language models typically need to be trained or finetuned in order to acquire new knowledge, which involves updating their weights. We instead envision language models that can simply read and memorize new data at inference time, thus acquiring new knowledge immediately. In this work, we extend language models with the ability to memorize the internal representations of past inputs. We demonstrate that an approximate kNN lookup into a non-differentiable memory of recent (key, value) pairs improves language modeling across various benchmarks and tasks, including generic webtext (C4), math papers (arXiv), books (PG-19), code (Github), as well as formal theorems (Isabelle). We show that the performance steadily improves when we increase the size of memory up to 262K tokens. On benchmarks including code and mathematics, we find that the model is capable of making use of newly defined functions and theorems during test time.",
+    "authors": [
+      "Yuhuai Wu",
+      "Markus N. Rabe",
+      "DeLesley Hutchins",
+      "Christian Szegedy"
+    ],
+    "category": "cs.LG",
+    "published_date": "2022-03-16 19:54:35+00:00",
+    "updated_date": "2022-03-16 19:54:35+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2203.08913v1",
+    "pdf_url": "https://arxiv.org/pdf/2203.08913v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2012.09164v2",
+    "title": "Point Transformer",
+    "abstract": "Self-attention networks have revolutionized natural language processing and are making impressive strides in image analysis tasks such as image classification and object detection. Inspired by this success, we investigate the application of self-attention networks to 3D point cloud processing. We design self-attention layers for point clouds and use these to construct self-attention networks for tasks such as semantic scene segmentation, object part segmentation, and object classification. Our Point Transformer design improves upon prior work across domains and tasks. For example, on the challenging S3DIS dataset for large-scale semantic scene segmentation, the Point Transformer attains an mIoU of 70.4% on Area 5, outperforming the strongest prior model by 3.3 absolute percentage points and crossing the 70% mIoU threshold for the first time.",
+    "authors": [
+      "Hengshuang Zhao",
+      "Li Jiang",
+      "Jiaya Jia",
+      "Philip Torr",
+      "Vladlen Koltun"
+    ],
+    "category": "cs.CV",
+    "published_date": "2020-12-16 18:58:56+00:00",
+    "updated_date": "2021-09-26 15:33:47+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2012.09164v2",
+    "pdf_url": "https://arxiv.org/pdf/2012.09164v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2012.15045v2",
+    "title": "Reservoir Transformers",
+    "abstract": "We demonstrate that transformers obtain impressive performance even when some of the layers are randomly initialized and never updated. Inspired by old and well-established ideas in machine learning, we explore a variety of non-linear \"reservoir\" layers interspersed with regular transformer layers, and show improvements in wall-clock compute time until convergence, as well as overall performance, on various machine translation and (masked) language modelling tasks.",
+    "authors": [
+      "Sheng Shen",
+      "Alexei Baevski",
+      "Ari S. Morcos",
+      "Kurt Keutzer",
+      "Michael Auli",
+      "Douwe Kiela"
+    ],
+    "category": "cs.CL",
+    "published_date": "2020-12-30 05:20:16+00:00",
+    "updated_date": "2021-06-01 19:32:18+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2012.15045v2",
+    "pdf_url": "https://arxiv.org/pdf/2012.15045v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2102.04432v2",
+    "title": "Colorization Transformer",
+    "abstract": "We present the Colorization Transformer, a novel approach for diverse high fidelity image colorization based on self-attention. Given a grayscale image, the colorization proceeds in three steps. We first use a conditional autoregressive transformer to produce a low resolution coarse coloring of the grayscale image. Our architecture adopts conditional transformer layers to effectively condition grayscale input. Two subsequent fully parallel networks upsample the coarse colored low resolution image into a finely colored high resolution image. Sampling from the Colorization Transformer produces diverse colorings whose fidelity outperforms the previous state-of-the-art on colorising ImageNet based on FID results and based on a human evaluation in a Mechanical Turk test. Remarkably, in more than 60% of cases human evaluators prefer the highest rated among three generated colorings over the ground truth. The code and pre-trained checkpoints for Colorization Transformer are publicly available at https://github.com/google-research/google-research/tree/master/coltran",
+    "authors": [
+      "Manoj Kumar",
+      "Dirk Weissenborn",
+      "Nal Kalchbrenner"
+    ],
+    "category": "cs.CV",
+    "published_date": "2021-02-08 18:45:06+00:00",
+    "updated_date": "2021-03-07 08:38:49+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2102.04432v2",
+    "pdf_url": "https://arxiv.org/pdf/2102.04432v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2103.15436v1",
+    "title": "Transformer Tracking",
+    "abstract": "Correlation acts as a critical role in the tracking field, especially in recent popular Siamese-based trackers. The correlation operation is a simple fusion manner to consider the similarity between the template and the search region. However, the correlation operation itself is a local linear matching process, leading to lose semantic information and fall into local optimum easily, which may be the bottleneck of designing high-accuracy tracking algorithms. Is there any better feature fusion method than correlation? To address this issue, inspired by Transformer, this work presents a novel attention-based feature fusion network, which effectively combines the template and search region features solely using attention. Specifically, the proposed method includes an ego-context augment module based on self-attention and a cross-feature augment module based on cross-attention. Finally, we present a Transformer tracking (named TransT) method based on the Siamese-like feature extraction backbone, the designed attention-based fusion mechanism, and the classification and regression head. Experiments show that our TransT achieves very promising results on six challenging datasets, especially on large-scale LaSOT, TrackingNet, and GOT-10k benchmarks. Our tracker runs at approximatively 50 fps on GPU. Code and models are available at https://github.com/chenxin-dlut/TransT.",
+    "authors": [
+      "Xin Chen",
+      "Bin Yan",
+      "Jiawen Zhu",
+      "Dong Wang",
+      "Xiaoyun Yang",
+      "Huchuan Lu"
+    ],
+    "category": "cs.CV",
+    "published_date": "2021-03-29 09:06:55+00:00",
+    "updated_date": "2021-03-29 09:06:55+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2103.15436v1",
+    "pdf_url": "https://arxiv.org/pdf/2103.15436v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2011.00931v2",
+    "title": "Point Transformer",
+    "abstract": "In this work, we present Point Transformer, a deep neural network that operates directly on unordered and unstructured point sets. We design Point Transformer to extract local and global features and relate both representations by introducing the local-global attention mechanism, which aims to capture spatial point relations and shape information. For that purpose, we propose SortNet, as part of the Point Transformer, which induces input permutation invariance by selecting points based on a learned score. The output of Point Transformer is a sorted and permutation invariant feature list that can directly be incorporated into common computer vision applications. We evaluate our approach on standard classification and part segmentation benchmarks to demonstrate competitive results compared to the prior work. Code is publicly available at: https://github.com/engelnico/point-transformer",
+    "authors": [
+      "Nico Engel",
+      "Vasileios Belagiannis",
+      "Klaus Dietmayer"
+    ],
+    "category": "cs.CV",
+    "published_date": "2020-11-02 12:26:14+00:00",
+    "updated_date": "2021-10-14 10:51:39+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2011.00931v2",
+    "pdf_url": "https://arxiv.org/pdf/2011.00931v2.pdf",
+    "doi": "http://dx.doi.org/10.1109/ACCESS.2021.3116304",
+    "journal_ref": null
+  },
+  {
+    "id": "2202.04942v2",
+    "title": "Spherical Transformer",
+    "abstract": "Using convolutional neural networks for 360images can induce sub-optimal performance due to distortions entailed by a planar projection. The distortion gets deteriorated when a rotation is applied to the 360image. Thus, many researches based on convolutions attempt to reduce the distortions to learn accurate representation. In contrast, we leverage the transformer architecture to solve image classification problems for 360images. Using the proposed transformer for 360images has two advantages. First, our method does not require the erroneous planar projection process by sampling pixels from the sphere surface. Second, our sampling method based on regular polyhedrons makes low rotation equivariance errors, because specific rotations can be reduced to permutations of faces. In experiments, we validate our network on two aspects, as follows. First, we show that using a transformer with highly uniform sampling methods can help reduce the distortion. Second, we demonstrate that the transformer architecture can achieve rotation equivariance on specific rotations. We compare our method to other state-of-the-art algorithms using the SPH-MNIST, SPH-CIFAR, and SUN360 datasets and show that our method is competitive with other methods.",
+    "authors": [
+      "Sungmin Cho",
+      "Raehyuk Jung",
+      "Junseok Kwon"
+    ],
+    "category": "cs.CV",
+    "published_date": "2022-02-10 10:24:24+00:00",
+    "updated_date": "2022-02-11 07:29:03+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2202.04942v2",
+    "pdf_url": "https://arxiv.org/pdf/2202.04942v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1807.03819v3",
+    "title": "Universal Transformers",
+    "abstract": "Recurrent neural networks (RNNs) sequentially process data by updating their state with each new data point, and have long been the de facto choice for sequence modeling tasks. However, their inherently sequential computation makes them slow to train. Feed-forward and convolutional architectures have recently been shown to achieve superior results on some sequence modeling tasks such as machine translation, with the added advantage that they concurrently process all inputs in the sequence, leading to easy parallelization and faster training times. Despite these successes, however, popular feed-forward sequence models like the Transformer fail to generalize in many simple tasks that recurrent models handle with ease, e.g. copying strings or even simple logical inference when the string or formula lengths exceed those observed at training time. We propose the Universal Transformer (UT), a parallel-in-time self-attentive recurrent sequence model which can be cast as a generalization of the Transformer model and which addresses these issues. UTs combine the parallelizability and global receptive field of feed-forward sequence models like the Transformer with the recurrent inductive bias of RNNs. We also add a dynamic per-position halting mechanism and find that it improves accuracy on several tasks. In contrast to the standard Transformer, under certain assumptions, UTs can be shown to be Turing-complete. Our experiments show that UTs outperform standard Transformers on a wide range of algorithmic and language understanding tasks, including the challenging LAMBADA language modeling task where UTs achieve a new state of the art, and machine translation where UTs achieve a 0.9 BLEU improvement over Transformers on the WMT14 En-De dataset.",
+    "authors": [
+      "Mostafa Dehghani",
+      "Stephan Gouws",
+      "Oriol Vinyals",
+      "Jakob Uszkoreit",
+      "\u0141ukasz Kaiser"
+    ],
+    "category": "cs.CL",
+    "published_date": "2018-07-10 18:39:15+00:00",
+    "updated_date": "2019-03-05 16:46:19+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1807.03819v3",
+    "pdf_url": "https://arxiv.org/pdf/1807.03819v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1910.00486v3",
+    "title": "Dialogue Transformers",
+    "abstract": "We introduce a dialogue policy based on a transformer architecture, where the self-attention mechanism operates over the sequence of dialogue turns. Recent work has used hierarchical recurrent neural networks to encode multiple utterances in a dialogue context, but we argue that a pure self-attention mechanism is more suitable. By default, an RNN assumes that every item in a sequence is relevant for producing an encoding of the full sequence, but a single conversation can consist of multiple overlapping discourse segments as speakers interleave multiple topics. A transformer picks which turns to include in its encoding of the current dialogue state, and is naturally suited to selectively ignoring or attending to dialogue history. We compare the performance of the Transformer Embedding Dialogue (TED) policy to an LSTM and to the REDP, which was specifically designed to overcome this limitation of RNNs.",
+    "authors": [
+      "Vladimir Vlasov",
+      "Johannes E. M. Mosig",
+      "Alan Nichol"
+    ],
+    "category": "cs.CL",
+    "published_date": "2019-10-01 15:36:27+00:00",
+    "updated_date": "2020-05-01 07:43:00+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1910.00486v3",
+    "pdf_url": "https://arxiv.org/pdf/1910.00486v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2005.04551v1",
+    "title": "Epipolar Transformers",
+    "abstract": "A common approach to localize 3D human joints in a synchronized and calibrated multi-view setup consists of two-steps: (1) apply a 2D detector separately on each view to localize joints in 2D, and (2) perform robust triangulation on 2D detections from each view to acquire the 3D joint locations. However, in step 1, the 2D detector is limited to solving challenging cases which could potentially be better resolved in 3D, such as occlusions and oblique viewing angles, purely in 2D without leveraging any 3D information. Therefore, we propose the differentiable \"epipolar transformer\", which enables the 2D detector to leverage 3D-aware features to improve 2D pose estimation. The intuition is: given a 2D location p in the current view, we would like to first find its corresponding point p' in a neighboring view, and then combine the features at p' with the features at p, thus leading to a 3D-aware feature at p. Inspired by stereo matching, the epipolar transformer leverages epipolar constraints and feature matching to approximate the features at p'. Experiments on InterHand and Human3.6M show that our approach has consistent improvements over the baselines. Specifically, in the condition where no external data is used, our Human3.6M model trained with ResNet-50 backbone and image size 256 x 256 outperforms state-of-the-art by 4.23 mm and achieves MPJPE 26.9 mm.",
+    "authors": [
+      "Yihui He",
+      "Rui Yan",
+      "Katerina Fragkiadaki",
+      "Shoou-I Yu"
+    ],
+    "category": "cs.CV",
+    "published_date": "2020-05-10 02:22:54+00:00",
+    "updated_date": "2020-05-10 02:22:54+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2005.04551v1",
+    "pdf_url": "https://arxiv.org/pdf/2005.04551v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2006.11527v2",
+    "title": "Memory Transformer",
+    "abstract": "Transformer-based models have achieved state-of-the-art results in many natural language processing tasks. The self-attention architecture allows transformer to combine information from all elements of a sequence into context-aware representations. However, information about the context is stored mostly in the same element-wise representations. This might limit the processing of properties related to the sequence as a whole more difficult. Adding trainable memory to selectively store local as well as global representations of a sequence is a promising direction to improve the Transformer model. Memory-augmented neural networks (MANNs) extend traditional neural architectures with general-purpose memory for representations. MANNs have demonstrated the capability to learn simple algorithms like Copy or Reverse and can be successfully trained via backpropagation on diverse tasks from question answering to language modeling outperforming RNNs and LSTMs of comparable complexity. In this work, we propose and study few extensions of the Transformer baseline (1) by adding memory tokens to store non-local representations, (2) creating memory bottleneck for the global information, (3) controlling memory update with dedicated layer. We evaluate these memory augmented Transformers and demonstrate that presence of memory positively correlates with the model performance for machine translation and language modelling tasks. Augmentation of pre-trained masked language model with memory tokens shows mixed results for tasks from GLUE benchmark. Visualization of attention patterns over the memory suggest that it improves the model's ability to process a global context.",
+    "authors": [
+      "Mikhail S. Burtsev",
+      "Yuri Kuratov",
+      "Anton Peganov",
+      "Grigory V. Sapunov"
+    ],
+    "category": "cs.CL",
+    "published_date": "2020-06-20 09:06:27+00:00",
+    "updated_date": "2021-02-16 08:06:47+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2006.11527v2",
+    "pdf_url": "https://arxiv.org/pdf/2006.11527v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2010.15583v3",
+    "title": "Probabilistic Transformers",
+    "abstract": "We show that Transformers are Maximum Posterior Probability estimators for Mixtures of Gaussian Models. This brings a probabilistic point of view to Transformers and suggests extensions to other probabilistic cases.",
+    "authors": [
+      "Javier R. Movellan",
+      "Prasad Gabbur"
+    ],
+    "category": "cs.LG",
+    "published_date": "2020-10-15 01:44:59+00:00",
+    "updated_date": "2020-11-12 16:40:17+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2010.15583v3",
+    "pdf_url": "https://arxiv.org/pdf/2010.15583v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2204.05172v2",
+    "title": "Event Transformer",
+    "abstract": "The event camera's low power consumption and ability to capture microsecond brightness changes make it attractive for various computer vision tasks. Existing event representation methods typically convert events into frames, voxel grids, or spikes for deep neural networks (DNNs). However, these approaches often sacrifice temporal granularity or require specialized devices for processing. This work introduces a novel token-based event representation, where each event is considered a fundamental processing unit termed an event-token. This approach preserves the sequence's intricate spatiotemporal attributes at the event level. Moreover, we propose a Three-way Attention mechanism in the Event Transformer Block (ETB) to collaboratively construct temporal and spatial correlations between events. We compare our proposed token-based event representation extensively with other prevalent methods for object classification and optical flow estimation. The experimental results showcase its competitive performance while demanding minimal computational resources on standard devices. Our code is publicly accessible at \\url{https://github.com/NJUVISION/EventTransformer}.",
+    "authors": [
+      "Bin Jiang",
+      "Zhihao Li",
+      "M. Salman Asif",
+      "Xun Cao",
+      "Zhan Ma"
+    ],
+    "category": "cs.CV",
+    "published_date": "2022-04-11 15:05:06+00:00",
+    "updated_date": "2024-06-12 15:06:10+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2204.05172v2",
+    "pdf_url": "https://arxiv.org/pdf/2204.05172v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2205.12956v2",
+    "title": "Inception Transformer",
+    "abstract": "Recent studies show that Transformer has strong capability of building long-range dependencies, yet is incompetent in capturing high frequencies that predominantly convey local information. To tackle this issue, we present a novel and general-purpose Inception Transformer, or iFormer for short, that effectively learns comprehensive features with both high- and low-frequency information in visual data. Specifically, we design an Inception mixer to explicitly graft the advantages of convolution and max-pooling for capturing the high-frequency information to Transformers. Different from recent hybrid frameworks, the Inception mixer brings greater efficiency through a channel splitting mechanism to adopt parallel convolution/max-pooling path and self-attention path as high- and low-frequency mixers, while having the flexibility to model discriminative information scattered within a wide frequency range. Considering that bottom layers play more roles in capturing high-frequency details while top layers more in modeling low-frequency global information, we further introduce a frequency ramp structure, i.e. gradually decreasing the dimensions fed to the high-frequency mixer and increasing those to the low-frequency mixer, which can effectively trade-off high- and low-frequency components across different layers. We benchmark the iFormer on a series of vision tasks, and showcase that it achieves impressive performance on image classification, COCO detection and ADE20K segmentation. For example, our iFormer-S hits the top-1 accuracy of 83.4% on ImageNet-1K, much higher than DeiT-S by 3.6%, and even slightly better than much bigger model Swin-B (83.3%) with only 1/4 parameters and 1/3 FLOPs. Code and models will be released at https://github.com/sail-sg/iFormer.",
+    "authors": [
+      "Chenyang Si",
+      "Weihao Yu",
+      "Pan Zhou",
+      "Yichen Zhou",
+      "Xinchao Wang",
+      "Shuicheng Yan"
+    ],
+    "category": "cs.CV",
+    "published_date": "2022-05-25 17:59:54+00:00",
+    "updated_date": "2022-05-26 17:18:32+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2205.12956v2",
+    "pdf_url": "https://arxiv.org/pdf/2205.12956v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2210.06423v2",
+    "title": "Foundation Transformers",
+    "abstract": "A big convergence of model architectures across language, vision, speech, and multimodal is emerging. However, under the same name \"Transformers\", the above areas use different implementations for better performance, e.g., Post-LayerNorm for BERT, and Pre-LayerNorm for GPT and vision Transformers. We call for the development of Foundation Transformer for true general-purpose modeling, which serves as a go-to architecture for various tasks and modalities with guaranteed training stability. In this work, we introduce a Transformer variant, named Magneto, to fulfill the goal. Specifically, we propose Sub-LayerNorm for good expressivity, and the initialization strategy theoretically derived from DeepNet for stable scaling up. Extensive experiments demonstrate its superior performance and better stability than the de facto Transformer variants designed for various applications, including language modeling (i.e., BERT, and GPT), machine translation, vision pretraining (i.e., BEiT), speech recognition, and multimodal pretraining (i.e., BEiT-3).",
+    "authors": [
+      "Hongyu Wang",
+      "Shuming Ma",
+      "Shaohan Huang",
+      "Li Dong",
+      "Wenhui Wang",
+      "Zhiliang Peng",
+      "Yu Wu",
+      "Payal Bajaj",
+      "Saksham Singhal",
+      "Alon Benhaim",
+      "Barun Patra",
+      "Zhun Liu",
+      "Vishrav Chaudhary",
+      "Xia Song",
+      "Furu Wei"
+    ],
+    "category": "cs.LG",
+    "published_date": "2022-10-12 17:16:27+00:00",
+    "updated_date": "2022-10-19 11:03:35+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2210.06423v2",
+    "pdf_url": "https://arxiv.org/pdf/2210.06423v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2302.07253v2",
+    "title": "Energy Transformer",
+    "abstract": "Our work combines aspects of three promising paradigms in machine learning, namely, attention mechanism, energy-based models, and associative memory. Attention is the power-house driving modern deep learning successes, but it lacks clear theoretical foundations. Energy-based models allow a principled approach to discriminative and generative tasks, but the design of the energy functional is not straightforward. At the same time, Dense Associative Memory models or Modern Hopfield Networks have a well-established theoretical foundation, and allow an intuitive design of the energy function. We propose a novel architecture, called the Energy Transformer (or ET for short), that uses a sequence of attention layers that are purposely designed to minimize a specifically engineered energy function, which is responsible for representing the relationships between the tokens. In this work, we introduce the theoretical foundations of ET, explore its empirical capabilities using the image completion task, and obtain strong quantitative results on the graph anomaly detection and graph classification tasks.",
+    "authors": [
+      "Benjamin Hoover",
+      "Yuchen Liang",
+      "Bao Pham",
+      "Rameswar Panda",
+      "Hendrik Strobelt",
+      "Duen Horng Chau",
+      "Mohammed J. Zaki",
+      "Dmitry Krotov"
+    ],
+    "category": "cs.LG",
+    "published_date": "2023-02-14 18:51:22+00:00",
+    "updated_date": "2023-11-01 00:14:30+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2302.07253v2",
+    "pdf_url": "https://arxiv.org/pdf/2302.07253v2.pdf",
+    "doi": null,
+    "journal_ref": "37th Conference on Neural Information Processing Systems (NeurIPS\n  2023)"
+  },
+  {
+    "id": "2302.10360v1",
+    "title": "Optical Transformers",
+    "abstract": "The rapidly increasing size of deep-learning models has caused renewed and growing interest in alternatives to digital computers to dramatically reduce the energy cost of running state-of-the-art neural networks. Optical matrix-vector multipliers are best suited to performing computations with very large operands, which suggests that large Transformer models could be a good target for optical computing. To test this idea, we performed small-scale optical experiments with a prototype accelerator to demonstrate that Transformer operations can run on optical hardware despite noise and errors. Using simulations, validated by our experiments, we then explored the energy efficiency of optical implementations of Transformers and identified scaling laws for model performance with respect to optical energy usage. We found that the optical energy per multiply-accumulate (MAC) scales as $\\frac{1}{d}$ where $d$ is the Transformer width, an asymptotic advantage over digital systems. We conclude that with well-engineered, large-scale optical hardware, it may be possible to achieve a $100 \\times$ energy-efficiency advantage for running some of the largest current Transformer models, and that if both the models and the optical hardware are scaled to the quadrillion-parameter regime, optical computers could have a $>8,000\\times$ energy-efficiency advantage over state-of-the-art digital-electronic processors that achieve 300 fJ/MAC. We analyzed how these results motivate and inform the construction of future optical accelerators along with optics-amenable deep-learning approaches. With assumptions about future improvements to electronics and Transformer quantization techniques (5$\\times$ cheaper memory access, double the digital--analog conversion efficiency, and 4-bit precision), we estimated that optical computers' advantage against current 300-fJ/MAC digital processors could grow to $>100,000\\times$.",
+    "authors": [
+      "Maxwell G. Anderson",
+      "Shi-Yuan Ma",
+      "Tianyu Wang",
+      "Logan G. Wright",
+      "Peter L. McMahon"
+    ],
+    "category": "cs.ET",
+    "published_date": "2023-02-20 23:30:23+00:00",
+    "updated_date": "2023-02-20 23:30:23+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2302.10360v1",
+    "pdf_url": "https://arxiv.org/pdf/2302.10360v1.pdf",
+    "doi": null,
+    "journal_ref": "Transactions on Machine Learning Research, 03/2024,\n  https://openreview.net/forum?id=Xxw0edFFQC"
+  },
+  {
+    "id": "2309.12862v4",
+    "title": "Associative Transformer",
+    "abstract": "Emerging from the pairwise attention in conventional Transformers, there is a growing interest in sparse attention mechanisms that align more closely with localized, contextual learning in the biological brain. Existing studies such as the Coordination method employ iterative cross-attention mechanisms with a bottleneck to enable the sparse association of inputs. However, these methods are parameter inefficient and fail in more complex relational reasoning tasks. To this end, we propose Associative Transformer (AiT) to enhance the association among sparsely attended input tokens, improving parameter efficiency and performance in various vision tasks such as classification and relational reasoning. AiT leverages a learnable explicit memory comprising specialized priors that guide bottleneck attentions to facilitate the extraction of diverse localized tokens. Moreover, AiT employs an associative memory-based token reconstruction using a Hopfield energy function. The extensive empirical experiments demonstrate that AiT requires significantly fewer parameters and attention layers outperforming a broad range of sparse Transformer models. Additionally, AiT outperforms the SOTA sparse Transformer models including the Coordination method on the Sort-of-CLEVR dataset.",
+    "authors": [
+      "Yuwei Sun",
+      "Hideya Ochiai",
+      "Zhirong Wu",
+      "Stephen Lin",
+      "Ryota Kanai"
+    ],
+    "category": "cs.LG",
+    "published_date": "2023-09-22 13:37:10+00:00",
+    "updated_date": "2025-03-11 09:04:22+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2309.12862v4",
+    "pdf_url": "https://arxiv.org/pdf/2309.12862v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2311.01724v4",
+    "title": "Holography Transformer",
+    "abstract": "We have constructed a generative artificial intelligence model to predict dual gravity solutions when provided with the input of holographic entanglement entropy. The model utilized in our study is based on the transformer algorithm, widely used for various natural language tasks including text generation, summarization, and translation. This algorithm possesses the ability to understand the meanings of input and output sequences by utilizing multi-head attention layers. In the training procedure, we generated pairs of examples consisting of holographic entanglement entropy data and their corresponding metric solutions. Once the model has completed the training process, it demonstrates the ability to generate predictions regarding a dual geometry that corresponds to the given holographic entanglement entropy. Subsequently, we proceed to validate the dual geometry to confirm its correspondence with the holographic entanglement entropy data.",
+    "authors": [
+      "Chanyong Park",
+      "Sejin Kim",
+      "Jung Hun Lee"
+    ],
+    "category": "hep-th",
+    "published_date": "2023-11-03 05:41:49+00:00",
+    "updated_date": "2025-07-02 13:22:05+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2311.01724v4",
+    "pdf_url": "https://arxiv.org/pdf/2311.01724v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2311.03235v1",
+    "title": "p-Laplacian Transformer",
+    "abstract": "$p$-Laplacian regularization, rooted in graph and image signal processing, introduces a parameter $p$ to control the regularization effect on these data. Smaller values of $p$ promote sparsity and interpretability, while larger values encourage smoother solutions. In this paper, we first show that the self-attention mechanism obtains the minimal Laplacian regularization ($p=2$) and encourages the smoothness in the architecture. However, the smoothness is not suitable for the heterophilic structure of self-attention in transformers where attention weights between tokens that are in close proximity and non-close ones are assigned indistinguishably. From that insight, we then propose a novel class of transformers, namely the $p$-Laplacian Transformer (p-LaT), which leverages $p$-Laplacian regularization framework to harness the heterophilic features within self-attention layers. In particular, low $p$ values will effectively assign higher attention weights to tokens that are in close proximity to the current token being processed. We empirically demonstrate the advantages of p-LaT over the baseline transformers on a wide range of benchmark datasets.",
+    "authors": [
+      "Tuan Nguyen",
+      "Tam Nguyen",
+      "Vinh Nguyen",
+      "Tan M. Nguyen"
+    ],
+    "category": "cs.LG",
+    "published_date": "2023-11-06 16:25:56+00:00",
+    "updated_date": "2023-11-06 16:25:56+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2311.03235v1",
+    "pdf_url": "https://arxiv.org/pdf/2311.03235v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2410.05258v2",
+    "title": "Differential Transformer",
+    "abstract": "Transformer tends to overallocate attention to irrelevant context. In this work, we introduce Diff Transformer, which amplifies attention to the relevant context while canceling noise. Specifically, the differential attention mechanism calculates attention scores as the difference between two separate softmax attention maps. The subtraction cancels noise, promoting the emergence of sparse attention patterns. Experimental results on language modeling show that Diff Transformer outperforms Transformer in various settings of scaling up model size and training tokens. More intriguingly, it offers notable advantages in practical applications, such as long-context modeling, key information retrieval, hallucination mitigation, in-context learning, and reduction of activation outliers. By being less distracted by irrelevant context, Diff Transformer can mitigate hallucination in question answering and text summarization. For in-context learning, Diff Transformer not only enhances accuracy but is also more robust to order permutation, which was considered as a chronic robustness issue. The results position Diff Transformer as a highly effective and promising architecture to advance large language models.",
+    "authors": [
+      "Tianzhu Ye",
+      "Li Dong",
+      "Yuqing Xia",
+      "Yutao Sun",
+      "Yi Zhu",
+      "Gao Huang",
+      "Furu Wei"
+    ],
+    "category": "cs.CL",
+    "published_date": "2024-10-07 17:57:38+00:00",
+    "updated_date": "2025-04-07 12:04:28+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2410.05258v2",
+    "pdf_url": "https://arxiv.org/pdf/2410.05258v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2501.17486v1",
+    "title": "DINT Transformer",
+    "abstract": "DIFF Transformer addresses the issue of irrelevant context interference by introducing a differential attention mechanism that enhances the robustness of local attention. However, it has two critical limitations: the lack of global context modeling, which is essential for identifying globally significant tokens, and numerical instability due to the absence of strict row normalization in the attention matrix. To overcome these challenges, we propose DINT Transformer, which extends DIFF Transformer by incorporating a differential-integral mechanism. By computing global importance scores and integrating them into the attention matrix, DINT Transformer improves its ability to capture global dependencies. Moreover, the unified parameter design enforces row-normalized attention matrices, improving numerical stability. Experimental results demonstrate that DINT Transformer excels in accuracy and robustness across various practical applications, such as long-context language modeling and key information retrieval. These results position DINT Transformer as a highly effective and promising architecture.",
+    "authors": [
+      "Yueyang Cang",
+      "Yuhang Liu",
+      "Xiaoteng Zhang",
+      "Erlu Zhao",
+      "Li Shi"
+    ],
+    "category": "cs.CL",
+    "published_date": "2025-01-29 08:53:29+00:00",
+    "updated_date": "2025-01-29 08:53:29+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2501.17486v1",
+    "pdf_url": "https://arxiv.org/pdf/2501.17486v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "9304214v1",
+    "title": "Wavelet transforms versus Fourier transforms",
+    "abstract": "This note is a very basic introduction to wavelets. It starts with an orthogonal basis of piecewise constant functions, constructed by dilation and translation. The ``wavelet transform'' maps each $f(x)$ to its coefficients with respect to this basis. The mathematics is simple and the transform is fast (faster than the Fast Fourier Transform, which we briefly explain), but approximation by piecewise constants is poor. To improve this first wavelet, we are led to dilation equations and their unusual solutions. Higher-order wavelets are constructed, and it is surprisingly quick to compute with them --- always indirectly and recursively. We comment informally on the contest between these transforms in signal processing, especially for video and image compression (including high-definition television). So far the Fourier Transform --- or its 8 by 8 windowed version, the Discrete Cosine Transform --- is often chosen. But wavelets are already competitive, and they are ahead for fingerprints. We present a sample of this developing theory.",
+    "authors": [
+      "Gilbert Strang"
+    ],
+    "category": "math.NA",
+    "published_date": "1993-04-01 00:00:00+00:00",
+    "updated_date": "1993-04-01 00:00:00+00:00",
+    "arxiv_url": "http://arxiv.org/abs/math/9304214v1",
+    "pdf_url": "https://arxiv.org/pdf/9304214v1.pdf",
+    "doi": null,
+    "journal_ref": "Bull. Amer. Math. Soc. (N.S.) 28 (1993) 288-305"
+  },
+  {
+    "id": "0911.2162v1",
+    "title": "Integral transformation and Darboux transformation",
+    "abstract": "We review Darboux-Crum transformation of Heun's differential equation. By rewriting an integral transformation of Heun's differential equation into a form of elliptic functions, we see that the integral representation is a generalization of Darboux-Crum transformation. We also consider conservation of monodromy with respect to the transformations.",
+    "authors": [
+      "Kouichi Takemura"
+    ],
+    "category": "math.CA",
+    "published_date": "2009-11-11 15:39:29+00:00",
+    "updated_date": "2009-11-11 15:39:29+00:00",
+    "arxiv_url": "http://arxiv.org/abs/0911.2162v1",
+    "pdf_url": "https://arxiv.org/pdf/0911.2162v1.pdf",
+    "doi": "http://dx.doi.org/10.1063/1.3367079",
+    "journal_ref": "AIP Conf.Proc.1212:58-65,2010"
+  },
+  {
+    "id": "1105.1427v2",
+    "title": "Riesz transforms for Dunkl transform",
+    "abstract": "In this paper we obtain the $L^p$-boundedness of Riesz transforms for Dunkl transform for all $1<p<\\infty$.",
+    "authors": [
+      "B\u00e9chir Amri",
+      "Mohamed Sifi"
+    ],
+    "category": "math.CA",
+    "published_date": "2011-05-07 09:00:11+00:00",
+    "updated_date": "2011-05-12 14:49:30+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1105.1427v2",
+    "pdf_url": "https://arxiv.org/pdf/1105.1427v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1107.3625v1",
+    "title": "Appell Transformation and Canonical Transforms",
+    "abstract": "The interpretation of the optical Appell transformation, as previously elaborated in relation to the free-space paraxial propagation under both a rectangular and a circular cylindrical symmetry, is reviewed. Then, the caloric Appell transformation, well known in the theory of heat equation, is shown to be amenable for a similar interpretation involving the Laplace transform rather than the Fourier transform, when dealing with the 1D heat equation. Accordingly, when considering the radial heat equation, suitably defined Hankel-type transforms come to be involved in the inherent Appell transformation. The analysis is aimed at outlining the link between the Appell transformation and the canonical transforms.",
+    "authors": [
+      "Amalia Torre"
+    ],
+    "category": "math-ph",
+    "published_date": "2011-07-19 05:25:36+00:00",
+    "updated_date": "2011-07-19 05:25:36+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1107.3625v1",
+    "pdf_url": "https://arxiv.org/pdf/1107.3625v1.pdf",
+    "doi": "http://dx.doi.org/10.3842/SIGMA.2011.072",
+    "journal_ref": "SIGMA 7 (2011), 072, 34 pages"
+  },
+  {
+    "id": "2111.07602v1",
+    "title": "Spectral Transform Forms Scalable Transformer",
+    "abstract": "Many real-world relational systems, such as social networks and biological systems, contain dynamic interactions. When learning dynamic graph representation, it is essential to employ sequential temporal information and geometric structure. Mainstream work achieves topological embedding via message passing networks (e.g., GCN, GAT). The temporal evolution, on the other hand, is conventionally expressed via memory units (e.g., LSTM or GRU) that possess convenient information filtration in a gate mechanism. Though, such a design prevents large-scale input sequence due to the over-complicated encoding. This work learns from the philosophy of self-attention and proposes an efficient spectral-based neural unit that employs informative long-range temporal interaction. The developed spectral window unit (SWINIT) model predicts scalable dynamic graphs with assured efficiency. The architecture is assembled with a few simple effective computational blocks that constitute randomized SVD, MLP, and graph Framelet convolution. The SVD plus MLP module encodes the long-short-term feature evolution of the dynamic graph events. A fast framelet graph transform in the framelet convolution embeds the structural dynamics. Both strategies enhance the model's ability on scalable analysis. In particular, the iterative SVD approximation shrinks the computational complexity of attention to O(Nd\\log(d)) for the dynamic graph with N edges and d edge features, and the multiscale transform of framelet convolution allows sufficient scalability in the network training. Our SWINIT achieves state-of-the-art performance on a variety of online continuous-time dynamic graph learning tasks, while compared to baseline methods, the number of its learnable parameters reduces by up to seven times.",
+    "authors": [
+      "Bingxin Zhou",
+      "Xinliang Liu",
+      "Yuehua Liu",
+      "Yunying Huang",
+      "Pietro Li\u00f2",
+      "YuGuang Wang"
+    ],
+    "category": "cs.LG",
+    "published_date": "2021-11-15 08:46:01+00:00",
+    "updated_date": "2021-11-15 08:46:01+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2111.07602v1",
+    "pdf_url": "https://arxiv.org/pdf/2111.07602v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0511211v1",
+    "title": "Gauge transformations are not canonical transformations",
+    "abstract": "In classical mechanics, we can describe the dynamics of a given system using either the Lagrangian formalism or the Hamiltonian formalism, the choice of either one being determined by whether one wants to deal with a second degree differential equation or a pair of first degree ones. For the former approach, we know that the Euler-Lagrange equation of motion remains invariant under additive total derivative with respect to time of any function of coordinates and time in the Lagrangian function, whereas the latter one is invariant under canonical transformations. In this short paper we address the question whether the transformation that leaves the Euler-Lagrange equation of motion invariant is also a canonical transformation and show that it is not.",
+    "authors": [
+      "A. T. Suzuki",
+      "J. H. O. Sales"
+    ],
+    "category": "hep-th",
+    "published_date": "2005-11-21 18:20:51+00:00",
+    "updated_date": "2005-11-21 18:20:51+00:00",
+    "arxiv_url": "http://arxiv.org/abs/hep-th/0511211v1",
+    "pdf_url": "https://arxiv.org/pdf/0511211v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0604173v1",
+    "title": "Comment on \"Gauge transformations are Canonical transformations\"",
+    "abstract": "We comment on the work of Tai L Chow, Eur. J. Phys. 18, 467 (1997). By considering the Lagrangians which are uniquely defined only to within an additive total time derivative of a function of co-ordinates and time the author has tried to show that the gauge transformations which relate these Lagrangians are canonical transformations. He has obtained the right conclusion only by using wrong canonical equations and the entire exercise has hence become erroneous and inconclusive. By using the definition of canonical transformation through Poisson brackets we prove that the above gauge transformations are canonical transformations.",
+    "authors": [
+      "Pathikrit Bhattacharya",
+      "Bhabani Prasad Mandal"
+    ],
+    "category": "physics.class-ph",
+    "published_date": "2006-04-21 04:06:28+00:00",
+    "updated_date": "2006-04-21 04:06:28+00:00",
+    "arxiv_url": "http://arxiv.org/abs/physics/0604173v1",
+    "pdf_url": "https://arxiv.org/pdf/0604173v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0704.2744v2",
+    "title": "Nahm transform and parabolic minimal Laplace transform",
+    "abstract": "We prove that Nahm transform for integrable connections with a finite number of regular singularities and an irregular singularity of rank 1 on the Riemann sphere is equivalent -- up to considering integrable connections as holonomic $\\D$-modules -- to minimal Laplace transform. We assume semi-simplicity and resonance-freeness conditions, and we work in the framework of objects with a parabolic structure. In particular, we describe the definition of the parabolic version of Laplace transform due to C. Sabbah. The proof of the main result relies on the study of a twisted de Rham complex.",
+    "authors": [
+      "Szilard Szabo"
+    ],
+    "category": "math.AG",
+    "published_date": "2007-04-20 15:00:53+00:00",
+    "updated_date": "2011-09-02 15:32:04+00:00",
+    "arxiv_url": "http://arxiv.org/abs/0704.2744v2",
+    "pdf_url": "https://arxiv.org/pdf/0704.2744v2.pdf",
+    "doi": null,
+    "journal_ref": "Journal of Geometry and Physics 62 (2012) 2241--2258"
+  },
+  {
+    "id": "0707.2338v3",
+    "title": "Lorentz transformation by mimicking the Lorentz transformation",
+    "abstract": "We show that starting with the fact that special relativity theory is concerned with a distortion of the observed length of a moving rod, without mentioning if it is a \"contraction\" or \"dilation\", we can derive the Lorentz transformations for the spacetime coordinates of the same event. This derivation is based on expressing the length of the moving rod as a sum of components with all the lengths involved in this summation being measured by the observers of the same inertial reference frame.",
+    "authors": [
+      "Bernhard Rothenstein",
+      "Stefan Popescu"
+    ],
+    "category": "physics.gen-ph",
+    "published_date": "2007-07-16 15:09:38+00:00",
+    "updated_date": "2007-09-24 12:30:47+00:00",
+    "arxiv_url": "http://arxiv.org/abs/0707.2338v3",
+    "pdf_url": "https://arxiv.org/pdf/0707.2338v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1110.1589v2",
+    "title": "Type-II B\u00e4cklund Transformations via Gauge Transformations",
+    "abstract": "The construction of type II Backlund transformation for the sine-Gordon and the Tzitzeica-Bullough-Dodd models are obtained from gauge transformation. An infinite number of conserved quantities are constructed from the defect matrices. This guarantees that the introduction of type II defects for these models does not spoil their integrability. In particular, modified energy and momentum are derived and compared with those presented in recent literature.",
+    "authors": [
+      "A. R. Aguirre",
+      "T. R. Araujo",
+      "J. F. Gomes",
+      "A. H. Zimerman"
+    ],
+    "category": "nlin.SI",
+    "published_date": "2011-10-07 17:19:27+00:00",
+    "updated_date": "2011-12-19 13:22:00+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1110.1589v2",
+    "pdf_url": "https://arxiv.org/pdf/1110.1589v2.pdf",
+    "doi": "http://dx.doi.org/10.1007/JHEP12(2011)056",
+    "journal_ref": "Journal of High Energy Physics, Volume 2011, Number 12, 56"
+  },
+  {
+    "id": "2109.15129v1",
+    "title": "Convolution-Free Waveform Transformers for Multi-Lead ECG Classification",
+    "abstract": "We present our entry to the 2021 PhysioNet/CinC challenge - a waveform transformer model to detect cardiac abnormalities from ECG recordings. We compare the performance of the waveform transformer model on different ECG-lead subsets using approximately 88,000 ECG recordings from six datasets. In the official rankings, team prna ranked between 9 and 15 on 12, 6, 4, 3 and 2-lead sets respectively. Our waveform transformer model achieved an average challenge metric of 0.47 on the held-out test set across all ECG-lead subsets. Our combined performance across all leads placed us at rank 11 out of 39 officially ranking teams.",
+    "authors": [
+      "Annamalai Natarajan",
+      "Gregory Boverman",
+      "Yale Chang",
+      "Corneliu Antonescu",
+      "Jonathan Rubin"
+    ],
+    "category": "eess.SP",
+    "published_date": "2021-09-29 12:54:15+00:00",
+    "updated_date": "2021-09-29 12:54:15+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2109.15129v1",
+    "pdf_url": "https://arxiv.org/pdf/2109.15129v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2110.15225v3",
+    "title": "Pruning Attention Heads of Transformer Models Using A* Search: A Novel   Approach to Compress Big NLP Architectures",
+    "abstract": "Recent years have seen a growing adoption of Transformer models such as BERT in Natural Language Processing and even in Computer Vision. However, due to their size, there has been limited adoption of such models within resource-constrained computing environments. This paper proposes novel pruning algorithm to compress transformer models by eliminating redundant Attention Heads. We apply the A* search algorithm to obtain a pruned model with strict accuracy guarantees. Our results indicate that the method could eliminate as much as 40% of the attention heads in the BERT transformer model with no loss in accuracy.",
+    "authors": [
+      "Archit Parnami",
+      "Rahul Singh",
+      "Tarun Joshi"
+    ],
+    "category": "cs.CL",
+    "published_date": "2021-10-28 15:39:11+00:00",
+    "updated_date": "2021-11-17 14:50:51+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2110.15225v3",
+    "pdf_url": "https://arxiv.org/pdf/2110.15225v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2211.02519v1",
+    "title": "BERT for Long Documents: A Case Study of Automated ICD Coding",
+    "abstract": "Transformer models have achieved great success across many NLP problems. However, previous studies in automated ICD coding concluded that these models fail to outperform some of the earlier solutions such as CNN-based models. In this paper we challenge this conclusion. We present a simple and scalable method to process long text with the existing transformer models such as BERT. We show that this method significantly improves the previous results reported for transformer models in ICD coding, and is able to outperform one of the prominent CNN-based methods.",
+    "authors": [
+      "Arash Afkanpour",
+      "Shabir Adeel",
+      "Hansenclever Bassani",
+      "Arkady Epshteyn",
+      "Hongbo Fan",
+      "Isaac Jones",
+      "Mahan Malihi",
+      "Adrian Nauth",
+      "Raj Sinha",
+      "Sanjana Woonna",
+      "Shiva Zamani",
+      "Elli Kanal",
+      "Mikhail Fomitchev",
+      "Donny Cheung"
+    ],
+    "category": "cs.CL",
+    "published_date": "2022-11-04 15:24:19+00:00",
+    "updated_date": "2022-11-04 15:24:19+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2211.02519v1",
+    "pdf_url": "https://arxiv.org/pdf/2211.02519v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2408.16495v1",
+    "title": "On-device AI: Quantization-aware Training of Transformers in Time-Series",
+    "abstract": "Artificial Intelligence (AI) models for time-series in pervasive computing keep getting larger and more complicated. The Transformer model is by far the most compelling of these AI models. However, it is difficult to obtain the desired performance when deploying such a massive model on a sensor device with limited resources. My research focuses on optimizing the Transformer model for time-series forecasting tasks. The optimized model will be deployed as hardware accelerators on embedded Field Programmable Gate Arrays (FPGAs). I will investigate the impact of applying Quantization-aware Training to the Transformer model to reduce its size and runtime memory footprint while maximizing the advantages of FPGAs.",
+    "authors": [
+      "Tianheng Ling",
+      "Gregor Schiele"
+    ],
+    "category": "cs.LG",
+    "published_date": "2024-08-29 12:49:22+00:00",
+    "updated_date": "2024-08-29 12:49:22+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2408.16495v1",
+    "pdf_url": "https://arxiv.org/pdf/2408.16495v1.pdf",
+    "doi": "http://dx.doi.org/10.1109/PerComWorkshops56833.2023.10150339",
+    "journal_ref": null
+  },
+  {
+    "id": "2504.14697v2",
+    "title": "Quantitative Clustering in Mean-Field Transformer Models",
+    "abstract": "The evolution of tokens through a deep transformer models can be modeled as an interacting particle system that has been shown to exhibit an asymptotic clustering behavior akin to the synchronization phenomenon in Kuramoto models. In this work, we investigate the long-time clustering of mean-field transformer models. More precisely, we establish exponential rates of contraction to a Dirac point mass for any suitably regular initialization under some assumptions on the parameters of transformer models, any suitably regular mean-field initialization synchronizes exponentially fast with some quantitative rates.",
+    "authors": [
+      "Shi Chen",
+      "Zhengjiang Lin",
+      "Yury Polyanskiy",
+      "Philippe Rigollet"
+    ],
+    "category": "cs.LG",
+    "published_date": "2025-04-20 18:21:34+00:00",
+    "updated_date": "2025-04-30 13:35:39+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2504.14697v2",
+    "pdf_url": "https://arxiv.org/pdf/2504.14697v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0511508v1",
+    "title": "Quantile regression in transformation models",
+    "abstract": "Conditional quantiles provide a natural tool for reporting results from regression analyses based on semiparametric transformation models. We consider their estimation and construction of confidence sets in the presence of censoring.",
+    "authors": [
+      "Dorota M. Dabrowska"
+    ],
+    "category": "math.ST",
+    "published_date": "2005-11-21 04:07:16+00:00",
+    "updated_date": "2005-11-21 04:07:16+00:00",
+    "arxiv_url": "http://arxiv.org/abs/math/0511508v1",
+    "pdf_url": "https://arxiv.org/pdf/0511508v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1803.07416v1",
+    "title": "Tensor2Tensor for Neural Machine Translation",
+    "abstract": "Tensor2Tensor is a library for deep learning models that is well-suited for neural machine translation and includes the reference implementation of the state-of-the-art Transformer model.",
+    "authors": [
+      "Ashish Vaswani",
+      "Samy Bengio",
+      "Eugene Brevdo",
+      "Francois Chollet",
+      "Aidan N. Gomez",
+      "Stephan Gouws",
+      "Llion Jones",
+      "\u0141ukasz Kaiser",
+      "Nal Kalchbrenner",
+      "Niki Parmar",
+      "Ryan Sepassi",
+      "Noam Shazeer",
+      "Jakob Uszkoreit"
+    ],
+    "category": "cs.LG",
+    "published_date": "2018-03-16 18:49:22+00:00",
+    "updated_date": "2018-03-16 18:49:22+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1803.07416v1",
+    "pdf_url": "https://arxiv.org/pdf/1803.07416v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1812.10758v1",
+    "title": "Semiparametric Estimation for the Transformation Model with   Length-Biased Data and Covariate Measurement Error",
+    "abstract": "Analysis of survival data with biased samples caused by left-truncation or length-biased sampling has received extensive interest. Many inference methods have been developed for various survival models. These methods, however, break down when survival data are typically error-contaminated. Although error-prone survival data commonly arise in practice, little work has been available in the literature for handling length-biased data with measurement error. In survival analysis, the transformation model is one of the frequently used models. However, methods of analyzing the transformation model with those complex features have not been fully explored. In this paper, we study this important problem and develop a valid inference method under the transformation model. We establish asymptotic results for the proposed estimators. The proposed method enjoys appealing features in that there is no need to specify the distribution of the covariates and the increasing function in the transformation model. Numerical studies are reported to assess the performance of the proposed method.",
+    "authors": [
+      "Li-Pang Chen"
+    ],
+    "category": "math.ST",
+    "published_date": "2018-12-27 16:26:41+00:00",
+    "updated_date": "2018-12-27 16:26:41+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1812.10758v1",
+    "pdf_url": "https://arxiv.org/pdf/1812.10758v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2101.00387v2",
+    "title": "What all do audio transformer models hear? Probing Acoustic   Representations for Language Delivery and its Structure",
+    "abstract": "In recent times, BERT based transformer models have become an inseparable part of the 'tech stack' of text processing models. Similar progress is being observed in the speech domain with a multitude of models observing state-of-the-art results by using audio transformer models to encode speech. This begs the question of what are these audio transformer models learning. Moreover, although the standard methodology is to choose the last layer embedding for any downstream task, but is it the optimal choice? We try to answer these questions for the two recent audio transformer models, Mockingjay and wave2vec2.0. We compare them on a comprehensive set of language delivery and structure features including audio, fluency and pronunciation features. Additionally, we probe the audio models' understanding of textual surface, syntax, and semantic features and compare them to BERT. We do this over exhaustive settings for native, non-native, synthetic, read and spontaneous speech datasets",
+    "authors": [
+      "Jui Shah",
+      "Yaman Kumar Singla",
+      "Changyou Chen",
+      "Rajiv Ratn Shah"
+    ],
+    "category": "cs.CL",
+    "published_date": "2021-01-02 06:29:12+00:00",
+    "updated_date": "2021-07-12 22:46:37+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2101.00387v2",
+    "pdf_url": "https://arxiv.org/pdf/2101.00387v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2003.05683v1",
+    "title": "Identification in a Fully Nonparametric Transformation Model with   Heteroscedasticity",
+    "abstract": "The so far most general identification result in the context of nonparametric transformation models is proven. The result is constructive in the sense that it provides an explicit expression of the transformation function.",
+    "authors": [
+      "Nick Kloodt"
+    ],
+    "category": "math.ST",
+    "published_date": "2020-03-12 09:50:35+00:00",
+    "updated_date": "2020-03-12 09:50:35+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2003.05683v1",
+    "pdf_url": "https://arxiv.org/pdf/2003.05683v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2311.11626v1",
+    "title": "A novel transformer-based approach for soil temperature prediction",
+    "abstract": "Soil temperature is one of the most significant parameters that plays a crucial role in glacier energy, dynamics of mass balance, processes of surface hydrological, coaction of glacier-atmosphere, nutrient cycling, ecological stability, the management of soil, water, and field crop. In this work, we introduce a novel approach using transformer models for the purpose of forecasting soil temperature prediction. To the best of our knowledge, the usage of transformer models in this work is the very first attempt to predict soil temperature. Experiments are carried out using six different FLUXNET stations by modeling them with five different transformer models, namely, Vanilla Transformer, Informer, Autoformer, Reformer, and ETSformer. To demonstrate the effectiveness of the proposed model, experiment results are compared with both deep learning approaches and literature studies. Experiment results show that the utilization of transformer models ensures a significant contribution to the literature, thence determining the new state-of-the-art.",
+    "authors": [
+      "Muhammet Mucahit Enes Yurtsever",
+      "Ayhan Kucukmanisa",
+      "Zeynep Hilal Kilimci"
+    ],
+    "category": "cs.LG",
+    "published_date": "2023-11-20 09:20:26+00:00",
+    "updated_date": "2023-11-20 09:20:26+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2311.11626v1",
+    "pdf_url": "https://arxiv.org/pdf/2311.11626v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2311.13755v1",
+    "title": "Transformer-based Named Entity Recognition in Construction Supply Chain   Risk Management in Australia",
+    "abstract": "The construction industry in Australia is characterized by its intricate supply chains and vulnerability to myriad risks. As such, effective supply chain risk management (SCRM) becomes imperative. This paper employs different transformer models, and train for Named Entity Recognition (NER) in the context of Australian construction SCRM. Utilizing NER, transformer models identify and classify specific risk-associated entities in news articles, offering a detailed insight into supply chain vulnerabilities. By analysing news articles through different transformer models, we can extract relevant entities and insights related to specific risk taxonomies local (milieu) to the Australian construction landscape. This research emphasises the potential of NLP-driven solutions, like transformer models, in revolutionising SCRM for construction in geo-media specific contexts.",
+    "authors": [
+      "Milad Baghalzadeh Shishehgarkhaneh",
+      "Robert C. Moehler",
+      "Yihai Fang",
+      "Amer A. Hijazi",
+      "Hamed Aboutorab"
+    ],
+    "category": "cs.CL",
+    "published_date": "2023-11-23 01:06:08+00:00",
+    "updated_date": "2023-11-23 01:06:08+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2311.13755v1",
+    "pdf_url": "https://arxiv.org/pdf/2311.13755v1.pdf",
+    "doi": "http://dx.doi.org/10.1109/ACCESS.2024.3377232",
+    "journal_ref": null
+  },
+  {
+    "id": "2402.06684v1",
+    "title": "Ai4Fapar: How artificial intelligence can help to forecast the seasonal   earth observation signal",
+    "abstract": "This paper investigated the potential of a multivariate Transformer model to forecast the temporal trajectory of the Fraction of Absorbed Photosynthetically Active Radiation (FAPAR) for short (1 month) and long horizon (more than 1 month) periods at the regional level in Europe and North Africa. The input data covers the period from 2002 to 2022 and includes remote sensing and weather data for modelling FAPAR predictions. The model was evaluated using a leave one year out cross-validation and compared with the climatological benchmark. Results show that the transformer model outperforms the benchmark model for one month forecasting horizon, after which the climatological benchmark is better. The RMSE values of the transformer model ranged from 0.02 to 0.04 FAPAR units for the first 2 months of predictions. Overall, the tested Transformer model is a valid method for FAPAR forecasting, especially when combined with weather data and used for short-term predictions.",
+    "authors": [
+      "Filip Sabo",
+      "Martin Claverie",
+      "Michele Meroni",
+      "Arthur Hrast Essenfelder"
+    ],
+    "category": "physics.ao-ph",
+    "published_date": "2024-02-08 11:00:51+00:00",
+    "updated_date": "2024-02-08 11:00:51+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2402.06684v1",
+    "pdf_url": "https://arxiv.org/pdf/2402.06684v1.pdf",
+    "doi": "http://dx.doi.org/10.2760/46796",
+    "journal_ref": "Proceedings of the 2023 conference on Big Data from Space, Soille,\n  P., Lumnitz, S. and Albani, S. editor(s), Publications Office of the European\n  Union, Luxembourg, 2023, JRC135493"
+  },
+  {
+    "id": "2406.07484v1",
+    "title": "Towards Generalized Hydrological Forecasting using Transformer Models   for 120-Hour Streamflow Prediction",
+    "abstract": "This study explores the efficacy of a Transformer model for 120-hour streamflow prediction across 125 diverse locations in Iowa, US. Utilizing data from the preceding 72 hours, including precipitation, evapotranspiration, and discharge values, we developed a generalized model to predict future streamflow. Our approach contrasts with traditional methods that typically rely on location-specific models. We benchmarked the Transformer model's performance against three deep learning models (LSTM, GRU, and Seq2Seq) and the Persistence approach, employing Nash-Sutcliffe Efficiency (NSE), Kling-Gupta Efficiency (KGE), Pearson's r, and Normalized Root Mean Square Error (NRMSE) as metrics. The study reveals the Transformer model's superior performance, maintaining higher median NSE and KGE scores and exhibiting the lowest NRMSE values. This indicates its capability to accurately simulate and predict streamflow, adapting effectively to varying hydrological conditions and geographical variances. Our findings underscore the Transformer model's potential as an advanced tool in hydrological modeling, offering significant improvements over traditional and contemporary approaches.",
+    "authors": [
+      "Bekir Z. Demiray",
+      "Ibrahim Demir"
+    ],
+    "category": "cs.LG",
+    "published_date": "2024-06-11 17:26:14+00:00",
+    "updated_date": "2024-06-11 17:26:14+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2406.07484v1",
+    "pdf_url": "https://arxiv.org/pdf/2406.07484v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2110.04337v1",
+    "title": "Adversarial Token Attacks on Vision Transformers",
+    "abstract": "Vision transformers rely on a patch token based self attention mechanism, in contrast to convolutional networks. We investigate fundamental differences between these two families of models, by designing a block sparsity based adversarial token attack. We probe and analyze transformer as well as convolutional models with token attacks of varying patch sizes. We infer that transformer models are more sensitive to token attacks than convolutional models, with ResNets outperforming Transformer models by up to $\\sim30\\%$ in robust accuracy for single token attacks.",
+    "authors": [
+      "Ameya Joshi",
+      "Gauri Jagatap",
+      "Chinmay Hegde"
+    ],
+    "category": "cs.CV",
+    "published_date": "2021-10-08 19:00:16+00:00",
+    "updated_date": "2021-10-08 19:00:16+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2110.04337v1",
+    "pdf_url": "https://arxiv.org/pdf/2110.04337v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2505.01575v2",
+    "title": "Asset Pricing in Pre-trained Transformer",
+    "abstract": "This paper proposes an innovative Transformer model, Single-directional representative from Transformer (SERT), for US large capital stock pricing. It also innovatively applies the pre-trained Transformer models under the stock pricing and factor investment context. They are compared with standard Transformer models and encoder-only Transformer models in three periods covering the entire COVID-19 pandemic to examine the model adaptivity and suitability during the extreme market fluctuations. Namely, pre-COVID-19 period (mild up-trend), COVID-19 period (sharp up-trend with deep down shock) and 1-year post-COVID-19 (high fluctuation sideways movement). The best proposed SERT model achieves the highest out-of-sample R2, 11.2% and 10.91% respectively, when extreme market fluctuation takes place followed by pre-trained Transformer models (10.38% and 9.15%). Their Trend-following-based strategy wise performance also proves their excellent capability for hedging downside risks during market shocks. The proposed SERT model achieves a Sortino ratio 47% higher than the buy-and-hold benchmark in the equal-weighted portfolio and 28% higher in the value-weighted portfolio when the pandemic period is attended. It proves that Transformer models have a great capability to capture patterns of temporal sparsity data in the asset pricing factor model, especially with considerable volatilities. We also find the softmax signal filter as the common configuration of Transformer models in alternative contexts, which only eliminates differences between models, but does not improve strategy-wise performance, while increasing attention heads improve the model performance insignificantly and applying the 'layer norm first' method do not boost the model performance in our case.",
+    "authors": [
+      "Shanyan Lai"
+    ],
+    "category": "q-fin.CP",
+    "published_date": "2025-05-02 20:38:59+00:00",
+    "updated_date": "2025-05-06 10:14:15+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2505.01575v2",
+    "pdf_url": "https://arxiv.org/pdf/2505.01575v2.pdf",
+    "doi": "http://dx.doi.org/10.5281/zenodo.15327831",
+    "journal_ref": null
+  },
+  {
+    "id": "2204.05454v1",
+    "title": "Are Multimodal Transformers Robust to Missing Modality?",
+    "abstract": "Multimodal data collected from the real world are often imperfect due to missing modalities. Therefore multimodal models that are robust against modal-incomplete data are highly preferred. Recently, Transformer models have shown great success in processing multimodal data. However, existing work has been limited to either architecture designs or pre-training strategies; whether Transformer models are naturally robust against missing-modal data has rarely been investigated. In this paper, we present the first-of-its-kind work to comprehensively investigate the behavior of Transformers in the presence of modal-incomplete data. Unsurprising, we find Transformer models are sensitive to missing modalities while different modal fusion strategies will significantly affect the robustness. What surprised us is that the optimal fusion strategy is dataset dependent even for the same Transformer model; there does not exist a universal strategy that works in general cases. Based on these findings, we propose a principle method to improve the robustness of Transformer models by automatically searching for an optimal fusion strategy regarding input data. Experimental validations on three benchmarks support the superior performance of the proposed method.",
+    "authors": [
+      "Mengmeng Ma",
+      "Jian Ren",
+      "Long Zhao",
+      "Davide Testuggine",
+      "Xi Peng"
+    ],
+    "category": "cs.CV",
+    "published_date": "2022-04-12 00:21:31+00:00",
+    "updated_date": "2022-04-12 00:21:31+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2204.05454v1",
+    "pdf_url": "https://arxiv.org/pdf/2204.05454v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2209.10966v2",
+    "title": "Adaptation of domain-specific transformer models with text oversampling   for sentiment analysis of social media posts on Covid-19 vaccines",
+    "abstract": "Covid-19 has spread across the world and several vaccines have been developed to counter its surge. To identify the correct sentiments associated with the vaccines from social media posts, we fine-tune various state-of-the-art pre-trained transformer models on tweets associated with Covid-19 vaccines. Specifically, we use the recently introduced state-of-the-art pre-trained transformer models RoBERTa, XLNet and BERT, and the domain-specific transformer models CT-BERT and BERTweet that are pre-trained on Covid-19 tweets. We further explore the option of text augmentation by oversampling using Language Model based Oversampling Technique (LMOTE) to improve the accuracies of these models, specifically, for small sample datasets where there is an imbalanced class distribution among the positive, negative and neutral sentiment classes. Our results summarize our findings on the suitability of text oversampling for imbalanced small sample datasets that are used to fine-tune state-of-the-art pre-trained transformer models, and the utility of domain-specific transformer models for the classification task.",
+    "authors": [
+      "Anmol Bansal",
+      "Arjun Choudhry",
+      "Anubhav Sharma",
+      "Seba Susan"
+    ],
+    "category": "cs.CL",
+    "published_date": "2022-09-22 12:36:40+00:00",
+    "updated_date": "2023-01-13 07:45:21+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2209.10966v2",
+    "pdf_url": "https://arxiv.org/pdf/2209.10966v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2302.09108v1",
+    "title": "ViTA: A Vision Transformer Inference Accelerator for Edge Applications",
+    "abstract": "Vision Transformer models, such as ViT, Swin Transformer, and Transformer-in-Transformer, have recently gained significant traction in computer vision tasks due to their ability to capture the global relation between features which leads to superior performance. However, they are compute-heavy and difficult to deploy in resource-constrained edge devices. Existing hardware accelerators, including those for the closely-related BERT transformer models, do not target highly resource-constrained environments. In this paper, we address this gap and propose ViTA - a configurable hardware accelerator for inference of vision transformer models, targeting resource-constrained edge computing devices and avoiding repeated off-chip memory accesses. We employ a head-level pipeline and inter-layer MLP optimizations, and can support several commonly used vision transformer models with changes solely in our control logic. We achieve nearly 90% hardware utilization efficiency on most vision transformer models, report a power of 0.88W when synthesised with a clock of 150 MHz, and get reasonable frame rates - all of which makes ViTA suitable for edge applications.",
+    "authors": [
+      "Shashank Nag",
+      "Gourav Datta",
+      "Souvik Kundu",
+      "Nitin Chandrachoodan",
+      "Peter A. Beerel"
+    ],
+    "category": "cs.AR",
+    "published_date": "2023-02-17 19:35:36+00:00",
+    "updated_date": "2023-02-17 19:35:36+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2302.09108v1",
+    "pdf_url": "https://arxiv.org/pdf/2302.09108v1.pdf",
+    "doi": "http://dx.doi.org/10.1109/ISCAS46773.2023.10181988",
+    "journal_ref": "2023 IEEE International Symposium on Circuits and Systems (ISCAS),\n  Monterey, CA, USA, 2023, pp. 1-5"
+  },
+  {
+    "id": "2405.02353v1",
+    "title": "Early Transformers: A study on Efficient Training of Transformer Models   through Early-Bird Lottery Tickets",
+    "abstract": "The training of Transformer models has revolutionized natural language processing and computer vision, but it remains a resource-intensive and time-consuming process. This paper investigates the applicability of the early-bird ticket hypothesis to optimize the training efficiency of Transformer models. We propose a methodology that combines iterative pruning, masked distance calculation, and selective retraining to identify early-bird tickets in various Transformer architectures, including ViT, Swin-T, GPT-2, and RoBERTa. Our experimental results demonstrate that early-bird tickets can be consistently found within the first few epochs of training or fine-tuning, enabling significant resource optimization without compromising performance. The pruned models obtained from early-bird tickets achieve comparable or even superior accuracy to their unpruned counterparts while substantially reducing memory usage. Furthermore, our comparative analysis highlights the generalizability of the early-bird ticket phenomenon across different Transformer models and tasks. This research contributes to the development of efficient training strategies for Transformer models, making them more accessible and resource-friendly. By leveraging early-bird tickets, practitioners can accelerate the progress of natural language processing and computer vision applications while reducing the computational burden associated with training Transformer models.",
+    "authors": [
+      "Shravan Cheekati"
+    ],
+    "category": "cs.CL",
+    "published_date": "2024-05-02 23:03:45+00:00",
+    "updated_date": "2024-05-02 23:03:45+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2405.02353v1",
+    "pdf_url": "https://arxiv.org/pdf/2405.02353v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2507.11729v1",
+    "title": "Globalization for Scalable Short-term Load Forecasting",
+    "abstract": "Forecasting load in power transmission networks is essential across various hierarchical levels, from the system level down to individual points of delivery (PoD). While intuitive and locally accurate, traditional local forecasting models (LFMs) face significant limitations, particularly in handling generalizability, overfitting, data drift, and the cold start problem. These methods also struggle with scalability, becoming computationally expensive and less efficient as the network's size and data volume grow. In contrast, global forecasting models (GFMs) offer a new approach to enhance prediction generalizability, scalability, accuracy, and robustness through globalization and cross-learning. This paper investigates global load forecasting in the presence of data drifts, highlighting the impact of different modeling techniques and data heterogeneity. We explore feature-transforming and target-transforming models, demonstrating how globalization, data heterogeneity, and data drift affect each differently. In addition, we examine the role of globalization in peak load forecasting and its potential for hierarchical forecasting. To address data heterogeneity and the balance between globality and locality, we propose separate time series clustering (TSC) methods, introducing model-based TSC for feature-transforming models and new weighted instance-based TSC for target-transforming models. Through extensive experiments on a real-world dataset of Alberta's electricity load, we demonstrate that global target-transforming models consistently outperform their local counterparts, especially when enriched with global features and clustering techniques. In contrast, global feature-transforming models face challenges in balancing local and global dynamics, often requiring TSC to manage data heterogeneity effectively.",
+    "authors": [
+      "Amirhossein Ahmadi",
+      "Hamidreza Zareipour",
+      "Henry Leung"
+    ],
+    "category": "cs.LG",
+    "published_date": "2025-07-15 20:58:14+00:00",
+    "updated_date": "2025-07-15 20:58:14+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2507.11729v1",
+    "pdf_url": "https://arxiv.org/pdf/2507.11729v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2104.14528v7",
+    "title": "GasHis-Transformer: A Multi-scale Visual Transformer Approach for   Gastric Histopathological Image Detection",
+    "abstract": "In this paper, a multi-scale visual transformer model, referred as GasHis-Transformer, is proposed for Gastric Histopathological Image Detection (GHID), which enables the automatic global detection of gastric cancer images. GasHis-Transformer model consists of two key modules designed to extract global and local information using a position-encoded transformer model and a convolutional neural network with local convolution, respectively. A publicly available hematoxylin and eosin (H&E) stained gastric histopathological image dataset is used in the experiment. Furthermore, a Dropconnect based lightweight network is proposed to reduce the model size and training time of GasHis-Transformer for clinical applications with improved confidence. Moreover, a series of contrast and extended experiments verify the robustness, extensibility and stability of GasHis-Transformer. In conclusion, GasHis-Transformer demonstrates high global detection performance and shows its significant potential in GHID task.",
+    "authors": [
+      "Haoyuan Chen",
+      "Chen Li",
+      "Ge Wang",
+      "Xiaoyan Li",
+      "Md Rahaman",
+      "Hongzan Sun",
+      "Weiming Hu",
+      "Yixin Li",
+      "Wanli Liu",
+      "Changhao Sun",
+      "Shiliang Ai",
+      "Marcin Grzegorzek"
+    ],
+    "category": "cs.CV",
+    "published_date": "2021-04-29 17:46:00+00:00",
+    "updated_date": "2022-06-08 11:26:17+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2104.14528v7",
+    "pdf_url": "https://arxiv.org/pdf/2104.14528v7.pdf",
+    "doi": "http://dx.doi.org/10.1016/j.patcog.2022.108827",
+    "journal_ref": "Pattern Recognition Volume 130, October 2022, 108827"
+  },
+  {
+    "id": "2105.14077v1",
+    "title": "On the Bias Against Inductive Biases",
+    "abstract": "Borrowing from the transformer models that revolutionized the field of natural language processing, self-supervised feature learning for visual tasks has also seen state-of-the-art success using these extremely deep, isotropic networks. However, the typical AI researcher does not have the resources to evaluate, let alone train, a model with several billion parameters and quadratic self-attention activations. To facilitate further research, it is necessary to understand the features of these huge transformer models that can be adequately studied by the typical researcher. One interesting characteristic of these transformer models is that they remove most of the inductive biases present in classical convolutional networks. In this work, we analyze the effect of these and more inductive biases on small to moderately-sized isotropic networks used for unsupervised visual feature learning and show that their removal is not always ideal.",
+    "authors": [
+      "George Cazenavette",
+      "Simon Lucey"
+    ],
+    "category": "cs.CV",
+    "published_date": "2021-05-28 19:41:48+00:00",
+    "updated_date": "2021-05-28 19:41:48+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2105.14077v1",
+    "pdf_url": "https://arxiv.org/pdf/2105.14077v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1912.10077v2",
+    "title": "Are Transformers universal approximators of sequence-to-sequence   functions?",
+    "abstract": "Despite the widespread adoption of Transformer models for NLP tasks, the expressive power of these models is not well-understood. In this paper, we establish that Transformer models are universal approximators of continuous permutation equivariant sequence-to-sequence functions with compact support, which is quite surprising given the amount of shared parameters in these models. Furthermore, using positional encodings, we circumvent the restriction of permutation equivariance, and show that Transformer models can universally approximate arbitrary continuous sequence-to-sequence functions on a compact domain. Interestingly, our proof techniques clearly highlight the different roles of the self-attention and the feed-forward layers in Transformers. In particular, we prove that fixed width self-attention layers can compute contextual mappings of the input sequences, playing a key role in the universal approximation property of Transformers. Based on this insight from our analysis, we consider other simpler alternatives to self-attention layers and empirically evaluate them.",
+    "authors": [
+      "Chulhee Yun",
+      "Srinadh Bhojanapalli",
+      "Ankit Singh Rawat",
+      "Sashank J. Reddi",
+      "Sanjiv Kumar"
+    ],
+    "category": "cs.LG",
+    "published_date": "2019-12-20 19:49:32+00:00",
+    "updated_date": "2020-02-25 03:12:57+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1912.10077v2",
+    "pdf_url": "https://arxiv.org/pdf/1912.10077v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2012.02144v1",
+    "title": "Do We Really Need That Many Parameters In Transformer For Extractive   Summarization? Discourse Can Help !",
+    "abstract": "The multi-head self-attention of popular transformer models is widely used within Natural Language Processing (NLP), including for the task of extractive summarization. With the goal of analyzing and pruning the parameter-heavy self-attention mechanism, there are multiple approaches proposing more parameter-light self-attention alternatives. In this paper, we present a novel parameter-lean self-attention mechanism using discourse priors. Our new tree self-attention is based on document-level discourse information, extending the recently proposed \"Synthesizer\" framework with another lightweight alternative. We show empirical results that our tree self-attention approach achieves competitive ROUGE-scores on the task of extractive summarization. When compared to the original single-head transformer model, the tree attention approach reaches similar performance on both, EDU and sentence level, despite the significant reduction of parameters in the attention component. We further significantly outperform the 8-head transformer model on sentence level when applying a more balanced hyper-parameter setting, requiring an order of magnitude less parameters.",
+    "authors": [
+      "Wen Xiao",
+      "Patrick Huber",
+      "Giuseppe Carenini"
+    ],
+    "category": "cs.CL",
+    "published_date": "2020-12-03 18:23:21+00:00",
+    "updated_date": "2020-12-03 18:23:21+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2012.02144v1",
+    "pdf_url": "https://arxiv.org/pdf/2012.02144v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  }
+]

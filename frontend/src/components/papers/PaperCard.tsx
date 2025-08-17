@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
   DocumentTextIcon, 
   LinkIcon, 
   CalendarIcon,
   TagIcon,
-  UserGroupIcon 
+  UserGroupIcon,
+  EyeIcon
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 
-import { Paper } from '@types';
+import { Paper } from '../../types';
 import { StarRating } from '@components/rating/StarRating';
 import { AbstractRenderer } from './AbstractRenderer';
 import { PaperReferences } from './PaperReferences';
+import { PaperScoreDisplay } from './PaperScoreDisplay';
 
 interface PaperCardProps {
   paper: Paper;
@@ -35,6 +38,7 @@ export const PaperCard: React.FC<PaperCardProps> = ({
   showReferences = false,
   className,
 }) => {
+  const navigate = useNavigate();
   const [showFullAbstract, setShowFullAbstract] = useState(false);
   const [notes, setNotes] = useState(paper.notes || '');
   const [isNotesExpanded, setIsNotesExpanded] = useState(false);
@@ -80,6 +84,18 @@ export const PaperCard: React.FC<PaperCardProps> = ({
     }
     setIsNotesExpanded(false);
   };
+
+  const handlePaperClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking on interactive elements
+    const target = e.target as HTMLElement;
+    if (target.closest('button') || target.closest('a') || target.closest('input') || target.closest('textarea')) {
+      return;
+    }
+    
+    // Use ROWID for navigation when available, otherwise fall back to ArXiv ID
+    const paperId = paper.rowid ? paper.rowid.toString() : paper.id;
+    navigate(`/papers/${paperId}`);
+  };
   
   const formatDate = (dateString: string) => {
     try {
@@ -106,9 +122,10 @@ export const PaperCard: React.FC<PaperCardProps> = ({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       data-testid="paper-card"
+      onClick={handlePaperClick}
       className={clsx(
         'bg-white rounded-lg border border-secondary-200 hover:border-secondary-300 transition-colors duration-200',
-        'hover:shadow-lg',
+        'hover:shadow-lg cursor-pointer group',
         {
           'p-4': compact,
           'p-6': !compact,
@@ -120,7 +137,7 @@ export const PaperCard: React.FC<PaperCardProps> = ({
       <div className="flex justify-between items-start gap-4 mb-4">
         <div className="flex-1 min-w-0">
           <h3 className={clsx(
-            'font-semibold text-secondary-900 leading-tight',
+            'font-semibold text-secondary-900 leading-tight group-hover:text-primary-600 transition-colors',
             {
               'text-lg': !compact,
               'text-base': compact,
@@ -129,21 +146,41 @@ export const PaperCard: React.FC<PaperCardProps> = ({
             {paper.title}
           </h3>
           
-          {/* Score badge */}
+          {/* Enhanced score display */}
           {paper.current_score !== undefined && paper.current_score !== null && (
-            <div className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800 mt-2">
-              🎯 Score: {paper.current_score.toFixed(3)}
+            <div className="mt-2">
+              <PaperScoreDisplay 
+                score={paper.current_score} 
+                compact={compact}
+                showTooltip={!compact}
+              />
             </div>
           )}
         </div>
         
         {/* Actions */}
         <div className="flex items-center gap-2 flex-shrink-0">
+          {/* View Details Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              // Use ROWID for navigation when available, otherwise fall back to ArXiv ID
+    const paperId = paper.rowid ? paper.rowid.toString() : paper.id;
+    navigate(`/papers/${paperId}`);
+            }}
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-primary-600 bg-primary-50 hover:bg-primary-100 rounded-md transition-colors"
+            title="View full details"
+          >
+            <EyeIcon className="w-4 h-4 mr-2" />
+            View Details
+          </button>
+          
           {paper.pdf_url && (
             <a
               href={paper.pdf_url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="p-2 text-secondary-500 hover:text-primary-600 hover:bg-primary-50 rounded-md transition-colors"
               title="View PDF"
             >
@@ -156,6 +193,7 @@ export const PaperCard: React.FC<PaperCardProps> = ({
               href={paper.arxiv_url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="p-2 text-secondary-500 hover:text-primary-600 hover:bg-primary-50 rounded-md transition-colors"
               title="View on ArXiv"
             >
@@ -207,7 +245,10 @@ export const PaperCard: React.FC<PaperCardProps> = ({
       
       {/* Rating */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div 
+          className="flex items-center gap-3"
+          onClick={(e) => e.stopPropagation()}
+        >
           <span className="text-sm font-medium text-secondary-700">Rate:</span>
           <StarRating
             rating={externalRating ?? paper.rating ?? 0}
@@ -223,7 +264,10 @@ export const PaperCard: React.FC<PaperCardProps> = ({
         {/* Notes toggle */}
         {showNotes && (
           <button
-            onClick={() => setIsNotesExpanded(!isNotesExpanded)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsNotesExpanded(!isNotesExpanded);
+            }}
             className="text-sm text-primary-600 hover:text-primary-700 font-medium"
           >
             {isNotesExpanded ? 'Hide Notes' : 'Add Notes'}
@@ -237,6 +281,7 @@ export const PaperCard: React.FC<PaperCardProps> = ({
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
+          onClick={(e) => e.stopPropagation()}
           className="mt-4 pt-4 border-t border-secondary-200"
         >
           <label className="block text-sm font-medium text-secondary-700 mb-2">
@@ -251,7 +296,8 @@ export const PaperCard: React.FC<PaperCardProps> = ({
           />
           <div className="flex justify-end gap-2 mt-2">
             <button
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 setNotes(paper.notes || '');
                 setIsNotesExpanded(false);
               }}
@@ -260,7 +306,10 @@ export const PaperCard: React.FC<PaperCardProps> = ({
               Cancel
             </button>
             <button
-              onClick={handleNotesSubmit}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNotesSubmit();
+              }}
               className="px-3 py-1 text-sm bg-primary-600 text-white rounded-md hover:bg-primary-700"
             >
               Save
@@ -269,9 +318,12 @@ export const PaperCard: React.FC<PaperCardProps> = ({
         </motion.div>
       )}
       
-      {/* References section */}
+      {/* References section - Only show if explicitly requested */}
       {showReferences && !compact && (
-        <div className="mt-4 pt-4 border-t border-secondary-200">
+        <div 
+          className="mt-4 pt-4 border-t border-secondary-200"
+          onClick={(e) => e.stopPropagation()}
+        >
           <PaperReferences
             paperId={paper.id}
             paperTitle={paper.title}

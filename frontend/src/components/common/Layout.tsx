@@ -9,7 +9,7 @@ import {
 import clsx from 'clsx';
 
 import { Sidebar } from './Sidebar';
-import { useAppSelector } from '@store';
+import { useAppSelector } from '@store/index';
 
 export const Layout: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);

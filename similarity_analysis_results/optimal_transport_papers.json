@@ -1,0 +1,1303 @@
+[
+  {
+    "id": "1902.03367v1",
+    "title": "Unnormalized Optimal Transport",
+    "abstract": "We propose an extension of the computational fluid mechanics approach to the Monge-Kantorovich mass transfer problem, which was developed by Benamou-Brenier. Our extension allows optimal transfer of unnormalized and unequal masses. We obtain a one-parameter family of simple modifications of the formulation in [4]. This leads us to a new Monge-Ampere type equation and a new Kantorovich duality formula. These can be solved efficiently by, for example, the Chambolle-Pock primal-dual algorithm. This solution to the extended mass transfer problem gives us a simple metric for computing the distance between two unnormalized densities. The L1 version of this metric was shown in [23] (which is a precursor of our work here) to have desirable properties.",
+    "authors": [
+      "Wilfrid Gangbo",
+      "Wuchen Li",
+      "Stanley Osher",
+      "Michael Puthawala"
+    ],
+    "category": "math.OC",
+    "published_date": "2019-02-09 04:05:10+00:00",
+    "updated_date": "2019-02-09 04:05:10+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1902.03367v1",
+    "pdf_url": "https://arxiv.org/pdf/1902.03367v1.pdf",
+    "doi": "http://dx.doi.org/10.1016/j.jcp.2019.108940",
+    "journal_ref": null
+  },
+  {
+    "id": "1807.00393v2",
+    "title": "Adaptive Optimal Transport",
+    "abstract": "An adaptive, adversarial methodology is developed for the optimal transport problem between two distributions $\\mu$ and $\\nu$, known only through a finite set of independent samples $(x_i)_{i=1..N}$ and $(y_j)_{j=1..M}$. The methodology automatically creates features that adapt to the data, thus avoiding reliance on a priori knowledge of data distribution. Specifically, instead of a discrete point-bypoint assignment, the new procedure seeks an optimal map $T(x)$ defined for all $x$, minimizing the Kullback-Leibler divergence between $(T(xi))$ and the target $(y_j)$. The relative entropy is given a sample-based, variational characterization, thereby creating an adversarial setting: as one player seeks to push forward one distribution to the other, the second player develops features that focus on those areas where the two distributions fail to match. The procedure solves local problems matching consecutive, intermediate distributions between $\\mu$ and $\\nu$. As a result, maps of arbitrary complexity can be built by composing the simple maps used for each local problem. Displaced interpolation is used to guarantee global from local optimality. The procedure is illustrated through synthetic examples in one and two dimensions.",
+    "authors": [
+      "Montacer Essid",
+      "Debra Laefer",
+      "Esteban G. Tabak"
+    ],
+    "category": "math.OC",
+    "published_date": "2018-07-01 20:48:02+00:00",
+    "updated_date": "2019-02-18 22:12:18+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1807.00393v2",
+    "pdf_url": "https://arxiv.org/pdf/1807.00393v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2206.13410v1",
+    "title": "Supervised Optimal Transport",
+    "abstract": "Optimal Transport, a theory for optimal allocation of resources, is widely used in various fields such as astrophysics, machine learning, and imaging science. However, many applications impose elementwise constraints on the transport plan which traditional optimal transport cannot enforce. Here we introduce Supervised Optimal Transport (sOT) that formulates a constrained optimal transport problem where couplings between certain elements are prohibited according to specific applications. sOT is proved to be equivalent to an $l^1$ penalized optimization problem, from which efficient algorithms are designed to solve its entropy regularized formulation. We demonstrate the capability of sOT by comparing it to other variants and extensions of traditional OT in color transfer problem. We also study the barycenter problem in sOT formulation, where we discover and prove a unique reverse and portion selection (control) mechanism. Supervised optimal transport is broadly applicable to applications in which constrained transport plan is involved and the original unit should be preserved by avoiding normalization.",
+    "authors": [
+      "Zixuan Cang",
+      "Qing Nie",
+      "Yanxiang Zhao"
+    ],
+    "category": "math.OC",
+    "published_date": "2022-06-27 16:00:59+00:00",
+    "updated_date": "2022-06-27 16:00:59+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2206.13410v1",
+    "pdf_url": "https://arxiv.org/pdf/2206.13410v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2304.00392v1",
+    "title": "Optimal Transport Particle Filters",
+    "abstract": "This paper is concerned with the theoretical and computational development of a new class of nonlinear filtering algorithms called the optimal transport particle filters (OTPF). The algorithm is based on a recently introduced variational formulation of the Bayes' rule, which aims to find the Brenier optimal transport map between the prior and the posterior distributions as the solution to a stochastic optimization problem. On the theoretical side, the existing methods for the error analysis of particle filters and stability results for optimal transport map estimation are combined to obtain uniform error bounds for the filter's performance in terms of the optimization gap in solving the variational problem. The error analysis reveals a bias-variance trade-off that can ultimately be used to understand if/when the curse of dimensionality can be avoided in these filters. On the computational side, the proposed algorithm is evaluated on a nonlinear filtering example in comparison with the ensemble Kalman filter (EnKF) and the sequential importance resampling (SIR) particle filter.",
+    "authors": [
+      "Mohammad Al-Jarrah",
+      "Bamdad Hosseini",
+      "Amirhossein Taghvaei"
+    ],
+    "category": "math.OC",
+    "published_date": "2023-04-01 21:17:36+00:00",
+    "updated_date": "2023-04-01 21:17:36+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2304.00392v1",
+    "pdf_url": "https://arxiv.org/pdf/2304.00392v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2502.10607v1",
+    "title": "Time Parameterized Optimal Transport",
+    "abstract": "Optimal transport has gained significant attention in recent years due to its effectiveness in deep learning and computer vision. Its descendant metric, the Wasserstein distance, has been particularly successful in measuring distribution dissimilarities. While extensive research has focused on optimal transport and its regularized variants (such as entropy, sparsity, and capacity constraints) the role of time has been largely overlooked. However, time is a critical factor in real world transport problems.   In this work, we introduce a time parameterized formulation of the optimal transport problem, incorporating a time variable t to represent sequential steps and enforcing specific constraints at each step. We propose a systematic method to solve a special subproblem and develop a heuristic search algorithm that achieves nearly optimal solutions while significantly reducing computational time.",
+    "authors": [
+      "Kaiwen Shi"
+    ],
+    "category": "math.OC",
+    "published_date": "2025-02-14 23:48:13+00:00",
+    "updated_date": "2025-02-14 23:48:13+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2502.10607v1",
+    "pdf_url": "https://arxiv.org/pdf/2502.10607v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2508.01243v1",
+    "title": "Sliced Optimal Transport Plans",
+    "abstract": "Since the introduction of the Sliced Wasserstein distance in the literature, its simplicity and efficiency have made it one of the most interesting surrogate for the Wasserstein distance in image processing and machine learning. However, its inability to produce transport plans limits its practical use to applications where only a distance is necessary. Several heuristics have been proposed in the recent years to address this limitation when the probability measures are discrete. In this paper, we propose to study these different propositions by redefining and analysing them rigorously for generic probability measures. Leveraging the $\\nu$-based Wasserstein distance and generalised geodesics, we introduce and study the Pivot Sliced Discrepancy, inspired by a recent work by Mahey et al.. We demonstrate its semi-metric properties and its relation to a constrained Kantorovich formulation. In the same way, we generalise and study the recent Expected Sliced plans introduced by Liu et al. for completely generic measures. Our theoretical contributions are supported by numerical experiments on synthetic and real datasets, including colour transfer and shape registration, evaluating the practical relevance of these different solutions.",
+    "authors": [
+      "Eloi Tanguy",
+      "Laetitia Chapel",
+      "Julie Delon"
+    ],
+    "category": "math.OC",
+    "published_date": "2025-08-02 07:38:28+00:00",
+    "updated_date": "2025-08-02 07:38:28+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2508.01243v1",
+    "pdf_url": "https://arxiv.org/pdf/2508.01243v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "0612142v1",
+    "title": "Optimal transportation for the determinant",
+    "abstract": "Among $\\R^3$-valued triples of random vectors $(X,Y,Z)$ having fixed marginal probability laws, what is the best way to jointly draw $(X,Y,Z)$ in such a way that the simplex generated by $(X,Y,Z)$ has maximal average volume? Motivated by this simple question, we study optimal transportation problems with several marginals when the objective function is the determinant or its absolute value.",
+    "authors": [
+      "Guillaume Carlier",
+      "Bruno Nazaret"
+    ],
+    "category": "math.OC",
+    "published_date": "2006-12-06 06:07:08+00:00",
+    "updated_date": "2006-12-06 06:07:08+00:00",
+    "arxiv_url": "http://arxiv.org/abs/math/0612142v1",
+    "pdf_url": "https://arxiv.org/pdf/0612142v1.pdf",
+    "doi": "http://dx.doi.org/10.1051/cocv:2008006",
+    "journal_ref": "ESAIM - Control Optimisation and Calculus of Variations 14, 4\n  (2008) p678-698"
+  },
+  {
+    "id": "1201.6404v3",
+    "title": "Optimal Transportation with Capacity Constraints",
+    "abstract": "The classical problem of optimal transportation can be formulated as a linear optimization problem on a convex domain: among all joint measures with fixed marginals find the optimal one, where optimality is measured against a cost function. Here we consider a natural but largely unexplored variant of this problem by imposing a pointwise constraint on the joint (absolutely continuous) measures: among all joint densities with fixed marginals and which are dominated by a given density, find the optimal one. For this variant, we show local non-degeneracy of the cost function implies every minimizer is extremal in the convex set of competitors, hence unique. An appendix develops rudiments of a duality theory for this problem, which allows us to compute several suggestive examples.",
+    "authors": [
+      "Jonathan Korman",
+      "Robert J. McCann"
+    ],
+    "category": "math.OC",
+    "published_date": "2012-01-30 23:27:55+00:00",
+    "updated_date": "2012-11-28 04:39:22+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1201.6404v3",
+    "pdf_url": "https://arxiv.org/pdf/1201.6404v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1703.08442v3",
+    "title": "Equilibrium selection via Optimal transport",
+    "abstract": "We propose a new dynamics for equilibrium selection of finite player discrete strategy games. The dynamics is motivated by optimal transportation, and models individual players' myopicity, greedy and uncertainty when making decisions. The stationary measure of the dynamics provides each pure Nash equilibrium a probability by which it is ranked. For potential games, its dynamical properties are characterized by entropy and Fisher information.",
+    "authors": [
+      "Shui-Nee Chow",
+      "Wuchen Li",
+      "Jun Lu",
+      "Haomin Zhou"
+    ],
+    "category": "math.OC",
+    "published_date": "2017-03-23 06:28:24+00:00",
+    "updated_date": "2017-07-24 18:32:15+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1703.08442v3",
+    "pdf_url": "https://arxiv.org/pdf/1703.08442v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2002.01189v2",
+    "title": "From Optimal Transport to Discrepancy",
+    "abstract": "A common way to quantify the ,,distance'' between measures is via their discrepancy, also known as maximum mean discrepancy (MMD). Discrepancies are related to Sinkhorn divergences $S_\\varepsilon$ with appropriate cost functions as $\\varepsilon \\to \\infty$. In the opposite direction, if $\\varepsilon \\to 0$, Sinkhorn divergences approach another important distance between measures, namely the Wasserstein distance or more generally optimal transport ,,distance''. In this chapter, we investigate the limiting process for arbitrary measures on compact sets and Lipschitz continuous cost functions. In particular, we are interested in the behavior of the corresponding optimal potentials $\\hat \\varphi_\\varepsilon$, $\\hat \\psi_\\varepsilon$ and $\\hat \\varphi_K$ appearing in the dual formulation of the Sinkhorn divergences and discrepancies, respectively. While part of the results are known, we provide rigorous proofs for some relations which we have not found in this generality in the literature. Finally, we demonstrate the limiting process by numerical examples and show the behavior of the distances when used for the approximation of measures by point measures in a process called dithering.",
+    "authors": [
+      "Sebastian Neumayer",
+      "Gabriele Steidl"
+    ],
+    "category": "math.OC",
+    "published_date": "2020-02-04 09:38:07+00:00",
+    "updated_date": "2020-08-24 13:07:30+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2002.01189v2",
+    "pdf_url": "https://arxiv.org/pdf/2002.01189v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2103.03628v1",
+    "title": "Deep Semi-Martingale Optimal Transport",
+    "abstract": "We propose two deep neural network-based methods for solving semi-martingale optimal transport problems. The first method is based on a relaxation/penalization of the terminal constraint, and is solved using deep neural networks. The second method is based on the dual formulation of the problem, which we express as a saddle point problem, and is solved using adversarial networks. Both methods are mesh-free and therefore mitigate the curse of dimensionality. We test the performance and accuracy of our methods on several examples up to dimension 10. We also apply the first algorithm to a portfolio optimization problem where the goal is, given an initial wealth distribution, to find an investment strategy leading to a prescribed terminal wealth distribution.",
+    "authors": [
+      "Ivan Guo",
+      "Nicolas Langren\u00e9",
+      "Gr\u00e9goire Loeper",
+      "Wei Ning"
+    ],
+    "category": "math.OC",
+    "published_date": "2021-03-05 12:22:18+00:00",
+    "updated_date": "2021-03-05 12:22:18+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2103.03628v1",
+    "pdf_url": "https://arxiv.org/pdf/2103.03628v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2103.10854v3",
+    "title": "Unbalanced Multi-Marginal Optimal Transport",
+    "abstract": "Entropy regularized optimal transport and its multi-marginal generalization have attracted increasing attention in various applications, in particular due to efficient Sinkhorn-like algorithms for computing optimal transport plans. However, it is often desirable that the marginals of the optimal transport plan do not match the given measures exactly, which led to the introduction of the so-called unbalanced optimal transport. Since unbalanced methods were not examined for the multi-marginal setting so far, we address this topic in the present paper. More precisely, we introduce the unbalanced multi-marginal optimal transport problem and its dual, and show that a unique optimal transport plan exists under mild assumptions. Further, we generalize the Sinkhorn algorithm for regularized unbalanced optimal transport to the multi-marginal setting and prove its convergence. If the cost function decouples according to a tree, the iterates can be computed efficiently. At the end, we discuss three applications of our framework, namely two barycenter problems and a transfer operator approach, where we establish a relation between the barycenter problem and the multi-marginal optimal transport with an appropriate tree-structured cost function.",
+    "authors": [
+      "Florian Beier",
+      "Johannes von Lindheim",
+      "Sebastian Neumayer",
+      "Gabriele Steidl"
+    ],
+    "category": "math.OC",
+    "published_date": "2021-03-19 15:23:31+00:00",
+    "updated_date": "2022-09-29 13:17:53+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2103.10854v3",
+    "pdf_url": "https://arxiv.org/pdf/2103.10854v3.pdf",
+    "doi": "http://dx.doi.org/10.1007/s10851-022-01126-7",
+    "journal_ref": null
+  },
+  {
+    "id": "1910.11422v1",
+    "title": "Data Driven Conditional Optimal Transport",
+    "abstract": "A data driven procedure is developed to compute the optimal map between two conditional probabilities $\\rho(x|z_{1},...,z_{L})$ and $\\mu(y|z_{1},...,z_{L})$ depending on a set of covariates $z_{i}$. The procedure is tested on synthetic data from the ACIC Data Analysis Challenge 2017 and it is applied to non uniform lightness transfer between images. Exactly solvable examples and simulations are performed to highlight the differences with ordinary optimal transport.",
+    "authors": [
+      "Esteban G. Tabak",
+      "Giulio Trigila",
+      "Wenjun Zhao"
+    ],
+    "category": "math.OC",
+    "published_date": "2019-10-24 20:56:34+00:00",
+    "updated_date": "2019-10-24 20:56:34+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1910.11422v1",
+    "pdf_url": "https://arxiv.org/pdf/1910.11422v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2401.06266v1",
+    "title": "Supervised Gromov-Wasserstein Optimal Transport",
+    "abstract": "We introduce the supervised Gromov-Wasserstein (sGW) optimal transport, an extension of Gromov-Wasserstein by incorporating potential infinity patterns in the cost tensor. sGW enables the enforcement of application-induced constraints such as the preservation of pairwise distances by implementing the constraints as an infinity pattern. A numerical solver is proposed for the sGW problem and the effectiveness is demonstrated in various numerical experiments. The high-order constraints in sGW are transferred to constraints on the coupling matrix by solving a minimal vertex cover problem. The transformed problem is solved by the Mirror-C descent iteration coupled with the supervised optimal transport solver. In the numerical experiments, we first validate the proposed framework by applying it to matching synthetic datasets and investigating the impact of the model parameters. Additionally, we successfully apply sGW to real single-cell RNA sequencing data. Through comparisons with other Gromov-Wasserstein variants on real data, we demonstrate that sGW offers the novel utility of controlling distance preservation, leading to the automatic estimation of overlapping portions of datasets, which brings improved stability and flexibility in data-driven applications.",
+    "authors": [
+      "Zixuan Cang",
+      "Yaqi Wu",
+      "Yanxiang Zhao"
+    ],
+    "category": "math.OC",
+    "published_date": "2024-01-11 21:27:00+00:00",
+    "updated_date": "2024-01-11 21:27:00+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2401.06266v1",
+    "pdf_url": "https://arxiv.org/pdf/2401.06266v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2406.15503v1",
+    "title": "Data representation with optimal transport",
+    "abstract": "Optimal transport has been used to define bijective nonlinear transforms and different transport-related metrics for discriminating data and signals. Here we briefly describe the advances in this topic with the main applications and properties in each case.",
+    "authors": [
+      "Roc\u00edo D\u00edaz Mart\u00edn",
+      "Ivan V. Medri",
+      "Gustavo Kunde Rohde"
+    ],
+    "category": "math.OC",
+    "published_date": "2024-06-19 15:36:41+00:00",
+    "updated_date": "2024-06-19 15:36:41+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2406.15503v1",
+    "pdf_url": "https://arxiv.org/pdf/2406.15503v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2407.13445v2",
+    "title": "Constrained Approximate Optimal Transport Maps",
+    "abstract": "We investigate finding a map $g$ within a function class $G$ that minimises an Optimal Transport (OT) cost between a target measure $\\nu$ and the image by $g$ of a source measure $\\mu$. This is relevant when an OT map from $\\mu$ to $\\nu$ does not exist or does not satisfy the desired constraints of $G$. We address existence and uniqueness for generic subclasses of $L$-Lipschitz functions, including gradients of (strongly) convex functions and typical Neural Networks. We explore a variant that approaches a transport plan, showing equivalence to a map problem in some cases. For the squared Euclidean cost, we propose alternating minimisation over a transport plan $\\pi$ and map $g$, with the optimisation over $g$ being the $L^2$ projection on $G$ of the barycentric mapping $\\overline{\\pi}$. In dimension one, this global problem equates the $L^2$ projection of $\\overline{\\pi^*}$ onto $G$ for an OT plan $\\pi^*$ between $\\mu$ and $\\nu$, but this does not extend to higher dimensions. We introduce a simple kernel method to find $g$ within a Reproducing Kernel Hilbert Space in the discrete case. We present numerical methods for $L$-Lipschitz gradients of $\\ell$-strongly convex potentials, and study the convergence of Stochastic Gradient Descent methods for Neural Networks. We finish with an illustration on colour transfer, applying learned maps on new images, and showcasing outlier robustness.",
+    "authors": [
+      "Eloi Tanguy",
+      "Agn\u00e8s Desolneux",
+      "Julie Delon"
+    ],
+    "category": "math.OC",
+    "published_date": "2024-07-18 12:14:18+00:00",
+    "updated_date": "2025-03-12 13:29:38+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2407.13445v2",
+    "pdf_url": "https://arxiv.org/pdf/2407.13445v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2408.09361v3",
+    "title": "Entropic Semi-Martingale Optimal Transport",
+    "abstract": "Entropic Optimal Transport (EOT), also referred to as the Schr\\\"odinger problem, seeks to find a random processes with prescribed initial/final marginals and with minimal relative entropy with respect to a reference measure. The relative entropy forces the two measures to share the same support and only the drift of the controlled process can be adjusted, the diffusion being imposed by the reference measure. Therefore, at first sight, Semi-Martingale Optimal Transport (SMOT) problems (see [1]) seem out of the scope of applications of Entropic regularization techniques, which are otherwise very attractive from a computational point of view. However, when the process is observed only at discrete times, and become therefore a Markov chain, its relative entropy can remain finite even with variable diffusion coefficients, and discrete semi-martingales can be obtained as solutions of (multi-marginal) EOT problems.Given a (smooth) semi-martingale, the limit of the relative entropy of its time discretizations, scaled by the time step converges to the so-called ``specific relative entropy'', a convex functional of its variance process, similar to those used in SMOT.In this paper we use this observation to build an entropic time discretization of continuous SMOT problems. This allows to compute discrete approximations of solutions to continuous SMOT problems by a multi-marginal Sinkhorn algorithm, without the need of solving the non-linear Hamilton-Jacobi-Bellman pde's associated to the dual problem, as done for example in [1, 2]. We prove a convergence result of the time discrete entropic problem to the continuous time problem, we propose an implementation and provide numerical experiments supporting the theoretical convergence.",
+    "authors": [
+      "Jean-David Benamou",
+      "Guillaume Chazareix",
+      "Marc Hoffmann",
+      "Gr\u00e9goire Loeper",
+      "Fran\u00e7ois-Xavier Vialard"
+    ],
+    "category": "math.OC",
+    "published_date": "2024-08-18 05:00:01+00:00",
+    "updated_date": "2024-12-16 15:41:21+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2408.09361v3",
+    "pdf_url": "https://arxiv.org/pdf/2408.09361v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1905.03950v1",
+    "title": "Inverse optimal transport",
+    "abstract": "Discrete optimal transportation problems arise in various contexts in engineering, the sciences and the social sciences. Often the underlying cost criterion is unknown, or only partly known, and the observed optimal solutions are corrupted by noise. In this paper we propose a systematic approach to infer unknown costs from noisy observations of optimal transportation plans. The algorithm requires only the ability to solve the forward optimal transport problem, which is a linear program, and to generate random numbers. It has a Bayesian interpretation, and may also be viewed as a form of stochastic optimization.   We illustrate the developed methodologies using the example of international migration flows. Reported migration flow data captures (noisily) the number of individuals moving from one country to another in a given period of time. It can be interpreted as a noisy observation of an optimal transportation map, with costs related to the geographical position of countries. We use a graph-based formulation of the problem, with countries at the nodes of graphs and non-zero weighted adjacencies only on edges between countries which share a border. We use the proposed algorithm to estimate the weights, which represent cost of transition, and to quantify uncertainty in these weights.",
+    "authors": [
+      "Andrew M. Stuart",
+      "Marie-Therese Wolfram"
+    ],
+    "category": "math.OC",
+    "published_date": "2019-05-10 05:51:08+00:00",
+    "updated_date": "2019-05-10 05:51:08+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1905.03950v1",
+    "pdf_url": "https://arxiv.org/pdf/1905.03950v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2105.06922v2",
+    "title": "Quantum Optimal Transport",
+    "abstract": "We analyze a quantum version of the Monge--Kantorovich optimal transport problem. The quantum transport cost related to a Hermitian cost matrix $C$ is minimized over the set of all bipartite coupling states $\\rho^{AB}$ with fixed reduced density matrices $\\rho^A$ and $\\rho^B$ of size $m$ and $n$. The minimum quantum optimal transport cost $\\rT^Q_{C}(\\rho^A,\\rho^B)$ can be efficiently computed using semidefinite programming. In the case $m=n$ the cost $\\rT^Q_{C}$ gives a semidistance if and only if $C$ is positive semidefinite and vanishes exactly on the subspace of symmetric matrices. Furthermore, if $C$ satisfies the above conditions, then $\\sqrt{\\rT^Q_{C}}$ induces a quantum analogue of the Wasserstein-2 distance. Taking the quantum cost matrix $C^Q$ to be the projector on the antisymmetric subspace, we provide a semi-analytic expression for $\\rT^Q_{C^Q}$ for any pair of single-qubit states and show that its square root yields a transport distance on the Bloch ball. Numerical simulations suggest that this property holds also in higher dimensions. Assuming that the cost matrix suffers decoherence and that the density matrices become diagonal, we study the quantum-to-classical transition of the Earth mover's distance, propose a continuous family of interpolating distances, and demonstrate that the quantum transport is cheaper than the classical one. Furthermore, we introduce a related quantity -- the SWAP-fidelity -- and compare its properties with the standard Uhlmann--Jozsa fidelity. We also discuss the quantum optimal transport for general $d$-partite systems.",
+    "authors": [
+      "Sam Cole",
+      "Micha\u0142 Eckstein",
+      "Shmuel Friedland",
+      "Karol \u017byczkowski"
+    ],
+    "category": "quant-ph",
+    "published_date": "2021-05-14 16:11:27+00:00",
+    "updated_date": "2022-07-12 16:53:36+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2105.06922v2",
+    "pdf_url": "https://arxiv.org/pdf/2105.06922v2.pdf",
+    "doi": "http://dx.doi.org/10.1007/s11040-023-09456-7",
+    "journal_ref": "Math Phys Anal Geom 26, 14 (2023)"
+  },
+  {
+    "id": "2306.07176v2",
+    "title": "Slicing Unbalanced Optimal Transport",
+    "abstract": "Optimal transport (OT) is a powerful framework to compare probability measures, a fundamental task in many statistical and machine learning problems. Substantial advances have been made in designing OT variants which are either computationally and statistically more efficient or robust. Among them, sliced OT distances have been extensively used to mitigate optimal transport's cubic algorithmic complexity and curse of dimensionality. In parallel, unbalanced OT was designed to allow comparisons of more general positive measures, while being more robust to outliers. In this paper, we bridge the gap between those two concepts and develop a general framework for efficiently comparing positive measures. We notably formulate two different versions of sliced unbalanced OT, and study the associated topology and statistical properties. We then develop a GPU-friendly Frank-Wolfe like algorithm to compute the corresponding loss functions, and show that the resulting methodology is modular as it encompasses and extends prior related work. We finally conduct an empirical analysis of our loss functions and methodology on both synthetic and real datasets, to illustrate their computational efficiency, relevance and applicability to real-world scenarios including geophysical data.",
+    "authors": [
+      "Cl\u00e9ment Bonet",
+      "Kimia Nadjahi",
+      "Thibault S\u00e9journ\u00e9",
+      "Kilian Fatras",
+      "Nicolas Courty"
+    ],
+    "category": "cs.LG",
+    "published_date": "2023-06-12 15:15:00+00:00",
+    "updated_date": "2025-02-03 15:00:31+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2306.07176v2",
+    "pdf_url": "https://arxiv.org/pdf/2306.07176v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2307.05703v2",
+    "title": "Simple unbalanced optimal transport",
+    "abstract": "We introduce and study a simple model capturing the main features of unbalanced optimal transport. It is based on equipping the conical extension of the group of all diffeomorphisms with a natural metric, which allows a Riemannian submersion to the space of volume forms of arbitrary total mass. We describe its finite-dimensional version and present a concise comparison study of the geometry, Hamiltonian features, and geodesics for this and other extensions. One of the corollaries of this approach is that along any geodesic the total mass evolves with constant acceleration, as an object's height in a constant buoyancy field.",
+    "authors": [
+      "Boris Khesin",
+      "Klas Modin",
+      "Luke Volk"
+    ],
+    "category": "math.DG",
+    "published_date": "2023-07-11 18:11:49+00:00",
+    "updated_date": "2024-01-24 08:11:43+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2307.05703v2",
+    "pdf_url": "https://arxiv.org/pdf/2307.05703v2.pdf",
+    "doi": "http://dx.doi.org/10.1093/imrn/rnae020",
+    "journal_ref": "Int. Math. Res. Not. 2024 (2024) 8839-8855"
+  },
+  {
+    "id": "2501.04658v3",
+    "title": "Quadratic-form Optimal Transport",
+    "abstract": "We introduce the framework of quadratic-form optimal transport (QOT), whose transport cost has the form $\\iint c\\,\\mathrm{d}\\pi \\otimes\\mathrm{d}\\pi$ for some coupling $\\pi$ between two marginals. Interesting examples of quadratic-form transport cost and their optimization include inequality measurement, the variance of a bivariate function, covariance, Kendall's tau, the Gromov--Wasserstein distance, quadratic assignment problems, and quadratic regularization of classic optimal transport. QOT leads to substantially different mathematical structures compared to classic transport problems and many technical challenges. We illustrate the fundamental properties of QOT and provide several cases where explicit solutions are obtained. For a wide class of cost functions, including the rectangular cost functions, the QOT problem is solved by a new coupling called the diamond transport, whose copula is supported on a diamond in the unit square.",
+    "authors": [
+      "Ruodu Wang",
+      "Zhenyuan Zhang"
+    ],
+    "category": "math.PR",
+    "published_date": "2025-01-08 18:13:35+00:00",
+    "updated_date": "2025-02-15 09:12:06+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2501.04658v3",
+    "pdf_url": "https://arxiv.org/pdf/2501.04658v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2002.08717v2",
+    "title": "The Directional Optimal Transport",
+    "abstract": "We introduce a constrained optimal transport problem where origins $x$ can only be transported to destinations $y\\geq x$. Our statistical motivation is to describe the sharp upper bound for the variance of the treatment effect $Y-X$ given marginals when the effect is monotone, or $Y\\geq X$. We thus focus on supermodular costs (or submodular rewards) and introduce a coupling $P_{*}$ that is optimal for all such costs and yields the sharp bound. This coupling admits manifold characterizations -- geometric, order-theoretic, as optimal transport, through the cdf, and via the transport kernel -- that explain its structure and imply useful bounds. When the first marginal is atomless, $P_{*}$ is concentrated on the graphs of two maps which can be described in terms of the marginals, the second map arising due to the binding constraint.",
+    "authors": [
+      "Marcel Nutz",
+      "Ruodu Wang"
+    ],
+    "category": "math.OC",
+    "published_date": "2020-02-20 13:11:47+00:00",
+    "updated_date": "2021-06-19 17:18:26+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2002.08717v2",
+    "pdf_url": "https://arxiv.org/pdf/2002.08717v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1307.5551v1",
+    "title": "Regularized Discrete Optimal Transport",
+    "abstract": "This article introduces a generalization of the discrete optimal transport, with applications to color image manipulations. This new formulation includes a relaxation of the mass conservation constraint and a regularization term. These two features are crucial for image processing tasks, which necessitate to take into account families of multimodal histograms, with large mass variation across modes.   The corresponding relaxed and regularized transportation problem is the solution of a convex optimization problem. Depending on the regularization used, this minimization can be solved using standard linear programming methods or first order proximal splitting schemes.   The resulting transportation plan can be used as a color transfer map, which is robust to mass variation across images color palettes. Furthermore, the regularization of the transport plan helps to remove colorization artifacts due to noise amplification.   We also extend this framework to the computation of barycenters of distributions. The barycenter is the solution of an optimization problem, which is separately convex with respect to the barycenter and the transportation plans, but not jointly convex. A block coordinate descent scheme converges to a stationary point of the energy. We show that the resulting algorithm can be used for color normalization across several images. The relaxed and regularized barycenter defines a common color palette for those images. Applying color transfer toward this average palette performs a color normalization of the input images.",
+    "authors": [
+      "Sira Ferradans",
+      "Nicolas Papadakis",
+      "Gabriel Peyr\u00e9",
+      "Jean-Fran\u00e7ois Aujol"
+    ],
+    "category": "cs.CV",
+    "published_date": "2013-07-21 17:55:10+00:00",
+    "updated_date": "2013-07-21 17:55:10+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1307.5551v1",
+    "pdf_url": "https://arxiv.org/pdf/1307.5551v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1903.01112v4",
+    "title": "Quadratically regularized optimal transport",
+    "abstract": "We investigate the problem of optimal transport in the so-called Kantorovich form, i.e. given two Radon measures on two compact sets, we seek an optimal transport plan which is another Radon measure on the product of the sets that has these two measures as marginals and minimizes a certain cost function. We consider quadratic regularization of the problem, which forces the optimal transport plan to be a square integrable function rather than a Radon measure. We derive the dual problem and show strong duality and existence of primal and dual solutions to the regularized problem. Then we derive two algorithms to solve the dual problem of the regularized problem: A Gauss-Seidel method and a semismooth quasi-Newton method and investigate both methods numerically. Our experiments show that the methods perform well even for small regularization parameters. Quadratic regularization is of interest since the resulting optimal transport plans are sparse, i.e. they have a small support (which is not the case for the often used entropic regularization where the optimal transport plan always has full measure).",
+    "authors": [
+      "Dirk A. Lorenz",
+      "Paul Manns",
+      "Christian Meyer"
+    ],
+    "category": "math.OC",
+    "published_date": "2019-03-04 07:58:31+00:00",
+    "updated_date": "2019-09-09 12:44:08+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1903.01112v4",
+    "pdf_url": "https://arxiv.org/pdf/1903.01112v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1911.04348v4",
+    "title": "Semi-discrete optimal transport",
+    "abstract": "In the current book I suggest an off-road path to the subject of optimal transport. I tried to avoid prior knowledge of analysis, PDE theory and functional analysis, as much as possible. Thus I concentrate on discrete and semi-discrete cases, and always assume compactness for the underlying spaces. However, some fundamental knowledge of measure theory and convexity is unavoidable. In order to make it as self-contained as possible I included an appendix with some basic definitions and results. I believe that any graduate student in mathematics, as well as advanced undergraduate students, can read and understand this book. Some chapters (in particular in Parts II\\&III ) can also be interesting for experts. Starting with the the most fundamental, fully discrete problem I attempted to place optimal transport as a particular case of the celebrated stable marriage problem. From there we proceed to the partition problem, which can be formulated as a transport from a continuous space to a discrete one. Applications to information theory and game theory (cooperative and non-cooperative) are introduced as well.   Finally, the general case of transport between two compact measure spaces is introduced as a coupling between two semi-discrete transports.",
+    "authors": [
+      "Gershon Wolansky"
+    ],
+    "category": "math.OC",
+    "published_date": "2019-11-11 15:44:44+00:00",
+    "updated_date": "2020-09-14 11:56:29+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1911.04348v4",
+    "pdf_url": "https://arxiv.org/pdf/1911.04348v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2102.10909v4",
+    "title": "Optimal Transport of Information",
+    "abstract": "We study the general problem of Bayesian persuasion (optimal information design) with continuous actions and continuous state space in arbitrary dimensions. First, we show that with a finite signal space, the optimal information design is always given by a partition. Second, we take the limit of an infinite signal space and characterize the solution in terms of a Monge-Kantorovich optimal transport problem with an endogenous information transport cost. We use our novel approach to: 1. Derive necessary and sufficient conditions for optimality based on Bregman divergences for non-convex functions. 2. Compute exact bounds for the Hausdorff dimension of the support of an optimal policy. 3. Derive a non-linear, second-order partial differential equation whose solutions correspond to regular optimal policies. We illustrate the power of our approach by providing explicit solutions to several non-linear, multidimensional Bayesian persuasion problems.",
+    "authors": [
+      "Semyon Malamud",
+      "Anna Cieslak",
+      "Andreas Schrimpf"
+    ],
+    "category": "econ.GN",
+    "published_date": "2021-02-22 11:28:36+00:00",
+    "updated_date": "2021-03-09 13:43:29+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2102.10909v4",
+    "pdf_url": "https://arxiv.org/pdf/2102.10909v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2201.06859v4",
+    "title": "Grand-Canonical Optimal Transport",
+    "abstract": "We study a generalization of the multi-marginal optimal transport problem, which has no fixed number of marginals $N$ and is inspired of statistical mechanics. It consists in optimizing a linear combination of the costs for all the possible $N$'s, while fixing a certain linear combination of the corresponding marginals.",
+    "authors": [
+      "Simone Di Marino",
+      "Mathieu Lewin",
+      "Luca Nenna"
+    ],
+    "category": "math.OC",
+    "published_date": "2022-01-18 10:29:31+00:00",
+    "updated_date": "2025-01-14 08:35:58+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2201.06859v4",
+    "pdf_url": "https://arxiv.org/pdf/2201.06859v4.pdf",
+    "doi": "http://dx.doi.org/10.1007/s00205-024-02080-x",
+    "journal_ref": "Arch. Rat. Mech. Anal., vol. 249, art. 12 (2025)"
+  },
+  {
+    "id": "2206.13352v1",
+    "title": "Constrained Mass Optimal Transport",
+    "abstract": "Optimal mass transport, also known as the earth mover's problem, is an optimization problem with important applications in various disciplines, including economics, probability theory, fluid dynamics, cosmology and geophysics to cite a few. Optimal transport has also found successful applications in image registration, content-based image retrieval, and more generally in pattern recognition and machine learning as a way to measure dissimilarity among data. This paper introduces the problem of constrained optimal transport. The time-dependent formulation, more precisely, the fluid dynamics approach is used as a starting point from which the constrained problem is defined by imposing a soft constraint on the density and momentum fields or restricting them to a subset of curves that satisfy some prescribed conditions. A family of algorithms is introduced to solve a class of constrained saddle point problems, which has convexly constrained optimal transport on closed convex subsets of the Euclidean space as a special case. Convergence proofs and numerical results are presented.",
+    "authors": [
+      "Said Kerrache",
+      "Yasushi Nakauchi"
+    ],
+    "category": "math.NA",
+    "published_date": "2022-06-05 06:47:25+00:00",
+    "updated_date": "2022-06-05 06:47:25+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2206.13352v1",
+    "pdf_url": "https://arxiv.org/pdf/2206.13352v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2212.00133v6",
+    "title": "Universal Neural Optimal Transport",
+    "abstract": "Optimal Transport (OT) problems are a cornerstone of many applications, but solving them is computationally expensive. To address this problem, we propose UNOT (Universal Neural Optimal Transport), a novel framework capable of accurately predicting (entropic) OT distances and plans between discrete measures for a given cost function. UNOT builds on Fourier Neural Operators, a universal class of neural networks that map between function spaces and that are discretization-invariant, which enables our network to process measures of variable resolutions. The network is trained adversarially using a second, generating network and a self-supervised bootstrapping loss. We ground UNOT in an extensive theoretical framework. Through experiments on Euclidean and non-Euclidean domains, we show that our network not only accurately predicts OT distances and plans across a wide range of datasets, but also captures the geometry of the Wasserstein space correctly. Furthermore, we show that our network can be used as a state-of-the-art initialization for the Sinkhorn algorithm with speedups of up to $7.4\\times$, significantly outperforming existing approaches.",
+    "authors": [
+      "Jonathan Geuter",
+      "Gregor Kornhardt",
+      "Ingimar Tomasson",
+      "Vaios Laschos"
+    ],
+    "category": "cs.LG",
+    "published_date": "2022-11-30 21:56:09+00:00",
+    "updated_date": "2025-06-12 12:03:45+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2212.00133v6",
+    "pdf_url": "https://arxiv.org/pdf/2212.00133v6.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2308.11238v2",
+    "title": "Distorted optimal transport",
+    "abstract": "Classic optimal transport theory is formulated through minimizing the expected transport cost between two given distributions. We propose the framework of distorted optimal transport by minimizing a distorted expected cost, which is the cost under a non-linear expectation. This new formulation is motivated by concrete problems in decision theory, robust optimization, and risk management, and it has many distinct features compared to the classic theory. We choose simple cost functions and study different distortion functions and their implications on the optimal transport plan. We show that on the real line, the comonotonic coupling is optimal for the distorted optimal transport problem when the distortion function is convex and the cost function is submodular and monotone. Some forms of duality and uniqueness results are provided. For inverse-S-shaped distortion functions and linear cost, we obtain the unique form of optimal coupling for all marginal distributions, which turns out to have an interesting ``first comonotonic, then counter-monotonic\" dependence structure; for S-shaped distortion functions a similar structure is obtained. Our results highlight several challenges and features in distorted optimal transport, offering a new mathematical bridge between the fields of probability, decision theory, and risk management.",
+    "authors": [
+      "Haiyan Liu",
+      "Bin Wang",
+      "Ruodu Wang",
+      "Sheng Chao Zhuang"
+    ],
+    "category": "math.OC",
+    "published_date": "2023-08-22 07:25:51+00:00",
+    "updated_date": "2025-05-17 21:30:05+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2308.11238v2",
+    "pdf_url": "https://arxiv.org/pdf/2308.11238v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2505.12097v2",
+    "title": "Proximal optimal transport divergences",
+    "abstract": "We introduce the proximal optimal transport divergence, a novel discrepancy measure that interpolates between information divergences and optimal transport distances via an infimal convolution formulation. This divergence provides a principled foundation for optimal transport proximals and proximal optimization methods frequently used in generative modeling. We explore its mathematical properties, including smoothness, boundedness, and computational tractability, and establish connections to primal-dual formulations and adversarial learning. The proximal operator associated with the proximal optimal transport divergence can be interpreted as a transport map that pushes a reference distribution toward the optimal generative distribution, which approximates the target distribution that is only accessible through data samples. Building on the Benamou-Brenier dynamic formulation of classical optimal transport, we also establish a dynamic formulation for proximal OT divergences. The resulting dynamic formulation is a first order mean-field game whose optimality conditions are governed by a pair of nonlinear partial differential equations: a backward Hamilton-Jacobi equation and a forward continuity equation. Our framework generalizes existing approaches while offering new insights and computational tools for generative modeling, distributionally robust optimization, and gradient-based learning in probability spaces.",
+    "authors": [
+      "Ricardo Baptista",
+      "Panagiota Birmpa",
+      "Markos A. Katsoulakis",
+      "Luc Rey-Bellet",
+      "Benjamin J. Zhang"
+    ],
+    "category": "math.OC",
+    "published_date": "2025-05-17 17:48:11+00:00",
+    "updated_date": "2025-08-07 21:18:46+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2505.12097v2",
+    "pdf_url": "https://arxiv.org/pdf/2505.12097v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2411.05678v2",
+    "title": "Relative Optimal Transport",
+    "abstract": "We develop a theory of optimal transport relative to a distinguished subset, which acts as a reservoir of mass, allowing us to compare measures of different total variation. This relative transportation problem has an optimal solution and we obtain relative versions of the Kantorovich-Rubinstein norm, Wasserstein distance, Kantorovich-Rubinstein duality and Monge-Kantorovich duality. We also prove relative versions of the Riesz-Markov-Kakutani theorem, which connect the spaces of measures arising from the relative optimal transport problem to spaces of Lipschitz functions. For a boundedly compact Polish space, we show that our relative 1-finite real-valued Radon measures with relative Kantorovich-Rubinstein norm coincide with the sequentially order continuous dual of relative Lipschitz functions with the operator norm. As part of our work we develop a theory of Riesz cones that may be of independent interest.",
+    "authors": [
+      "Peter Bubenik",
+      "Alex Elchesen"
+    ],
+    "category": "math.MG",
+    "published_date": "2024-11-08 16:29:06+00:00",
+    "updated_date": "2025-02-18 00:49:00+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2411.05678v2",
+    "pdf_url": "https://arxiv.org/pdf/2411.05678v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1304.6456v1",
+    "title": "Insights into capacity constrained optimal transport",
+    "abstract": "A variant of the classical optimal transportation problem is: among all joint measures with fixed marginals and which are dominated by a given density, find the optimal one. Existence and uniqueness of solutions to this variant were established in \\cite{KM11}. In the present manuscript, we expose an unexpected symmetry leading to the first explicit examples in two and more dimensions. These are inspired in part by simulations in one dimension which display singularities and topology and in part by two further developments: the identification of all extreme points in the feasible set, and a new approach to uniqueness based on constructing feasible perturbations.",
+    "authors": [
+      "Jonathan Korman",
+      "Robert J. McCann"
+    ],
+    "category": "math.OC",
+    "published_date": "2013-04-24 01:06:00+00:00",
+    "updated_date": "2013-04-24 01:06:00+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1304.6456v1",
+    "pdf_url": "https://arxiv.org/pdf/1304.6456v1.pdf",
+    "doi": "http://dx.doi.org/10.1073/pnas.1221333110",
+    "journal_ref": "Proc. Natl. Acad. Sci. USA, 110 (2013) 10064-10067"
+  },
+  {
+    "id": "1502.06839v1",
+    "title": "Distribution functions, extremal limits and optimal transport",
+    "abstract": "Encouraged by the study of extremal limits for sums of the form $$\\lim_{N\\to\\infty}\\frac{1 }{N}\\sum_{n=1}^N c(x_n,y_n)$$ with uniformly distributed sequences $\\{x_n\\},\\,\\{y_n\\}$ the following extremal problem is of interest $$\\max_{\\gamma}\\int_{[0,1]^2}c(x,y)\\gamma(dx,dy),$$ for probability measures $\\gamma$ on the unit square with uniform marginals, i.e., measures whose distribution function is a copula. The aim of this article is to relate this problem to combinatorial optimization and to the theory of optimal transport. Using different characterizations of maximizing $\\gamma$'s one can give alternative proofs of some results from the field of uniform distribution theory and beyond that treat additional questions. Finally, some applications to mathematical finance are addressed.",
+    "authors": [
+      "Maria Rita Iac\u00f2",
+      "Stefan Thonhauser",
+      "Robert F. Tichy"
+    ],
+    "category": "math.OC",
+    "published_date": "2015-02-24 15:44:45+00:00",
+    "updated_date": "2015-02-24 15:44:45+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1502.06839v1",
+    "pdf_url": "https://arxiv.org/pdf/1502.06839v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1703.00289v4",
+    "title": "A Multi-Objective Interpretation of Optimal Transport",
+    "abstract": "This paper connects discrete optimal transport to a certain class of multi-objective optimization problems. In both settings, the decision variables can be organized into a matrix. In the multi-objective problem, the notion of Pareto efficiency is defined in terms of the objectives together with non-negativity constraints and with equality constraints that are specified in terms of column sums. A second set of equality constraints, defined in terms of row sums, is used to single out particular points in the Pareto efficient set which are referred to as \"balanced solutions\". Examples from several fields are shown in which this solution concept appears naturally. Balanced solutions are shown to be in one-to-one correspondence with solutions of optimal transport problems. As an example of the use of alternative interpretations, the computation of solutions via regularization is discussed.",
+    "authors": [
+      "Johannes M. Schumacher"
+    ],
+    "category": "math.OC",
+    "published_date": "2017-03-01 13:30:12+00:00",
+    "updated_date": "2017-12-01 15:27:30+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1703.00289v4",
+    "pdf_url": "https://arxiv.org/pdf/1703.00289v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1704.00855v1",
+    "title": "Population games and Discrete optimal transport",
+    "abstract": "We propose a new evolutionary dynamics for population games with a discrete strategy set, inspired by the theory of optimal transport and Mean field games. The dynamics can be described as a Fokker-Planck equation on a discrete strategy set. The derived dynamics is the gradient flow of a free energy and the transition density equation of a Markov process. Such process provides models for the behavior of the individual players in population, which is myopic, greedy and irrational. The stability of the dynamics is governed by optimal transport metric, entropy and Fisher information.",
+    "authors": [
+      "Shui-Nee Chow",
+      "Wuchen Li",
+      "Jun Lu",
+      "Haomin Zhou"
+    ],
+    "category": "math.OC",
+    "published_date": "2017-04-04 02:43:05+00:00",
+    "updated_date": "2017-04-04 02:43:05+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1704.00855v1",
+    "pdf_url": "https://arxiv.org/pdf/1704.00855v1.pdf",
+    "doi": "http://dx.doi.org/10.1007/s00332-018-9507-5",
+    "journal_ref": null
+  },
+  {
+    "id": "1808.01962v2",
+    "title": "Semi-discrete unbalanced optimal transport and quantization",
+    "abstract": "In this paper we study the class of optimal entropy-transport problems introduced by Liero, Mielke and Savar\\'e in Inventiones Mathematicae 211 in 2018. This class of unbalanced transport metrics allows for transport between measures of different total mass, unlike classical optimal transport where both measures must have the same total mass. In particular, we develop the theory for the important subclass of semi-discrete unbalanced transport problems, where one of the measures is diffuse (absolutely continuous with respect to the Lebesgue measure) and the other is discrete (a sum of Dirac masses). We characterize the optimal solutions and show they can be written in terms of generalized Laguerre diagrams. We use this to develop an efficient method for solving the semi-discrete unbalanced transport problem numerically. As an application we study the unbalanced quantization problem, where one looks for the best approximation of a diffuse measure by a discrete measure with respect to an unbalanced transport metric. We prove a type of crystallization result in two dimensions -- optimality of a locally triangular lattice with spatially varying density -- and compute the asymptotic quantization error as the number of Dirac masses tends to infinity.",
+    "authors": [
+      "David P. Bourne",
+      "Bernhard Schmitzer",
+      "Benedikt Wirth"
+    ],
+    "category": "math.OC",
+    "published_date": "2018-08-06 15:24:35+00:00",
+    "updated_date": "2024-07-16 07:19:27+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1808.01962v2",
+    "pdf_url": "https://arxiv.org/pdf/1808.01962v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2009.02510v3",
+    "title": "Optimal Transport between Gaussian Stationary Processes",
+    "abstract": "We consider the optimal transport problem between multivariate Gaussian stationary stochastic processes. The transportation effort is the variance of the filtered discrepancy process. The main contribution of this technical note is to show that the corresponding solution leads to a weighted Hellinger distance between multivariate power spectral densities. Then, we propose a spectral estimation approach in the case of indirect measurements which is based on this distance.",
+    "authors": [
+      "Mattia Zorzi"
+    ],
+    "category": "math.OC",
+    "published_date": "2020-09-05 10:27:26+00:00",
+    "updated_date": "2021-01-10 10:10:50+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2009.02510v3",
+    "pdf_url": "https://arxiv.org/pdf/2009.02510v3.pdf",
+    "doi": null,
+    "journal_ref": "IEEE Transactions on Automatic Control 2021"
+  },
+  {
+    "id": "1307.7774v2",
+    "title": "Dual potentials for capacity constrained optimal transport",
+    "abstract": "Optimal transportation with capacity constraints, a variant of the well-known optimal transportation problem, is concerned with transporting one probability density $f \\in L^1(\\mathbb{R}^m)$ onto another one $g \\in L^1(\\mathbb{R}^n)$ so as to optimize a cost function $c \\in L^1(\\mathbb{R}^{m+n})$ while respecting the capacity constraints $0\\le h \\le \\bar h\\in L^\\infty(\\mathbb{R}^{m+n})$.   A linear programming duality theorem for this problem was first established by Levin. In this note, we prove under mild assumptions on the given data, the existence of a pair of $L^1$-functions optimizing the dual problem. Using these functions, which can be viewed as Lagrange multipliers to the marginal constraints $f$ and $g$, we characterize the solution $h$ of the primal problem. We expect these potentials to play a key role in any further analysis of $h$.   Moreover, starting from Levin's duality, we derive the classical Kantorovich duality for unconstrained optimal transport. In tandem with results obtained in our companion paper (arXiv:1309.3022), this amounts to a new and elementary proof of Kantorovich's duality.",
+    "authors": [
+      "Jonathan Korman",
+      "Robert J. McCann",
+      "Christian Seis"
+    ],
+    "category": "math.OC",
+    "published_date": "2013-07-30 01:39:01+00:00",
+    "updated_date": "2014-03-03 23:52:53+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1307.7774v2",
+    "pdf_url": "https://arxiv.org/pdf/1307.7774v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1906.01333v3",
+    "title": "Entropic regularization of continuous optimal transport problems",
+    "abstract": "We analyze continuous optimal transport problems in the so-called Kantorovich form, where we seek a transport plan between two marginals that are probability measures on compact subsets of Euclidean space. We consider the case of regularization with the negative entropy with respect to the Lebesgue measure, which has attracted attention because it can be solved by the very simple Sinkhorn algorithm. We first analyze the regularized problem in the context of classical Fenchel duality and derive a strong duality result for a predual problem in the space of continuous functions. However, this problem may not admit a minimizer, which prevents obtaining primal-dual optimality conditions. We then show that the primal problem is naturally analyzed in the Orlicz space of functions with finite entropy in the sense that the entropically regularized problem admits a minimizer if and only if the marginals have finite entropy. We then derive a dual problem in the corresponding dual space, for which existence can be shown by purely variational arguments and primal-dual optimality conditions can be derived. For marginals that do not have finite entropy, we finally show Gamma-convergence of the regularized problem with smoothed marginals to the original Kantorovich problem.",
+    "authors": [
+      "Christian Clason",
+      "Dirk A. Lorenz",
+      "Hinrich Mahler",
+      "Benedikt Wirth"
+    ],
+    "category": "math.OC",
+    "published_date": "2019-06-04 10:50:13+00:00",
+    "updated_date": "2020-06-15 14:33:37+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1906.01333v3",
+    "pdf_url": "https://arxiv.org/pdf/1906.01333v3.pdf",
+    "doi": "http://dx.doi.org/10.1016/j.jmaa.2020.124432",
+    "journal_ref": "Journal of Mathematical Analysis and Applications 494 (2021),\n  124432"
+  },
+  {
+    "id": "2004.02294v3",
+    "title": "Multimarginal Optimal Transport by Accelerated Alternating Minimization",
+    "abstract": "We consider a multimarginal optimal transport, which includes as a particular case the Wasserstein barycenter problem. In this problem one has to find an optimal coupling between $m$ probability measures, which amounts to finding a tensor of the order $m$. We propose an accelerated method based on accelerated alternating minimization and estimate its complexity to find the approximate solution to the problem. We use entropic regularization with sufficiently small regularization parameter and apply accelerated alternating minimization to the dual problem. A novel primal-dual analysis is used to reconstruct the approximately optimal coupling tensor. Our algorithm exhibits a better computational complexity than the state-of-the-art methods for some regimes of the problem parameters.",
+    "authors": [
+      "Nazarii Tupitsa",
+      "Pavel Dvurechensky",
+      "Alexander Gasnikov",
+      "C\u00e9sar A. Uribe"
+    ],
+    "category": "math.OC",
+    "published_date": "2020-04-05 19:57:29+00:00",
+    "updated_date": "2020-09-10 15:15:17+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2004.02294v3",
+    "pdf_url": "https://arxiv.org/pdf/2004.02294v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1508.05216v3",
+    "title": "Unbalanced Optimal Transport: Dynamic and Kantorovich Formulation",
+    "abstract": "This article presents a new class of distances between arbitrary nonnegative Radon measures inspired by optimal transport. These distances are defined by two equivalent alternative formulations: (i) a dynamic formulation defining the distance as a geodesic distance over the space of measures (ii) a static \"Kantorovich\" formulation where the distance is the minimum of an optimization problem over pairs of couplings describing the transfer (transport, creation and destruction) of mass between two measures. Both formulations are convex optimization problems, and the ability to switch from one to the other depending on the targeted application is a crucial property of our models. Of particular interest is the Wasserstein-Fisher-Rao metric recently introduced independently by Chizat et al. and Kondratyev et al. Defined initially through a dynamic formulation, it belongs to this class of metrics and hence automatically benefits from a static Kantorovich formulation.",
+    "authors": [
+      "Lenaic Chizat",
+      "Gabriel Peyr\u00e9",
+      "Bernhard Schmitzer",
+      "Fran\u00e7ois-Xavier Vialard"
+    ],
+    "category": "math.OC",
+    "published_date": "2015-08-21 09:00:08+00:00",
+    "updated_date": "2019-02-09 12:44:58+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1508.05216v3",
+    "pdf_url": "https://arxiv.org/pdf/1508.05216v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2205.00343v2",
+    "title": "Distributional Uncertainty Propagation via Optimal Transport",
+    "abstract": "This paper addresses the limitations of standard uncertainty models, e.g., robust (norm-bounded) and stochastic (one fixed distribution, e.g., Gaussian), and proposes to model uncertainty via Optimal Transport (OT) ambiguity sets. These constitute a very rich uncertainty model, which enjoys many desirable geometrical, statistical, and computational properties, and which: (1) naturally generalizes both robust and stochastic models, and (2) captures many additional real-world uncertainty phenomena (e.g., black swan events). Our contributions show that OT ambiguity sets are also analytically tractable: they propagate easily and intuitively through linear and nonlinear (possibly corrupted by noise) transformations, and the result of the propagation is again an OT ambiguity set or can be tightly upper bounded by an OT ambiguity set. In the context of dynamical systems, our results allow us to consider multiple sources of uncertainty (e.g., initial condition, additive noise, multiplicative noise) and to capture in closed-form, via an OT ambiguity set, the resulting uncertainty in the state at any future time. Our results are actionable, interpretable, and readily employable in a great variety of computationally tractable control and estimation formulations. To highlight this, we study three applications in trajectory planning, consensus algorithms, and least squares estimation. We conclude the paper with a list of exciting open problems enabled by our results.",
+    "authors": [
+      "Liviu Aolaritei",
+      "Nicolas Lanzetti",
+      "Hongruyu Chen",
+      "Florian D\u00f6rfler"
+    ],
+    "category": "math.OC",
+    "published_date": "2022-04-30 21:09:19+00:00",
+    "updated_date": "2023-09-07 17:18:21+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2205.00343v2",
+    "pdf_url": "https://arxiv.org/pdf/2205.00343v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2208.01958v2",
+    "title": "Moment Constrained Optimal Transport for Control Applications",
+    "abstract": "This paper concerns the application of techniques from optimal transport (OT) to mean field control, in which the probability measures of interest in OT correspond to empirical distributions associated with a large collection of controlled agents. The control objective of interest motivates a one-sided relaxation of OT, in which the first marginal is fixed and the second marginal is constrained to a moment class: a set of probability measures defined by generalized moment constraints. This relaxation is particularly interesting for control problems as it enables the coordination of agents without the need to know the desired distribution beforehand. The inclusion of an entropic regularizer is motivated by both computational considerations, and also to impose hard constraints on agent behavior. A computational approach inspired by the Sinkhorn algorithm is proposed to solve this problem. This new approach to distributed control is illustrated with an application of charging a fleet of electric vehicles while satisfying grid constraints. An online version is proposed and applied in a case study on the ElaadNL dataset containing 10,000 EV charging transactions in the Netherlands. This empirical validation demonstrates the effectiveness of the proposed approach to optimizing flexibility while respecting grid constraints.",
+    "authors": [
+      "Thomas Le Corre",
+      "Ana Busic",
+      "Sean Meyn"
+    ],
+    "category": "math.OC",
+    "published_date": "2022-08-03 10:16:45+00:00",
+    "updated_date": "2025-06-20 13:05:57+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2208.01958v2",
+    "pdf_url": "https://arxiv.org/pdf/2208.01958v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2210.11368v2",
+    "title": "Numerical Methods for Large-Scale Optimal Transport",
+    "abstract": "The optimal transport (OT) problem is a classical optimization problem having the form of linear programming. Machine learning applications put forward new computational challenges in its solution. In particular, the OT problem defines a distance between real-world objects such as images, videos, texts, etc., modeled as probability distributions. In this case, the large dimension of the corresponding optimization problem does not allow applying classical methods such as network simplex or interior-point methods. This challenge was overcome by introducing entropic regularization and using the efficient Sinkhorn's algorithm to solve the regularized problem. A flexible alternative is the accelerated primal-dual gradient method, which can use any strongly-convex regularization. We discuss these algorithms and other related problems such as approximating the Wasserstein barycenter together with efficient algorithms for its solution, including decentralized distributed algorithms.",
+    "authors": [
+      "Nazarii Tupitsa",
+      "Pavel Dvurechensky",
+      "Darina Dvinskikh",
+      "Alexander Gasnikov"
+    ],
+    "category": "math.OC",
+    "published_date": "2022-10-20 16:10:05+00:00",
+    "updated_date": "2022-10-24 10:57:57+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2210.11368v2",
+    "pdf_url": "https://arxiv.org/pdf/2210.11368v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2305.02410v1",
+    "title": "Entropic regularisation of unbalanced optimal transportation problems",
+    "abstract": "We develop a mathematical theory of entropic regularisation of unbalanced optimal transport problems. Focusing on static formulation and relying on the formalism developed for the unregularised case, we show that unbalanced optimal transport problems can be regularised in two qualitatively distinct ways - either on the original space or on the extended space. We derive several reformulations of the two regularised problems and in particular introduce the idea of a regularised induced marginal perspective cost function allowing us to derive an extended space formulation of the original space regularisation. We also prove convergence to the unregularised problem in the case of the extended space regularisation and discuss on-going work on deriving a unified framework based on higher order liftings in which both regularisations can be directly compared. We also briefly touch upon how these concepts translate to the corresponding dynamic formulations and provide evidence why the extended space regularisation should be preferred. This is a preliminary version of the manuscript, to be updated in the near future.",
+    "authors": [
+      "Maciej Buze",
+      "Manh Hong Duong"
+    ],
+    "category": "math.OC",
+    "published_date": "2023-05-03 20:09:00+00:00",
+    "updated_date": "2023-05-03 20:09:00+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2305.02410v1",
+    "pdf_url": "https://arxiv.org/pdf/2305.02410v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2307.00321v2",
+    "title": "Algorithms for Euclidean-regularised Optimal Transport",
+    "abstract": "This paper addresses the Optimal Transport problem, which is regularized by the square of Euclidean $\\ell_2$-norm. It offers theoretical guarantees regarding the iteration complexities of the Sinkhorn--Knopp algorithm, Accelerated Gradient Descent, Accelerated Alternating Minimisation, and Coordinate Linear Variance Reduction algorithms. Furthermore, the paper compares the practical efficiency of these methods and their counterparts when applied to the entropy-regularized Optimal Transport problem. This comparison is conducted through numerical experiments carried out on the MNIST dataset.",
+    "authors": [
+      "Dmitry A. Pasechnyuk",
+      "Michael Persiianov",
+      "Pavel Dvurechensky",
+      "Alexander Gasnikov"
+    ],
+    "category": "math.OC",
+    "published_date": "2023-07-01 12:14:18+00:00",
+    "updated_date": "2023-08-28 08:44:54+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2307.00321v2",
+    "pdf_url": "https://arxiv.org/pdf/2307.00321v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2310.02510v2",
+    "title": "Interior point method in tensor optimal transport",
+    "abstract": "We study a tensor optimal transport (TOT) problem for $d\\ge 2$ discrete measures. This is a linear programming problem on $d$-tensors. We introduces an interior point method (ipm) for $d$-TOT with a corresponding barrier function. Using a \"short-step\" ipm following central path within $\\varepsilon$ precision we estimate the number of iterations.",
+    "authors": [
+      "Shmuel Friedland"
+    ],
+    "category": "math.OC",
+    "published_date": "2023-10-04 01:07:40+00:00",
+    "updated_date": "2023-10-29 18:35:47+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2310.02510v2",
+    "pdf_url": "https://arxiv.org/pdf/2310.02510v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2312.06811v2",
+    "title": "Optimal reinsurance from an optimal transport perspective",
+    "abstract": "We use the randomization idea and proof techniques from optimal transport to study optimal reinsurance problems. We start by providing conditions for a class of problems that allow us to characterize the support of optimal treaties, and show how this can be used to deduce the shape of the optimal contract, reducing the task to an optimization problem with finitely many constraints, for which standard techniques can be applied. For a more general class of problems, we regard the optimal reinsurance problem as an iterated optimal transport problem between a (known) initial risk exposure of the insurer and an (unknown) resulting risk exposure of the reinsurer. The proposed approach provides a general framework that encompasses many reinsurance problems, which we illustrate in several concrete examples, providing alternative proofs to classical optimal reinsurance results, as well as establishing new optimality results, some of which contain optimal treaties that involve external randomness.",
+    "authors": [
+      "Beatrice Acciaio",
+      "Hansj\u00f6rg Albrecher",
+      "Brandon Garc\u00eda Flores"
+    ],
+    "category": "math.OC",
+    "published_date": "2023-12-11 19:55:58+00:00",
+    "updated_date": "2024-11-01 16:21:51+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2312.06811v2",
+    "pdf_url": "https://arxiv.org/pdf/2312.06811v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2201.12220v3",
+    "title": "Neural Optimal Transport",
+    "abstract": "We present a novel neural-networks-based algorithm to compute optimal transport maps and plans for strong and weak transport costs. To justify the usage of neural networks, we prove that they are universal approximators of transport plans between probability distributions. We evaluate the performance of our optimal transport algorithm on toy examples and on the unpaired image-to-image translation.",
+    "authors": [
+      "Alexander Korotin",
+      "Daniil Selikhanovych",
+      "Evgeny Burnaev"
+    ],
+    "category": "cs.LG",
+    "published_date": "2022-01-28 16:24:13+00:00",
+    "updated_date": "2023-03-01 13:38:35+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2201.12220v3",
+    "pdf_url": "https://arxiv.org/pdf/2201.12220v3.pdf",
+    "doi": null,
+    "journal_ref": "The 11th International Conference on Learning Representations\n  (ICLR 2023)"
+  },
+  {
+    "id": "2503.05087v1",
+    "title": "Partial Distribution Alignment via Adaptive Optimal Transport",
+    "abstract": "To remedy the drawbacks of full-mass or fixed-mass constraints in classical optimal transport, we propose adaptive optimal transport which is distinctive from the classical optimal transport in its ability of adaptive-mass preserving. It aims to answer the mathematical problem of how to transport the probability mass adaptively between probability distributions, which is a fundamental topic in various areas of artificial intelligence. Adaptive optimal transport is able to transfer mass adaptively in the light of the intrinsic structure of the problem itself. The theoretical results shed light on the adaptive mechanism of mass transportation. Furthermore, we instantiate the adaptive optimal transport in machine learning application to align source and target distributions partially and adaptively by respecting the ubiquity of noises, outliers, and distribution shifts in the data. The experiment results on the domain adaptation benchmarks show that the proposed method significantly outperforms the state-of-the-art algorithms.",
+    "authors": [
+      "Pei Yang",
+      "Qi Tan",
+      "Guihua Wen"
+    ],
+    "category": "cs.LG",
+    "published_date": "2025-03-07 02:13:04+00:00",
+    "updated_date": "2025-03-07 02:13:04+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2503.05087v1",
+    "pdf_url": "https://arxiv.org/pdf/2503.05087v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1609.04495v1",
+    "title": "Tsallis Regularized Optimal Transport and Ecological Inference",
+    "abstract": "Optimal transport is a powerful framework for computing distances between probability distributions. We unify the two main approaches to optimal transport, namely Monge-Kantorovitch and Sinkhorn-Cuturi, into what we define as Tsallis regularized optimal transport (\\trot). \\trot~interpolates a rich family of distortions from Wasserstein to Kullback-Leibler, encompassing as well Pearson, Neyman and Hellinger divergences, to name a few. We show that metric properties known for Sinkhorn-Cuturi generalize to \\trot, and provide efficient algorithms for finding the optimal transportation plan with formal convergence proofs. We also present the first application of optimal transport to the problem of ecological inference, that is, the reconstruction of joint distributions from their marginals, a problem of large interest in the social sciences. \\trot~provides a convenient framework for ecological inference by allowing to compute the joint distribution --- that is, the optimal transportation plan itself --- when side information is available, which is \\textit{e.g.} typically what census represents in political science. Experiments on data from the 2012 US presidential elections display the potential of \\trot~in delivering a faithful reconstruction of the joint distribution of ethnic groups and voter preferences.",
+    "authors": [
+      "Boris Muzellec",
+      "Richard Nock",
+      "Giorgio Patrini",
+      "Frank Nielsen"
+    ],
+    "category": "cs.LG",
+    "published_date": "2016-09-15 02:30:10+00:00",
+    "updated_date": "2016-09-15 02:30:10+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1609.04495v1",
+    "pdf_url": "https://arxiv.org/pdf/1609.04495v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2210.12288v2",
+    "title": "Learning Ultrametric Trees for Optimal Transport Regression",
+    "abstract": "Optimal transport provides a metric which quantifies the dissimilarity between probability measures. For measures supported in discrete metric spaces, finding the optimal transport distance has cubic time complexity in the size of the space. However, measures supported on trees admit a closed-form optimal transport that can be computed in linear time. In this paper, we aim to find an optimal tree structure for a given discrete metric space so that the tree-Wasserstein distance approximates the optimal transport distance in the original space. One of our key ideas is to cast the problem in ultrametric spaces. This helps us optimize over the space of ultrametric trees -- a mixed-discrete and continuous optimization problem -- via projected gradient decent over the space of ultrametric matrices. During optimization, we project the parameters to the ultrametric space via a hierarchical minimum spanning tree algorithm, equivalent to the closest projection to ultrametrics under the supremum norm. Experimental results on real datasets show that our approach outperforms previous approaches (e.g. Flowtree, Quadtree) in approximating optimal transport distances. Finally, experiments on synthetic data generated on ground truth trees show that our algorithm can accurately uncover the underlying trees.",
+    "authors": [
+      "Samantha Chen",
+      "Puoya Tabaghi",
+      "Yusu Wang"
+    ],
+    "category": "cs.LG",
+    "published_date": "2022-10-21 22:54:42+00:00",
+    "updated_date": "2024-01-26 22:03:58+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2210.12288v2",
+    "pdf_url": "https://arxiv.org/pdf/2210.12288v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2110.01446v1",
+    "title": "Label Propagation Through Optimal Transport",
+    "abstract": "In this paper, we tackle the transductive semi-supervised learning problem that aims to obtain label predictions for the given unlabeled data points according to Vapnik's principle. Our proposed approach is based on optimal transport, a mathematical theory that has been successfully used to address various machine learning problems, and is starting to attract renewed interest in semi-supervised learning community. The proposed approach, Optimal Transport Propagation (OTP), performs in an incremental process, label propagation through the edges of a complete bipartite edge-weighted graph, whose affinity matrix is constructed from the optimal transport plan between empirical measures defined on labeled and unlabeled data. OTP ensures a high degree of predictions certitude by controlling the propagation process using a certainty score based on Shannon's entropy. We also provide a convergence analysis of our algorithm. Experiments task show the superiority of the proposed approach over the state-of-the-art. We make our code publicly available.",
+    "authors": [
+      "Mourad El Hamri",
+      "Youn\u00e8s Bennani",
+      "Issam Falih"
+    ],
+    "category": "cs.LG",
+    "published_date": "2021-10-01 11:25:55+00:00",
+    "updated_date": "2021-10-01 11:25:55+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2110.01446v1",
+    "pdf_url": "https://arxiv.org/pdf/2110.01446v1.pdf",
+    "doi": "http://dx.doi.org/10.1109/IJCNN52387.2021.9533521",
+    "journal_ref": "2021 International Joint Conference on Neural Networks (IJCNN)"
+  },
+  {
+    "id": "2309.15603v1",
+    "title": "Distill Knowledge in Multi-task Reinforcement Learning with   Optimal-Transport Regularization",
+    "abstract": "In multi-task reinforcement learning, it is possible to improve the data efficiency of training agents by transferring knowledge from other different but related tasks. Because the experiences from different tasks are usually biased toward the specific task goals. Traditional methods rely on Kullback-Leibler regularization to stabilize the transfer of knowledge from one task to the others. In this work, we explore the direction of replacing the Kullback-Leibler divergence with a novel Optimal transport-based regularization. By using the Sinkhorn mapping, we can approximate the Optimal transport distance between the state distribution of tasks. The distance is then used as an amortized reward to regularize the amount of sharing information. We experiment our frameworks on several grid-based navigation multi-goal to validate the effectiveness of the approach. The results show that our added Optimal transport-based rewards are able to speed up the learning process of agents and outperforms several baselines on multi-task learning.",
+    "authors": [
+      "Bang Giang Le",
+      "Viet Cuong Ta"
+    ],
+    "category": "cs.LG",
+    "published_date": "2023-09-27 12:06:34+00:00",
+    "updated_date": "2023-09-27 12:06:34+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2309.15603v1",
+    "pdf_url": "https://arxiv.org/pdf/2309.15603v1.pdf",
+    "doi": "http://dx.doi.org/10.1109/KSE56063.2022.9953750",
+    "journal_ref": "2022 14th International Conference on Knowledge and Systems\n  Engineering (KSE), Nha Trang, Vietnam, 2022, pp. 1-6,"
+  },
+  {
+    "id": "2310.06002v1",
+    "title": "LCOT: Linear circular optimal transport",
+    "abstract": "The optimal transport problem for measures supported on non-Euclidean spaces has recently gained ample interest in diverse applications involving representation learning. In this paper, we focus on circular probability measures, i.e., probability measures supported on the unit circle, and introduce a new computationally efficient metric for these measures, denoted as Linear Circular Optimal Transport (LCOT). The proposed metric comes with an explicit linear embedding that allows one to apply Machine Learning (ML) algorithms to the embedded measures and seamlessly modify the underlying metric for the ML algorithm to LCOT. We show that the proposed metric is rooted in the Circular Optimal Transport (COT) and can be considered the linearization of the COT metric with respect to a fixed reference measure. We provide a theoretical analysis of the proposed metric and derive the computational complexities for pairwise comparison of circular probability measures. Lastly, through a set of numerical experiments, we demonstrate the benefits of LCOT in learning representations of circular measures.",
+    "authors": [
+      "Rocio Diaz Martin",
+      "Ivan Medri",
+      "Yikun Bai",
+      "Xinran Liu",
+      "Kangbai Yan",
+      "Gustavo K. Rohde",
+      "Soheil Kolouri"
+    ],
+    "category": "cs.LG",
+    "published_date": "2023-10-09 14:37:56+00:00",
+    "updated_date": "2023-10-09 14:37:56+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2310.06002v1",
+    "pdf_url": "https://arxiv.org/pdf/2310.06002v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2504.03188v2",
+    "title": "Pairwise Optimal Transports for Training All-to-All Flow-Based Condition   Transfer Model",
+    "abstract": "In this paper, we propose a flow-based method for learning all-to-all transfer maps among conditional distributions that approximates pairwise optimal transport. The proposed method addresses the challenge of handling the case of continuous conditions, which often involve a large set of conditions with sparse empirical observations per condition. We introduce a novel cost function that enables simultaneous learning of optimal transports for all pairs of conditional distributions. Our method is supported by a theoretical guarantee that, in the limit, it converges to the pairwise optimal transports among infinite pairs of conditional distributions. The learned transport maps are subsequently used to couple data points in conditional flow matching. We demonstrate the effectiveness of this method on synthetic and benchmark datasets, as well as on chemical datasets in which continuous physical properties are defined as conditions.",
+    "authors": [
+      "Kotaro Ikeda",
+      "Masanori Koyama",
+      "Jinzhe Zhang",
+      "Kohei Hayashi",
+      "Kenji Fukumizu"
+    ],
+    "category": "cs.LG",
+    "published_date": "2025-04-04 05:32:54+00:00",
+    "updated_date": "2025-05-27 05:58:24+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2504.03188v2",
+    "pdf_url": "https://arxiv.org/pdf/2504.03188v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2507.13191v1",
+    "title": "GradNetOT: Learning Optimal Transport Maps with GradNets",
+    "abstract": "Monotone gradient functions play a central role in solving the Monge formulation of the optimal transport problem, which arises in modern applications ranging from fluid dynamics to robot swarm control. When the transport cost is the squared Euclidean distance, Brenier's theorem guarantees that the unique optimal map is the gradient of a convex function, namely a monotone gradient map, and it satisfies a Monge-Amp\\`ere equation. In [arXiv:2301.10862] [arXiv:2404.07361], we proposed Monotone Gradient Networks (mGradNets), neural networks that directly parameterize the space of monotone gradient maps. In this work, we leverage mGradNets to directly learn the optimal transport mapping by minimizing a training loss function defined using the Monge-Amp\\`ere equation. We empirically show that the structural bias of mGradNets facilitates the learning of optimal transport maps and employ our method for a robot swarm control problem.",
+    "authors": [
+      "Shreyas Chaudhari",
+      "Srinivasa Pranav",
+      "Jos\u00e9 M. F. Moura"
+    ],
+    "category": "cs.LG",
+    "published_date": "2025-07-17 14:59:24+00:00",
+    "updated_date": "2025-07-17 14:59:24+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2507.13191v1",
+    "pdf_url": "https://arxiv.org/pdf/2507.13191v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2410.14069v1",
+    "title": "Rethinking Optimal Transport in Offline Reinforcement Learning",
+    "abstract": "We propose a novel algorithm for offline reinforcement learning using optimal transport. Typically, in offline reinforcement learning, the data is provided by various experts and some of them can be sub-optimal. To extract an efficient policy, it is necessary to \\emph{stitch} the best behaviors from the dataset. To address this problem, we rethink offline reinforcement learning as an optimal transportation problem. And based on this, we present an algorithm that aims to find a policy that maps states to a \\emph{partial} distribution of the best expert actions for each given state. We evaluate the performance of our algorithm on continuous control problems from the D4RL suite and demonstrate improvements over existing methods.",
+    "authors": [
+      "Arip Asadulaev",
+      "Rostislav Korst",
+      "Alexander Korotin",
+      "Vage Egiazarian",
+      "Andrey Filchenkov",
+      "Evgeny Burnaev"
+    ],
+    "category": "cs.LG",
+    "published_date": "2024-10-17 22:36:43+00:00",
+    "updated_date": "2024-10-17 22:36:43+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2410.14069v1",
+    "pdf_url": "https://arxiv.org/pdf/2410.14069v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2203.10453v1",
+    "title": "Fine-Tuning Graph Neural Networks via Graph Topology induced Optimal   Transport",
+    "abstract": "Recently, the pretrain-finetuning paradigm has attracted tons of attention in graph learning community due to its power of alleviating the lack of labels problem in many real-world applications. Current studies use existing techniques, such as weight constraint, representation constraint, which are derived from images or text data, to transfer the invariant knowledge from the pre-train stage to fine-tuning stage. However, these methods failed to preserve invariances from graph structure and Graph Neural Network (GNN) style models. In this paper, we present a novel optimal transport-based fine-tuning framework called GTOT-Tuning, namely, Graph Topology induced Optimal Transport fine-Tuning, for GNN style backbones. GTOT-Tuning is required to utilize the property of graph data to enhance the preservation of representation produced by fine-tuned networks. Toward this goal, we formulate graph local knowledge transfer as an Optimal Transport (OT) problem with a structural prior and construct the GTOT regularizer to constrain the fine-tuned model behaviors. By using the adjacency relationship amongst nodes, the GTOT regularizer achieves node-level optimal transport procedures and reduces redundant transport procedures, resulting in efficient knowledge transfer from the pre-trained models. We evaluate GTOT-Tuning on eight downstream tasks with various GNN backbones and demonstrate that it achieves state-of-the-art fine-tuning performance for GNNs.",
+    "authors": [
+      "Jiying Zhang",
+      "Xi Xiao",
+      "Long-Kai Huang",
+      "Yu Rong",
+      "Yatao Bian"
+    ],
+    "category": "cs.LG",
+    "published_date": "2022-03-20 04:41:17+00:00",
+    "updated_date": "2022-03-20 04:41:17+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2203.10453v1",
+    "pdf_url": "https://arxiv.org/pdf/2203.10453v1.pdf",
+    "doi": null,
+    "journal_ref": "IJCAI2022"
+  },
+  {
+    "id": "2106.01954v2",
+    "title": "Do Neural Optimal Transport Solvers Work? A Continuous Wasserstein-2   Benchmark",
+    "abstract": "Despite the recent popularity of neural network-based solvers for optimal transport (OT), there is no standard quantitative way to evaluate their performance. In this paper, we address this issue for quadratic-cost transport -- specifically, computation of the Wasserstein-2 distance, a commonly-used formulation of optimal transport in machine learning. To overcome the challenge of computing ground truth transport maps between continuous measures needed to assess these solvers, we use input-convex neural networks (ICNN) to construct pairs of measures whose ground truth OT maps can be obtained analytically. This strategy yields pairs of continuous benchmark measures in high-dimensional spaces such as spaces of images. We thoroughly evaluate existing optimal transport solvers using these benchmark measures. Even though these solvers perform well in downstream tasks, many do not faithfully recover optimal transport maps. To investigate the cause of this discrepancy, we further test the solvers in a setting of image generation. Our study reveals crucial limitations of existing solvers and shows that increased OT accuracy does not necessarily correlate to better results downstream.",
+    "authors": [
+      "Alexander Korotin",
+      "Lingxiao Li",
+      "Aude Genevay",
+      "Justin Solomon",
+      "Alexander Filippov",
+      "Evgeny Burnaev"
+    ],
+    "category": "cs.LG",
+    "published_date": "2021-06-03 15:59:28+00:00",
+    "updated_date": "2021-10-25 10:24:41+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2106.01954v2",
+    "pdf_url": "https://arxiv.org/pdf/2106.01954v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1708.02469v1",
+    "title": "Multiscale Strategies for Computing Optimal Transport",
+    "abstract": "This paper presents a multiscale approach to efficiently compute approximate optimal transport plans between point sets. It is particularly well-suited for point sets that are in high-dimensions, but are close to being intrinsically low-dimensional. The approach is based on an adaptive multiscale decomposition of the point sets. The multiscale decomposition yields a sequence of optimal transport problems, that are solved in a top-to-bottom fashion from the coarsest to the finest scale. We provide numerical evidence that this multiscale approach scales approximately linearly, in time and memory, in the number of nodes, instead of quadratically or worse for a direct solution. Empirically, the multiscale approach results in less than one percent relative error in the objective function. Furthermore, the multiscale plans constructed are of interest by themselves as they may be used to introduce novel features and notions of distances between point sets. An analysis of sets of brain MRI based on optimal transport distances illustrates the effectiveness of the proposed method on a real world data set. The application demonstrates that multiscale optimal transport distances have the potential to improve on state-of-the-art metrics currently used in computational anatomy.",
+    "authors": [
+      "Samuel Gerber",
+      "Mauro Maggioni"
+    ],
+    "category": "cs.LG",
+    "published_date": "2017-08-08 12:54:27+00:00",
+    "updated_date": "2017-08-08 12:54:27+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1708.02469v1",
+    "pdf_url": "https://arxiv.org/pdf/1708.02469v1.pdf",
+    "doi": null,
+    "journal_ref": "Journal of Machine Learning Research 18 (2017): 1-32"
+  },
+  {
+    "id": "2110.03237v4",
+    "title": "Score-based Generative Neural Networks for Large-Scale Optimal Transport",
+    "abstract": "We consider the fundamental problem of sampling the optimal transport coupling between given source and target distributions. In certain cases, the optimal transport plan takes the form of a one-to-one mapping from the source support to the target support, but learning or even approximating such a map is computationally challenging for large and high-dimensional datasets due to the high cost of linear programming routines and an intrinsic curse of dimensionality. We study instead the Sinkhorn problem, a regularized form of optimal transport whose solutions are couplings between the source and the target distribution. We introduce a novel framework for learning the Sinkhorn coupling between two distributions in the form of a score-based generative model. Conditioned on source data, our procedure iterates Langevin Dynamics to sample target data according to the regularized optimal coupling. Key to this approach is a neural network parametrization of the Sinkhorn problem, and we prove convergence of gradient descent with respect to network parameters in this formulation. We demonstrate its empirical success on a variety of large scale optimal transport tasks.",
+    "authors": [
+      "Max Daniels",
+      "Tyler Maunu",
+      "Paul Hand"
+    ],
+    "category": "cs.LG",
+    "published_date": "2021-10-07 07:45:39+00:00",
+    "updated_date": "2022-01-25 15:40:17+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2110.03237v4",
+    "pdf_url": "https://arxiv.org/pdf/2110.03237v4.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2205.15424v2",
+    "title": "Connecting adversarial attacks and optimal transport for domain   adaptation",
+    "abstract": "We present a novel algorithm for domain adaptation using optimal transport. In domain adaptation, the goal is to adapt a classifier trained on the source domain samples to the target domain. In our method, we use optimal transport to map target samples to the domain named source fiction. This domain differs from the source but is accurately classified by the source domain classifier. Our main idea is to generate a source fiction by c-cyclically monotone transformation over the target domain. If samples with the same labels in two domains are c-cyclically monotone, the optimal transport map between these domains preserves the class-wise structure, which is the main goal of domain adaptation. To generate a source fiction domain, we propose an algorithm that is based on our finding that adversarial attacks are a c-cyclically monotone transformation of the dataset. We conduct experiments on Digits and Modern Office-31 datasets and achieve improvement in performance for simple discrete optimal transport solvers for all adaptation tasks.",
+    "authors": [
+      "Arip Asadulaev",
+      "Vitaly Shutov",
+      "Alexander Korotin",
+      "Alexander Panfilov",
+      "Andrey Filchenkov"
+    ],
+    "category": "cs.LG",
+    "published_date": "2022-05-30 20:45:55+00:00",
+    "updated_date": "2022-06-04 15:02:01+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2205.15424v2",
+    "pdf_url": "https://arxiv.org/pdf/2205.15424v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2206.14928v2",
+    "title": "Manifold Interpolating Optimal-Transport Flows for Trajectory Inference",
+    "abstract": "We present a method called Manifold Interpolating Optimal-Transport Flow (MIOFlow) that learns stochastic, continuous population dynamics from static snapshot samples taken at sporadic timepoints. MIOFlow combines dynamic models, manifold learning, and optimal transport by training neural ordinary differential equations (Neural ODE) to interpolate between static population snapshots as penalized by optimal transport with manifold ground distance. Further, we ensure that the flow follows the geometry by operating in the latent space of an autoencoder that we call a geodesic autoencoder (GAE). In GAE the latent space distance between points is regularized to match a novel multiscale geodesic distance on the data manifold that we define. We show that this method is superior to normalizing flows, Schr\\\"odinger bridges and other generative models that are designed to flow from noise to data in terms of interpolating between populations. Theoretically, we link these trajectories with dynamic optimal transport. We evaluate our method on simulated data with bifurcations and merges, as well as scRNA-seq data from embryoid body differentiation, and acute myeloid leukemia treatment.",
+    "authors": [
+      "Guillaume Huguet",
+      "D. S. Magruder",
+      "Alexander Tong",
+      "Oluwadamilola Fasina",
+      "Manik Kuchroo",
+      "Guy Wolf",
+      "Smita Krishnaswamy"
+    ],
+    "category": "cs.LG",
+    "published_date": "2022-06-29 22:19:03+00:00",
+    "updated_date": "2022-11-03 12:45:37+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2206.14928v2",
+    "pdf_url": "https://arxiv.org/pdf/2206.14928v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2405.15252v2",
+    "title": "Accelerating 3D Molecule Generation via Jointly Geometric Optimal   Transport",
+    "abstract": "This paper proposes a new 3D molecule generation framework, called GOAT, for fast and effective 3D molecule generation based on the flow-matching optimal transport objective. Specifically, we formulate a geometric transport formula for measuring the cost of mapping multi-modal features (e.g., continuous atom coordinates and categorical atom types) between a base distribution and a target data distribution. Our formula is solved within a joint, equivariant, and smooth representation space. This is achieved by transforming the multi-modal features into a continuous latent space with equivariant networks. In addition, we find that identifying optimal distributional coupling is necessary for fast and effective transport between any two distributions. We further propose a mechanism for estimating and purifying optimal coupling to train the flow model with optimal transport. By doing so, GOAT can turn arbitrary distribution couplings into new deterministic couplings, leading to an estimated optimal transport plan for fast 3D molecule generation. The purification filters out the subpar molecules to ensure the ultimate generation quality. We theoretically and empirically prove that the proposed optimal coupling estimation and purification yield transport plan with non-increasing cost. Finally, extensive experiments show that GOAT enjoys the efficiency of solving geometric optimal transport, leading to a double speedup compared to the sub-optimal method while achieving the best generation quality regarding validity, uniqueness, and novelty. The code is available at https://github.com/WanyuGroup/ICLR2025-GOAT.",
+    "authors": [
+      "Haokai Hong",
+      "Wanyu Lin",
+      "Kay Chen Tan"
+    ],
+    "category": "cs.LG",
+    "published_date": "2024-05-24 06:22:01+00:00",
+    "updated_date": "2025-03-02 14:10:09+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2405.15252v2",
+    "pdf_url": "https://arxiv.org/pdf/2405.15252v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2504.02083v1",
+    "title": "Measuring the Data",
+    "abstract": "Measuring the Data analytically finds the intrinsic manifold in big data. First, Optimal Transport generates the tangent space at each data point from which the intrinsic dimension is revealed. Then, the Koopman Dimensionality Reduction procedure derives a nonlinear transformation from the data to the intrinsic manifold. Measuring the data procedure is presented here, backed up with encouraging results.",
+    "authors": [
+      "Ido Cohen"
+    ],
+    "category": "cs.LG",
+    "published_date": "2025-04-02 19:43:08+00:00",
+    "updated_date": "2025-04-02 19:43:08+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2504.02083v1",
+    "pdf_url": "https://arxiv.org/pdf/2504.02083v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "1905.00158v3",
+    "title": "On Scalable and Efficient Computation of Large Scale Optimal Transport",
+    "abstract": "Optimal Transport (OT) naturally arises in many machine learning applications, yet the heavy computational burden limits its wide-spread uses. To address the scalability issue, we propose an implicit generative learning-based framework called SPOT (Scalable Push-forward of Optimal Transport). Specifically, we approximate the optimal transport plan by a pushforward of a reference distribution, and cast the optimal transport problem into a minimax problem. We then can solve OT problems efficiently using primal dual stochastic gradient-type algorithms. We also show that we can recover the density of the optimal transport plan using neural ordinary differential equations. Numerical experiments on both synthetic and real datasets illustrate that SPOT is robust and has favorable convergence behavior. SPOT also allows us to efficiently sample from the optimal transport plan, which benefits downstream applications such as domain adaptation.",
+    "authors": [
+      "Yujia Xie",
+      "Minshuo Chen",
+      "Haoming Jiang",
+      "Tuo Zhao",
+      "Hongyuan Zha"
+    ],
+    "category": "cs.LG",
+    "published_date": "2019-05-01 01:32:52+00:00",
+    "updated_date": "2019-06-24 19:22:14+00:00",
+    "arxiv_url": "http://arxiv.org/abs/1905.00158v3",
+    "pdf_url": "https://arxiv.org/pdf/1905.00158v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2008.02995v3",
+    "title": "A Review on Modern Computational Optimal Transport Methods with   Applications in Biomedical Research",
+    "abstract": "Optimal transport has been one of the most exciting subjects in mathematics, starting from the 18th century. As a powerful tool to transport between two probability measures, optimal transport methods have been reinvigorated nowadays in a remarkable proliferation of modern data science applications. To meet the big data challenges, various computational tools have been developed in the recent decade to accelerate the computation for optimal transport methods. In this review, we present some cutting-edge computational optimal transport methods with a focus on the regularization-based methods and the projection-based methods. We discuss their real-world applications in biomedical research.",
+    "authors": [
+      "Jingyi Zhang",
+      "Wenxuan Zhong",
+      "Ping Ma"
+    ],
+    "category": "stat.ML",
+    "published_date": "2020-08-07 05:33:54+00:00",
+    "updated_date": "2021-05-20 09:39:21+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2008.02995v3",
+    "pdf_url": "https://arxiv.org/pdf/2008.02995v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2309.04015v3",
+    "title": "Optimal Transport with Tempered Exponential Measures",
+    "abstract": "In the field of optimal transport, two prominent subfields face each other: (i) unregularized optimal transport, \"\\`a-la-Kantorovich\", which leads to extremely sparse plans but with algorithms that scale poorly, and (ii) entropic-regularized optimal transport, \"\\`a-la-Sinkhorn-Cuturi\", which gets near-linear approximation algorithms but leads to maximally un-sparse plans. In this paper, we show that an extension of the latter to tempered exponential measures, a generalization of exponential families with indirect measure normalization, gets to a very convenient middle ground, with both very fast approximation algorithms and sparsity, which is under control up to sparsity patterns. In addition, our formulation fits naturally in the unbalanced optimal transport problem setting.",
+    "authors": [
+      "Ehsan Amid",
+      "Frank Nielsen",
+      "Richard Nock",
+      "Manfred K. Warmuth"
+    ],
+    "category": "cs.LG",
+    "published_date": "2023-09-07 20:53:23+00:00",
+    "updated_date": "2024-02-16 16:35:29+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2309.04015v3",
+    "pdf_url": "https://arxiv.org/pdf/2309.04015v3.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2106.07501v2",
+    "title": "Balanced Coarsening for Multilevel Hypergraph Partitioning via   Wasserstein Discrepancy",
+    "abstract": "We propose a balanced coarsening scheme for multilevel hypergraph partitioning. In addition, an initial partitioning algorithm is designed to improve the quality of k-way hypergraph partitioning. By assigning vertex weights through the LPT algorithm, we generate a prior hypergraph under a relaxed balance constraint. With the prior hypergraph, we have defined the Wasserstein discrepancy to coordinate the optimal transport of coarsening process. And the optimal transport matrix is solved by Sinkhorn algorithm. Our coarsening scheme fully takes into account the minimization of connectivity metric (objective function). For the initial partitioning stage, we define a normalized cut function induced by Fiedler vector, which is theoretically proved to be a concave function. Thereby, a three-point algorithm is designed to find the best cut under the balance constraint.",
+    "authors": [
+      "Zhicheng Guo",
+      "Jiaxuan Zhao",
+      "Licheng Jiao",
+      "Xu Liu"
+    ],
+    "category": "cs.LG",
+    "published_date": "2021-06-14 15:30:34+00:00",
+    "updated_date": "2023-07-13 05:51:09+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2106.07501v2",
+    "pdf_url": "https://arxiv.org/pdf/2106.07501v2.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2111.06546v1",
+    "title": "Approximating Optimal Transport via Low-rank and Sparse Factorization",
+    "abstract": "Optimal transport (OT) naturally arises in a wide range of machine learning applications but may often become the computational bottleneck. Recently, one line of works propose to solve OT approximately by searching the \\emph{transport plan} in a low-rank subspace. However, the optimal transport plan is often not low-rank, which tends to yield large approximation errors. For example, when Monge's \\emph{transport map} exists, the transport plan is full rank. This paper concerns the computation of the OT distance with adequate accuracy and efficiency. A novel approximation for OT is proposed, in which the transport plan can be decomposed into the sum of a low-rank matrix and a sparse one. We theoretically analyze the approximation error. An augmented Lagrangian method is then designed to efficiently calculate the transport plan.",
+    "authors": [
+      "Weijie Liu",
+      "Chao Zhang",
+      "Nenggan Zheng",
+      "Hui Qian"
+    ],
+    "category": "cs.LG",
+    "published_date": "2021-11-12 03:10:45+00:00",
+    "updated_date": "2021-11-12 03:10:45+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2111.06546v1",
+    "pdf_url": "https://arxiv.org/pdf/2111.06546v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2303.13971v1",
+    "title": "Optimal Transport for Offline Imitation Learning",
+    "abstract": "With the advent of large datasets, offline reinforcement learning (RL) is a promising framework for learning good decision-making policies without the need to interact with the real environment. However, offline RL requires the dataset to be reward-annotated, which presents practical challenges when reward engineering is difficult or when obtaining reward annotations is labor-intensive. In this paper, we introduce Optimal Transport Reward labeling (OTR), an algorithm that assigns rewards to offline trajectories, with a few high-quality demonstrations. OTR's key idea is to use optimal transport to compute an optimal alignment between an unlabeled trajectory in the dataset and an expert demonstration to obtain a similarity measure that can be interpreted as a reward, which can then be used by an offline RL algorithm to learn the policy. OTR is easy to implement and computationally efficient. On D4RL benchmarks, we show that OTR with a single demonstration can consistently match the performance of offline RL with ground-truth rewards.",
+    "authors": [
+      "Yicheng Luo",
+      "Zhengyao Jiang",
+      "Samuel Cohen",
+      "Edward Grefenstette",
+      "Marc Peter Deisenroth"
+    ],
+    "category": "cs.LG",
+    "published_date": "2023-03-24 12:45:42+00:00",
+    "updated_date": "2023-03-24 12:45:42+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2303.13971v1",
+    "pdf_url": "https://arxiv.org/pdf/2303.13971v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  },
+  {
+    "id": "2306.00620v1",
+    "title": "OTW: Optimal Transport Warping for Time Series",
+    "abstract": "Dynamic Time Warping (DTW) has become the pragmatic choice for measuring distance between time series. However, it suffers from unavoidable quadratic time complexity when the optimal alignment matrix needs to be computed exactly. This hinders its use in deep learning architectures, where layers involving DTW computations cause severe bottlenecks. To alleviate these issues, we introduce a new metric for time series data based on the Optimal Transport (OT) framework, called Optimal Transport Warping (OTW). OTW enjoys linear time/space complexity, is differentiable and can be parallelized. OTW enjoys a moderate sensitivity to time and shape distortions, making it ideal for time series. We show the efficacy and efficiency of OTW on 1-Nearest Neighbor Classification and Hierarchical Clustering, as well as in the case of using OTW instead of DTW in Deep Learning architectures.",
+    "authors": [
+      "Fabian Latorre",
+      "Chenghao Liu",
+      "Doyen Sahoo",
+      "Steven C. H. Hoi"
+    ],
+    "category": "cs.LG",
+    "published_date": "2023-06-01 12:45:00+00:00",
+    "updated_date": "2023-06-01 12:45:00+00:00",
+    "arxiv_url": "http://arxiv.org/abs/2306.00620v1",
+    "pdf_url": "https://arxiv.org/pdf/2306.00620v1.pdf",
+    "doi": null,
+    "journal_ref": null
+  }
+]

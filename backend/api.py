@@ -1027,18 +1027,186 @@ async def fetch_paper_references(paper_id: str, force_refresh: bool = False):
             # Extract references using GROBID
             references = await grobid_service.extract_references_from_arxiv(arxiv_id)
             
-            # Store references in database
+            # Stage 2: DuckDuckGo enrichment for non-ArXiv references
+            stage2_success = False
+            enhanced_references = 0
+            
             if references:
-                await db_manager.store_references(arxiv_id, references)
+                try:
+                    from services.duckduckgo_academic_service import search_arxiv_papers_via_duckduckgo
+                    
+                    # Find references that aren't ArXiv papers and need enrichment
+                    non_arxiv_refs = [ref for ref in references if not ref.get('is_arxiv_paper')]
+                    
+                    if non_arxiv_refs:
+                        logger.info(f"🔍 Found {len(non_arxiv_refs)} non-ArXiv references, attempting DuckDuckGo enrichment")
+                        
+                        for ref in non_arxiv_refs:
+                            # Create search query from reference data
+                            search_terms = []
+                            if ref.get('cited_title'):
+                                search_terms.append(f'"{ref["cited_title"]}"')
+                            if ref.get('cited_authors'):
+                                # Extract first author for search
+                                first_author = ref['cited_authors'].split(',')[0].strip()
+                                search_terms.append(first_author)
+                            if ref.get('cited_year'):
+                                search_terms.append(str(ref['cited_year']))
+                            
+                            if search_terms:
+                                query = ' '.join(search_terms)
+                                
+                                try:
+                                    # Search for ArXiv papers that match this reference
+                                    arxiv_ids = await search_arxiv_papers_via_duckduckgo(query, max_results=10)
+                                    
+                                    if arxiv_ids:
+                                        # Validate each found ArXiv paper
+                                        from services.arxiv_metadata_service import fetch_arxiv_metadata
+                                        from services.reference_validation_service import validate_arxiv_reference_match
+                                        
+                                        # Fetch metadata for all candidates first
+                                        candidates = []
+                                        candidate_ids = []
+                                        
+                                        for arxiv_id in arxiv_ids:
+                                            try:
+                                                arxiv_metadata = await fetch_arxiv_metadata(arxiv_id)
+                                                if arxiv_metadata:
+                                                    candidates.append(arxiv_metadata)
+                                                    candidate_ids.append(arxiv_id)
+                                                    logger.info(f"📄 Candidate {len(candidates)}: {arxiv_metadata.get('title', 'Unknown')[:50]}... by {arxiv_metadata.get('authors', 'Unknown')[:30]}... ({arxiv_metadata.get('year', 'Unknown')})")
+                                                else:
+                                                    logger.debug(f"❌ Could not fetch metadata for {arxiv_id}")
+                                            except Exception as e:
+                                                logger.error(f"Error fetching metadata for {arxiv_id}: {e}")
+                                                continue
+                                        
+                                        if candidates:
+                                            # First apply rule-based year filtering (10-year limit)
+                                            def filter_by_year(ref_year, candidates, max_year_diff=10):
+                                                """Filter candidates by year difference - hard 10-year limit."""
+                                                if not ref_year:
+                                                    logger.debug("No reference year available - skipping year filter")
+                                                    return candidates
+                                                
+                                                try:
+                                                    ref_year_int = int(ref_year)
+                                                except (ValueError, TypeError):
+                                                    logger.debug(f"Invalid reference year '{ref_year}' - skipping year filter")
+                                                    return candidates
+                                                
+                                                filtered_candidates = []
+                                                filtered_ids = []
+                                                
+                                                for i, candidate in enumerate(candidates):
+                                                    candidate_year = candidate.get('year')
+                                                    if not candidate_year:
+                                                        # No year info - keep for AI to decide
+                                                        filtered_candidates.append(candidate)
+                                                        filtered_ids.append(candidate_ids[i])
+                                                        continue
+                                                    
+                                                    try:
+                                                        candidate_year_int = int(candidate_year)
+                                                        year_diff = abs(ref_year_int - candidate_year_int)
+                                                        
+                                                        if year_diff <= max_year_diff:
+                                                            filtered_candidates.append(candidate)
+                                                            filtered_ids.append(candidate_ids[i])
+                                                            logger.debug(f"✅ Year filter PASS: {candidate.get('title', 'Unknown')[:30]}... ({ref_year} vs {candidate_year}, diff: {year_diff})")
+                                                        else:
+                                                            logger.info(f"❌ Year filter REJECT: {candidate.get('title', 'Unknown')[:30]}... ({ref_year} vs {candidate_year}, diff: {year_diff} > {max_year_diff})")
+                                                    except (ValueError, TypeError):
+                                                        # Invalid year - keep for AI to decide
+                                                        filtered_candidates.append(candidate)
+                                                        filtered_ids.append(candidate_ids[i])
+                                                        logger.debug(f"⚠️  Invalid candidate year '{candidate_year}' - keeping for AI")
+                                                
+                                                return filtered_candidates, filtered_ids
+                                            
+                                            # Apply year filter (6-year limit)
+                                            filtered_candidates, filtered_candidate_ids = filter_by_year(ref.get('cited_year'), candidates, max_year_diff=6)
+                                            
+                                            if not filtered_candidates:
+                                                logger.info(f"❌ All candidates rejected by year filter (>6 year difference)")
+                                                continue
+                                            
+                                            logger.info(f"📅 Year filter: {len(filtered_candidates)}/{len(candidates)} candidates passed 6-year limit")
+                                            
+                                            # Use batch AI validation for year-filtered candidates
+                                            from services.ai_reference_validator import validate_batch_with_ai
+                                            
+                                            logger.info(f"🤖 BATCH AI VALIDATION")
+                                            logger.info(f"   Reference: {ref.get('cited_title', 'Unknown title')[:50]}...")
+                                            logger.info(f"   Ref authors: {ref.get('cited_authors', 'Unknown')}")
+                                            logger.info(f"   Ref year: {ref.get('cited_year', 'Unknown')}")
+                                            logger.info(f"   Total candidates: {len(filtered_candidates)} (after year filter)")
+                                            
+                                            try:
+                                                batch_result = await validate_batch_with_ai(ref, filtered_candidates)
+                                                
+                                                logger.info(f"🎯 BATCH VALIDATION RESULT")
+                                                logger.info(f"   Selected candidate: {batch_result['selected_candidate']}")
+                                                logger.info(f"   AI reasoning: {batch_result['reasoning']}")
+                                                logger.info(f"   Model used: {batch_result['model_used']}")
+                                                
+                                                selected_index = batch_result['selected_candidate']
+                                                
+                                                if selected_index > 0 and selected_index <= len(filtered_candidates):
+                                                    # Valid candidate selected from filtered list
+                                                    selected_candidate = filtered_candidates[selected_index - 1]  # Convert to 0-based index
+                                                    selected_arxiv_id = filtered_candidate_ids[selected_index - 1]
+                                                    
+                                                    ref['cited_paper_id'] = selected_arxiv_id
+                                                    ref['is_arxiv_paper'] = True
+                                                    ref['source'] = 'grobid+duckduckgo+ai_batch'
+                                                    ref['validation_confidence'] = 0.9  # High confidence for selected matches
+                                                    ref['ai_reasoning'] = batch_result['reasoning']
+                                                    enhanced_references += 1
+                                                    
+                                                    logger.info(f"✅ AI-selected reference match: {query} → {selected_arxiv_id}")
+                                                    logger.info(f"   Selected: {selected_candidate.get('title', 'Unknown')[:50]}...")
+                                                    logger.info(f"   AI reasoning: {batch_result['reasoning'][:100]}...")
+                                                    # Continue processing more references instead of breaking
+                                                else:
+                                                    # No candidate selected (index 0 or invalid)
+                                                    logger.info(f"❌ AI rejected all candidates: {batch_result['reasoning'][:100]}...")
+                                                
+                                            except Exception as e:
+                                                logger.error(f"Batch AI validation failed: {e}")
+                                                # Fallback to rejecting all candidates
+                                                logger.info(f"❌ Batch validation error - rejecting all candidates for safety")
+                                        else:
+                                            # No valid matches found
+                                            logger.debug(f"🔍 No validated matches found for: {query}")
+                                    
+                                except Exception as e:
+                                    logger.debug(f"DuckDuckGo search failed for '{query}': {e}")
+                                    continue
+                        
+                        stage2_success = enhanced_references > 0
+                        logger.info(f"🎯 DuckDuckGo enrichment complete: {enhanced_references}/{len(non_arxiv_refs)} references enhanced")
+                        
+                except ImportError:
+                    logger.warning("DuckDuckGo service not available (missing ddgs library)")
+                except Exception as e:
+                    logger.warning(f"DuckDuckGo enrichment failed: {e}")
+            
+            # Store enhanced references in database
+            if references:
+                await db_manager.store_paper_references(arxiv_id, references)
             
             # Create result in expected format
             fetch_result = {
                 "arxiv_id": arxiv_id,
                 "references_found": len(references),
+                "references_enhanced": enhanced_references,
                 "stage1_success": len(references) > 0,
-                "stage2_success": False,  # No second stage with GROBID-only approach
-                "source": "grobid",
+                "stage2_success": stage2_success,
+                "source": "grobid+duckduckgo" if stage2_success else "grobid",
                 "openalex_available": False,  # OpenAlex removed
+                "timestamp": datetime.now().isoformat()
             }
         
         # Return comprehensive result from hybrid service
@@ -1046,6 +1214,7 @@ async def fetch_paper_references(paper_id: str, force_refresh: bool = False):
             "paper_id": paper_id,
             "arxiv_id": fetch_result["arxiv_id"],
             "references_found": fetch_result["references_found"],
+            "references_enhanced": fetch_result.get("references_enhanced", 0),
             "stage1_success": fetch_result["stage1_success"],
             "stage2_success": fetch_result["stage2_success"],
             "source": fetch_result["source"],

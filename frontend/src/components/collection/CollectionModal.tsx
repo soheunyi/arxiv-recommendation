@@ -12,7 +12,7 @@ import {
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 
-import { useAppDispatch, useAppSelector } from '@store';
+import { useAppDispatch, useAppSelector } from '@store/index';
 import { startCollection, closeCollectionModal, fetchLLMProviders } from '@store/slices/papersSlice';
 import { LoadingSpinner } from '@components/common/LoadingSpinner';
 

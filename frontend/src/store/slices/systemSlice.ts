@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { CacheStats, SystemConfig } from '@types';
+import { CacheStats, SystemConfig } from '../../types';
 import { systemService } from '@services/systemService';
 
 interface SystemState {
